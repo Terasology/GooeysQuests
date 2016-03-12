@@ -1,9 +1,15 @@
 {
     "id" : "GooeysQuests",
     "version" : "0.1.0-SNAPSHOT",
-    "author" : "Florian Köberle",
+    "author" : "Florian",
     "displayName" : "GooeysQuests",
     "description" : "Planed content: A character called gooey will appear. He offers you existing and dangerous quests. However be warned: He might modify your world not in a way you like it!",
-    "dependencies" : [],
+        "dependencies" : [{
+                "id" : "Core",
+                "minVersion" : "1.0.0"
+            },{
+                "id" : "Pathfinding",
+                "minVersion" : "0.1.0"
+            }],
     "serverSideOnly" : false
 }

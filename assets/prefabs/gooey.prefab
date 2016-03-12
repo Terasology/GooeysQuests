@@ -1,0 +1,92 @@
+{
+    "skeletalmesh" : {
+        "mesh" : "gooey",
+        "heightOffset" : 0.0,
+        "material" : "gooeySkin",
+        "animationPool": [
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyLookRightLeft",
+            "gooeyLookRightLeft",
+            "gooeyLookRightUp"
+            ],
+        "loop" : true,
+        "scale" : [0.25, 0.25, 0.25]
+    },
+    "Behavior" : {
+        "tree" : "stray"
+    },
+    "Stand" :{
+        "animationPool": [
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyIdleBreathing",
+            "gooeyLookRightLeft",
+            "gooeyLookRightLeft",
+            "gooeyLookRightUp"
+            ]
+    },
+    "Walk" :{
+        "animationPool": ["gooeyIdleBreathing"]
+    },
+    "persisted" : true,
+    "location" : {},
+    "Character": {},
+    "CharacterMovement" : {
+        "groundFriction" : 16,
+        "speedMultiplier" : 0.3,
+        "distanceBetweenFootsteps" : 0.2,
+        "distanceBetweenSwimStrokes" : 2.5,
+        "height" : 0.25,
+        "radius" : 0.05,
+        "jumpSpeed" : 12
+    },
+    "Network" :{},
+    "MinionMove" : {},
+    "Health" : {},
+    "BoxShape" : {
+        "extents" : [0.5, 0.5, 0.5]
+    },
+    "Trigger" : {
+        "detectGroups" : ["engine:debris", "engine:sensor"]
+    }
+
+}
+
