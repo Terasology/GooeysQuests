@@ -1,0 +1,60 @@
+{
+    "type" : "GooeyMainDialog",
+    "contents" : {
+        "type": "RelativeLayout",
+        "contents": [
+            {
+                "type": "ScrollableArea",
+                "id": "scrollArea",
+                "content": {
+                    "type": "UIText",
+                    "readOnly": true,
+                    "multiline": true,
+                    "id": "gooeysText"
+                },
+                "layoutInfo": {
+                    "height" : 300,
+                    "width" : 500,
+                    "position-horizontal-center" : {},
+                    "position-vertical-center": {}
+                }
+            },
+            {
+                "type" : "ColumnLayout",
+                "contents" : [
+                    {
+                        "type" : "UIButton",
+                        "text" : "Please follow me (Not implemented)",
+                        "id" : "followButton"
+                    },
+                    {
+                        "type" : "UIButton",
+                        "text" : "Please stay here (Not implemented)",
+                        "id" : "stayButton"
+                    },
+                    {
+                        "type" : "UIButton",
+                        "text" : "I want to risk it, use your magic! (Not implemented)",
+                        "id" : "startStopButton"
+                    }   ,
+                    {
+                        "type" : "UIButton",
+                        "text" : "Thats all",
+                        "id" : "closeButton"
+                    }
+
+                ],
+                "layoutInfo" : {
+                    "use-content-height" : true,
+                    "width" : 500,
+                    "position-horizontal-center" : {},
+                    "position-vertical-top" : {},
+                    "position-top": {
+                            "widget": "scrollArea",
+                            "target": "BOTTOM"
+                    }
+                }
+            }
+        ]
+    }
+}
