@@ -1,7 +1,7 @@
 {
     "skeletalmesh" : {
         "mesh" : "gooey",
-        "heightOffset" : 0.0,
+        "heightOffset" : -2.0,
         "material" : "gooeySkin",
         "animationPool": [
             "gooeyIdleBreathing",
@@ -74,9 +74,9 @@
         "speedMultiplier" : 0.3,
         "distanceBetweenFootsteps" : 0.2,
         "distanceBetweenSwimStrokes" : 2.5,
-        "height" : 0.25,
-        "radius" : 0.05,
-        "jumpSpeed" : 12
+        "height" : 1.0,
+        "radius" : 0.5,
+        "jumpSpeed" : 8
     },
     "Network" :{},
     "MinionMove" : {},
