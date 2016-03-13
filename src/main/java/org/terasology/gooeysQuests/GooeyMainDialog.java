@@ -16,7 +16,11 @@
 package org.terasology.gooeysQuests;
 
 import org.terasology.entitySystem.entity.EntityRef;
+import org.terasology.logic.chat.ChatMessageEvent;
+import org.terasology.logic.players.LocalPlayer;
+import org.terasology.registry.In;
 import org.terasology.rendering.nui.BaseInteractionScreen;
+import org.terasology.rendering.nui.UIWidget;
 import org.terasology.rendering.nui.WidgetUtil;
 import org.terasology.rendering.nui.widgets.UIText;
 
@@ -30,18 +34,48 @@ public class GooeyMainDialog extends BaseInteractionScreen {
             +                    "Be however warned: My magic may tear our surroundings appart or add new stuff to it.\n\n"
             +                    "So you may want to lead me to another place first before we start a quest.";
 
+    @In
+    private LocalPlayer localPlayer;
+
+    private EntityRef gooey;
+
     @Override
     protected void initializeWithInteractionTarget(EntityRef interactionTarget) {
-
+        this.gooey = interactionTarget;
     }
 
     @Override
     protected void initialise() {
         UIText gooeysText = find("gooeysText", UIText.class);
+
         if (gooeysText != null) {
             gooeysText.setText(GOOEYS_TEXT);
         }
         WidgetUtil.trySubscribe(this, "closeButton", button -> getManager().popScreen());
+        WidgetUtil.trySubscribe(this, "followButton", this::onFollowClicked);
+        WidgetUtil.trySubscribe(this, "stayButton", this::onStayClicked);
     }
+
+    private void onFollowClicked(UIWidget clickedButton) {
+        setEntityToFollow(localPlayer.getCharacterEntity());
+        localPlayer.getClientEntity().send(new ChatMessageEvent("Lead the way, I will follow you", gooey));
+        getManager().popScreen();
+    }
+
+    private void onStayClicked(UIWidget clickedButton) {
+        setEntityToFollow(EntityRef.NULL);
+        localPlayer.getClientEntity().send(new ChatMessageEvent("Ok, I will stay here", gooey));
+        getManager().popScreen();
+    }
+
+    private void setEntityToFollow(EntityRef entityToFollow) {
+        FollowComponent followWish = gooey.getComponent(FollowComponent.class);
+        if (followWish == null) {
+            followWish = new FollowComponent();
+        }
+        followWish.entityToFollow = entityToFollow;
+        gooey.addOrSaveComponent(followWish);
+    }
+
 
 }

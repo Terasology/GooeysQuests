@@ -1,4 +1,16 @@
 {
+    "DisplayName": {
+        "name": "Gooey",
+        "description": "NPC character"
+    },
+    "Color": {
+        "color": [
+            135,
+            128,
+            191,
+            255
+        ]
+    },
     "skeletalmesh" : {
         "mesh" : "gooey",
         "heightOffset" : -2.0,
@@ -33,7 +45,7 @@
         "scale" : [0.25, 0.25, 0.25]
     },
     "Behavior" : {
-        "tree" : "stray"
+        "tree" : "gooey"
     },
     "Stand" :{
         "animationPool": [
@@ -90,7 +102,8 @@
     "InteractionTarget": {},
     "InteractionScreen": {
         "screen": "GooeysQuests:GooeyMainDialog"
-    }
+    },
+    "Follow": {}
 
 }
 
