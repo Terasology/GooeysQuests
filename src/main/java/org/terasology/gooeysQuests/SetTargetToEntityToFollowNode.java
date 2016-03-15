@@ -48,7 +48,7 @@ public class SetTargetToEntityToFollowNode extends Node {
 
         @Override
         public Status update(float dt) {
-            FollowComponent followWish = actor().component(FollowComponent.class);
+            FollowComponent followWish = actor().getComponent(FollowComponent.class);
             if (followWish == null) {
                 return Status.FAILURE;
             }
@@ -65,7 +65,7 @@ public class SetTargetToEntityToFollowNode extends Node {
             if (block == null) {
                 return Status.FAILURE;
             }
-            MinionMoveComponent moveComponent = actor().component(MinionMoveComponent.class);
+            MinionMoveComponent moveComponent = actor().getComponent(MinionMoveComponent.class);
             moveComponent.target = block.getBlockPosition().toVector3f();
             actor().save(moveComponent);
             return Status.SUCCESS;
