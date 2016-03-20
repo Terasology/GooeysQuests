@@ -129,8 +129,7 @@ public class FollowNode extends Node {
                 return Status.RUNNING;
             }
 
-            boolean atSubTarget = atSubTarget();
-            if (atSubTarget) {
+            if (currentIndex < path.size() && atSubTarget()) {
                 currentIndex++;
                 setTargetBasedOnPathIndex();
             }
