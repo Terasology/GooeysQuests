@@ -88,7 +88,7 @@
         "distanceBetweenSwimStrokes" : 2.5,
         "height" : 1.0,
         "radius" : 0.5,
-        "jumpSpeed" : 8
+        "jumpSpeed" : 12
     },
     "Network" :{},
     "MinionMove" : {},
