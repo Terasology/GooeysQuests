@@ -21,28 +21,31 @@ import org.terasology.logic.behavior.tree.Status;
 import org.terasology.logic.behavior.tree.Task;
 import org.terasology.logic.location.LocationComponent;
 import org.terasology.math.geom.Vector3f;
-import org.terasology.minion.move.MinionMoveComponent;
-import org.terasology.navgraph.WalkableBlock;
 import org.terasology.pathfinding.componentSystem.PathfinderSystem;
 import org.terasology.registry.In;
+import org.terasology.rendering.nui.properties.Range;
 
 /**
- * Makes the actor follow the entity specified in the {@link FollowComponent}.
+ * Checks if the actor still wants to move closer to a target specified by a {@link FollowComponent}.
  */
-public class SetTargetToEntityToFollowNode extends Node {
+public class ContinueFollowingCheckNode extends Node {
+
+    @Range(min = 0, max = 20)
+    private float minDistance = 0.0f;
+
     @Override
-    public SetTargetToEntityToFollowTask createTask() {
-        return new SetTargetToEntityToFollowTask(this);
+    public ContinueFollowingCheckTask createTask() {
+        return new ContinueFollowingCheckTask(this);
     }
 
-    public static class SetTargetToEntityToFollowTask extends Task {
-
+    public static class ContinueFollowingCheckTask extends Task {
         @In
         private PathfinderSystem pathfinderSystem;
 
-        public SetTargetToEntityToFollowTask(Node node) {
+        public ContinueFollowingCheckTask(Node node) {
             super(node);
         }
+
 
         @Override
         public Status update(float dt) {
@@ -58,14 +61,20 @@ public class SetTargetToEntityToFollowNode extends Node {
             if (targetLocation == null) {
                 return Status.FAILURE;
             }
-            Vector3f position = targetLocation.getWorldPosition();
-            WalkableBlock block = pathfinderSystem.getBlock(position);
-            if (block == null) {
+            Vector3f targetPoint = targetLocation.getWorldPosition();
+
+            LocationComponent currentLocation = actor().getComponent(LocationComponent.class);
+            if (currentLocation == null) {
                 return Status.FAILURE;
             }
-            MinionMoveComponent moveComponent = actor().getComponent(MinionMoveComponent.class);
-            moveComponent.target = block.getBlockPosition().toVector3f();
-            actor().save(moveComponent);
+            Vector3f currentPoint = currentLocation.getWorldPosition();
+
+            float minDistanceSquared = getNode().getMinDistance() * getNode().getMinDistance();
+            float currentDistanceSquared = currentPoint.distanceSquared(targetPoint);
+            if (currentDistanceSquared <= minDistanceSquared) {
+                return Status.FAILURE;
+            }
+
             return Status.SUCCESS;
         }
 
@@ -75,8 +84,12 @@ public class SetTargetToEntityToFollowNode extends Node {
         }
 
         @Override
-        public SetTargetToEntityToFollowNode getNode() {
-            return (SetTargetToEntityToFollowNode) super.getNode();
+        public ContinueFollowingCheckNode getNode() {
+            return (ContinueFollowingCheckNode) super.getNode();
         }
+    }
+
+    public float getMinDistance() {
+        return minDistance;
     }
 }

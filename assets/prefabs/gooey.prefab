@@ -103,7 +103,8 @@
     "InteractionScreen": {
         "screen": "GooeysQuests:GooeyMainDialog"
     },
-    "Follow": {}
+    "Follow": {},
+    "NPCMovement":{}
 
 }
 

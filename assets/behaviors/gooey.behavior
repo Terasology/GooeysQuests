@@ -8,44 +8,15 @@
         "nodeId": 1,
         "node": {
           "child": {
-            "nodeType": "engine:SequenceNode",
+            "nodeType": "engine:SelectorNode",
             "nodeId": 2,
             "node": {
               "children": [
                 {
-                  "nodeType": "engine:SetAnimationNode",
+                  "nodeType": "engine:LookupNode",
                   "nodeId": 3,
                   "node": {
-                    "play": "engine:Walk.animationPool",
-                    "loop": "engine:Walk.animationPool"
-                  }
-                },
-                {
-                  "nodeType": "engine:LookupNode",
-                  "nodeId": 4,
-                  "node": {
                     "tree": "GooeysQuests:moveToPlayerToFollow"
-                  }
-                },
-                {
-                  "nodeType": "engine:SetAnimationNode",
-                  "nodeId": 5,
-                  "node": {
-                    "play": "engine:Stand.animationPool",
-                    "loop": "engine:Stand.animationPool"
-                  }
-                },
-                {
-                  "nodeType": "engine:WrapperNode",
-                  "nodeId": 6,
-                  "node": {
-                    "child": {
-                      "nodeType": "engine:TimerNode",
-                      "nodeId": 7,
-                      "node": {
-                        "time": 3.0
-                      }
-                    }
                   }
                 }
               ]
