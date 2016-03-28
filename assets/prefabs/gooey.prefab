@@ -104,7 +104,8 @@
         "screen": "GooeysQuests:GooeyMainDialog"
     },
     "Follow": {},
-    "NPCMovement":{}
+    "NPCMovement":{},
+    "Gooey": {}
 
 }
 
