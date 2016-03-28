@@ -1,4 +1,6 @@
 {
+    /* Gooey must not be unloaded, as otherwise we spawn a new one */
+    "alwaysRelevant": true,
     "DisplayName": {
         "name": "Gooey",
         "description": "NPC character"
