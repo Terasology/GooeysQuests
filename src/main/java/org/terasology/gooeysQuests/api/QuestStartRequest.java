@@ -13,14 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.terasology.gooeysQuests;
+package org.terasology.gooeysQuests.api;
 
-import org.terasology.entitySystem.Component;
-import org.terasology.entitySystem.entity.EntityRef;
+import org.terasology.entitySystem.event.Event;
+import org.terasology.network.ServerEvent;
 
 /**
- * Used to find the character "Gooey".
+ * Sent to a quest at the server from the client when the player orders gooey to start the quest.
  */
-public class GooeyComponent implements Component {
-    EntityRef offeredQuest = EntityRef.NULL;
+@ServerEvent
+public class QuestStartRequest implements Event {
+
 }

@@ -34,8 +34,8 @@
                     },
                     {
                         "type" : "UIButton",
-                        "text" : "I want to risk it, use your magic! (Not implemented)",
-                        "id" : "startStopButton"
+                        "text" : "I want to start the quest",
+                        "id" : "startQuestButton"
                     },
                     {
                         "type" : "UIButton",

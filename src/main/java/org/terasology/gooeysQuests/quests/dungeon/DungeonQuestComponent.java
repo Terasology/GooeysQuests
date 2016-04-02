@@ -13,14 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.terasology.gooeysQuests;
+package org.terasology.gooeysQuests.quests.dungeon;
 
 import org.terasology.entitySystem.Component;
-import org.terasology.entitySystem.entity.EntityRef;
 
 /**
- * Used to find the character "Gooey".
+ * Owned by the entity that represents a dungeon quest.
  */
-public class GooeyComponent implements Component {
-    EntityRef offeredQuest = EntityRef.NULL;
+public class DungeonQuestComponent implements Component {
+
 }

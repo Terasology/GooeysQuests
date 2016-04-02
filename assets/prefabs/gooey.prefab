@@ -80,7 +80,6 @@
     "Walk" :{
         "animationPool": ["gooeyIdleBreathing"]
     },
-    "persisted" : true,
     "location" : {},
     "Character": {},
     "CharacterMovement" : {

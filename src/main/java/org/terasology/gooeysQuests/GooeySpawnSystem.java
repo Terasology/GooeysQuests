@@ -16,6 +16,7 @@
 package org.terasology.gooeysQuests;
 
 import org.terasology.assets.management.AssetManager;
+import org.terasology.entitySystem.entity.EntityBuilder;
 import org.terasology.entitySystem.entity.EntityManager;
 import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.entitySystem.event.ReceiveEvent;
@@ -24,12 +25,18 @@ import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.entitySystem.systems.UpdateSubscriberSystem;
+import org.terasology.gooeysQuests.api.BlockRegionChecker;
+import org.terasology.gooeysQuests.api.CreateStartQuestsEvent;
+import org.terasology.gooeysQuests.api.PersonalQuestsComponent;
+import org.terasology.gooeysQuests.api.PrepareQuestEvent;
+import org.terasology.gooeysQuests.api.QuestReadyEvent;
 import org.terasology.logic.console.commandSystem.annotations.Command;
 import org.terasology.logic.console.commandSystem.annotations.Sender;
 import org.terasology.logic.location.LocationComponent;
 import org.terasology.logic.permission.PermissionManager;
 import org.terasology.logic.players.event.OnPlayerSpawnedEvent;
 import org.terasology.math.Direction;
+import org.terasology.math.Region3i;
 import org.terasology.math.TeraMath;
 import org.terasology.math.geom.Quat4f;
 import org.terasology.math.geom.Vector3f;
@@ -37,10 +44,9 @@ import org.terasology.math.geom.Vector3i;
 import org.terasology.network.ClientComponent;
 import org.terasology.registry.In;
 import org.terasology.world.WorldProvider;
-import org.terasology.world.block.Block;
 
+import java.util.List;
 import java.util.Random;
-import java.util.function.Predicate;
 
 
 /**
@@ -57,9 +63,8 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
     private static final float MAX_GOOEY_SPAWN_OFFSET_ANGLE = (float) (Math.PI / 8.0f);
     private static final float MIN_GOOEY_SPAWN_DISTANCE = 3;
     private static final float MAX_GOOEY_SPAWN_DISTANCE = 5;
+    private static final float SECONDS_BETWEEN_QUESTS = 60;
 
-    private static final Predicate<Block> BLOCK_IS_AIR_LIKE = block -> block.isPenetrable() && !block.isLiquid();
-    private static final Predicate<Block> BLOCK_IS_GROUND_LIKE = block -> !block.isPenetrable();
 
     @In
     private EntityManager entityManager;
@@ -70,39 +75,79 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
     @In
     private WorldProvider worldProvider;
 
+    @In
+    private BlockRegionChecker blockRegionChecker;
+
     private Random random = new Random();
 
-    private EntityRef charactertoSpawnGooeyAt;
+    private EntityRef questToSpawnGooeyFor = EntityRef.NULL;
+
+    private float nextQuestCooldown;
 
     @Override
     public void initialise() {
-
+        nextQuestCooldown = 3;
     }
 
     @Override
     public void update(float delta) {
+        nextQuestCooldown -= delta;
+        if (nextQuestCooldown > 0) {
+            if(questToSpawnGooeyFor.isActive()) {
+                tryToSpawnGooey();
+            }
+            return;
+        }
+        nextQuestCooldown = 0;
+        questToSpawnGooeyFor = EntityRef.NULL;
+
+        Iterable<EntityRef> personalQuestOwners = entityManager.getEntitiesWith(PersonalQuestsComponent.class);
+        for (EntityRef questOwner : personalQuestOwners) {
+            PersonalQuestsComponent questsComponent = questOwner.getComponent(PersonalQuestsComponent.class);
+            List<EntityRef> questsInPreperation = questsComponent.questsInPreperation;
+            if (questsInPreperation.size() > 0) {
+                int randomIndex = random.nextInt(questsInPreperation.size());
+                EntityRef questToPrepare = questsInPreperation.get(randomIndex);
+                questToPrepare.send(new PrepareQuestEvent());
+            }
+        }
+    }
+
+    @ReceiveEvent
+    public void onQuestReady(QuestReadyEvent event, EntityRef quest) {
+        this.questToSpawnGooeyFor = quest;
+        nextQuestCooldown = SECONDS_BETWEEN_QUESTS;
         tryToSpawnGooey();
     }
 
-
     @ReceiveEvent
     public void onPlayerSpawn(OnPlayerSpawnedEvent event, EntityRef character) {
-        charactertoSpawnGooeyAt= character;
+        PersonalQuestsComponent questsComponent = character.getComponent(PersonalQuestsComponent.class);
+        if (questsComponent == null) {
+            questsComponent = new PersonalQuestsComponent();
+            character.addOrSaveComponent(questsComponent);
+            character.send(new CreateStartQuestsEvent());
+        }
     }
 
     private void tryToSpawnGooey() {
         int gooeyCount = entityManager.getCountOfEntitiesWith(GooeyComponent.class);
         if (gooeyCount > 0) {
+            // TODO teleport gooey instead
+            for (EntityRef existinGooey: entityManager.getEntitiesWith(GooeyComponent.class)) {
+                existinGooey.destroy();
+            }
+        }
+        EntityRef character = questToSpawnGooeyFor.getOwner();
+
+        if (character == null || !character.isActive()){
             return;
         }
-        if (charactertoSpawnGooeyAt == null || !charactertoSpawnGooeyAt.isActive()){
-            return;
-        }
-        LocationComponent characterLocation = charactertoSpawnGooeyAt.getComponent(LocationComponent.class);
+        LocationComponent characterLocation = character.getComponent(LocationComponent.class);
         if (characterLocation == null) {
             return;
         }
-        Vector3f spawnPos = tryFindingGooeySpawnLocationInfrontOfCharacter(charactertoSpawnGooeyAt);
+        Vector3f spawnPos = tryFindingGooeySpawnLocationInfrontOfCharacter(character);
         if (spawnPos == null) {
             return;
         }
@@ -111,11 +156,24 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
         Quat4f rotation = distanceDeltaToYAxisRotation(spawnPosToCharacter);
         Prefab gooeyPrefab = assetManager.getAsset("GooeysQuests:gooey", Prefab.class).get();
 
-        EntityRef entity = entityManager.create(gooeyPrefab, spawnPos, rotation);
-        NPCMovementComponent movementComponent = entity.getComponent(NPCMovementComponent.class);
+
+        EntityBuilder entityBuilder = entityManager.newBuilder(gooeyPrefab);
+        LocationComponent locationComponent = entityBuilder.getComponent(LocationComponent.class);
+        locationComponent.setWorldPosition(spawnPos);
+        locationComponent.setWorldRotation(rotation);
+
+        NPCMovementComponent movementComponent = entityBuilder.getComponent(NPCMovementComponent.class);
 
         float yaw = (float) Math.atan2(spawnPosToCharacter.x, spawnPosToCharacter.z);
         movementComponent.yaw = 180f +  yaw * TeraMath.RAD_TO_DEG;
+        entityBuilder.addOrSaveComponent(movementComponent);
+
+        GooeyComponent gooeyComponent = entityBuilder.getComponent(GooeyComponent.class);
+        gooeyComponent.offeredQuest = questToSpawnGooeyFor;
+        entityBuilder.addOrSaveComponent(gooeyComponent);
+
+        questToSpawnGooeyFor = EntityRef.NULL;
+        entityBuilder.build();
     }
 
     private Quat4f distanceDeltaToYAxisRotation(Vector3f direction) {
@@ -154,11 +212,8 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
      * check. (Feel free to implmeent a proper line of sight check)
      */
     private boolean hasLineOfSight(Vector3i spawnBlockPos, Vector3i characterPos) {
-        Vector3i min = new Vector3i(spawnBlockPos);
-        min.min(characterPos);
-        Vector3i max = new Vector3i(spawnBlockPos);
-        max.max(characterPos);
-        return allBlocksInAABBMatch(min.x, max.x, min.y, max.y, min.z, max.z, BLOCK_IS_AIR_LIKE);
+        Region3i region = Region3i.createBounded(spawnBlockPos, characterPos);
+        return blockRegionChecker.allBlocksMatch(region, BlockRegionChecker.BLOCK_IS_AIR_LIKE);
     }
 
     private Vector3f locationInfrontOf(LocationComponent location, float minDistance, float maxDistance,
@@ -189,34 +244,25 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
         int minZ = spawnPosition.getZ() - 1;
         int maxZ = spawnPosition.getZ() + 1;
         int groundY = spawnPosition.getY() - 2;
-        boolean groundExists = allBlocksInAABBMatch(minX, maxX, groundY, groundY, minZ, maxZ, BLOCK_IS_GROUND_LIKE);
+
+        Region3i groundRegion = Region3i.createFromMinMax(new Vector3i(minX, groundY, minZ), new Vector3i(maxZ, groundY,
+                maxZ));
+        boolean groundExists = blockRegionChecker.allBlocksMatch(groundRegion, BlockRegionChecker.BLOCK_IS_GROUND_LIKE);
         if (!groundExists) {
             return false;
         }
         int airMin = spawnPosition.getY();
         // require some air above, to prevent it spawning below something
         int airMax = airMin + 3;
-        boolean enoughAirAbove = allBlocksInAABBMatch(minX, maxX, airMin, airMax, minZ, maxZ, BLOCK_IS_AIR_LIKE);
+        Region3i airRegion = Region3i.createFromMinMax(new Vector3i(minX, airMin, minZ), new Vector3i(maxZ, airMax,
+                maxZ));
+        boolean enoughAirAbove = blockRegionChecker.allBlocksMatch(airRegion, BlockRegionChecker.BLOCK_IS_AIR_LIKE);
         if (!enoughAirAbove) {
             return false;
         }
         return true;
     }
 
-    private boolean allBlocksInAABBMatch(int minX, int maxX, int minY, int maxY, int minZ, int maxZ,
-                                      Predicate<Block> condition) {
-        for (int x = minX; x <= maxX; x++) {
-            for (int y = minY; y <= maxY; y++) {
-                for (int z = minZ; z <= maxZ; z++) {
-                    Block block = worldProvider.getBlock(x ,y, z);
-                    if (!condition.test(block)) {
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
-    }
 
     @Command(shortDescription = "Respawns gooey infront of the player", runOnServer = true, requiredPermission = PermissionManager.CHEAT_PERMISSION)
     public String respawnGooey(@Sender EntityRef sender) {
@@ -229,8 +275,8 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
         EntityRef character = clientComponent.character;
         LocationComponent characterLocation = character.getComponent(LocationComponent.class);
         if (characterLocation != null) {
-            charactertoSpawnGooeyAt = character;
-            return "Trying to respawn gooey";
+            // charactertoSpawnGooeyAt = character;
+            return "Command no longer supported";
         } else {
             return "Character has no location";
         }

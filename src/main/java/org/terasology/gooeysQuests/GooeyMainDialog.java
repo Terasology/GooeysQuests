@@ -16,6 +16,7 @@
 package org.terasology.gooeysQuests;
 
 import org.terasology.entitySystem.entity.EntityRef;
+import org.terasology.gooeysQuests.api.QuestStartRequest;
 import org.terasology.logic.chat.ChatMessageEvent;
 import org.terasology.logic.players.LocalPlayer;
 import org.terasology.registry.In;
@@ -54,7 +55,10 @@ public class GooeyMainDialog extends BaseInteractionScreen {
         WidgetUtil.trySubscribe(this, "closeButton", button -> getManager().popScreen());
         WidgetUtil.trySubscribe(this, "followButton", this::onFollowClicked);
         WidgetUtil.trySubscribe(this, "stayButton", this::onStayClicked);
+        WidgetUtil.trySubscribe(this, "startQuestButton", this::onStartQuestClicked);
     }
+
+    
 
     private void onFollowClicked(UIWidget clickedButton) {
         setEntityToFollow(localPlayer.getCharacterEntity());
@@ -78,4 +82,16 @@ public class GooeyMainDialog extends BaseInteractionScreen {
     }
 
 
+    private void onStartQuestClicked(UIWidget clickedButton) {
+        GooeyComponent gooeyComponent = gooey.getComponent(GooeyComponent.class);
+        EntityRef offeredQuest = gooeyComponent.offeredQuest;
+        if (!offeredQuest.isActive()) {
+            localPlayer.getClientEntity().send(new ChatMessageEvent("Oos, quest is no longer doable", gooey));
+            return;
+        }
+        // TODO should it be a request instead so that it can be checked if the quest is still doable?
+        offeredQuest.send(new QuestStartRequest());
+        localPlayer.getClientEntity().send(new ChatMessageEvent("Ha ha, that will be fun!", gooey));
+        getManager().popScreen();
+    }
 }
