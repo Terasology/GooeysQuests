@@ -104,10 +104,10 @@ public class DungeonQuestSystem extends BaseComponentSystem {
 
         Region3i dungeonArea = getDungeonRegionFromSurfaceBlockPosition(surfaceGroundBlockPosition);
 
-        if (!blockRegionChecker.allBlocksMatch(dungeonArea,BlockRegionChecker.BLOCK_IS_GROUND_LIKE)) {
+        if (!blockRegionChecker.allBlocksMatch(dungeonArea, BlockRegionChecker.BLOCK_IS_GROUND_LIKE)) {
             return;
         }
-        questToFoundSpawnPositionMap.put(quest,randomPosition);
+        questToFoundSpawnPositionMap.put(quest, surfaceGroundBlockPosition);
         quest.send(new QuestReadyEvent());
     }
 
