@@ -25,12 +25,14 @@ import org.terasology.entitySystem.prefab.Prefab;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
+import org.terasology.gooeysQuests.CopyBlockRegionComponent;
 import org.terasology.gooeysQuests.api.BlockRegionChecker;
 import org.terasology.gooeysQuests.api.CreateStartQuestsEvent;
 import org.terasology.gooeysQuests.api.PersonalQuestsComponent;
 import org.terasology.gooeysQuests.api.PrepareQuestEvent;
 import org.terasology.gooeysQuests.api.QuestReadyEvent;
 import org.terasology.gooeysQuests.api.QuestStartRequest;
+import org.terasology.logic.inventory.InventoryManager;
 import org.terasology.logic.location.LocationComponent;
 import org.terasology.math.Region3i;
 import org.terasology.math.geom.Vector3i;
@@ -39,7 +41,9 @@ import org.terasology.world.WorldProvider;
 import org.terasology.world.block.Block;
 import org.terasology.world.block.BlockManager;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -71,9 +75,44 @@ public class DungeonQuestSystem extends BaseComponentSystem {
     @In
     private BlockRegionChecker blockRegionChecker;
 
+    @In
+    private InventoryManager inventoryManager;
+
     private Map<EntityRef, Vector3i> questToFoundSpawnPositionMap = new HashMap<>();
 
     private Random random = new Random();
+
+    private final List<String> blockURIList = Arrays.asList("core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone:engine:Stair.BACK", "engine:air",
+            "engine:air", "engine:air", "engine:air", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone:engine:Stair.BACK", "engine:air", "engine:air", "engine:air", "Core:torch.RIGHT", "engine:air",
+            "core:stone", "core:stone", "core:stone", "core:stone:engine:Stair.BACK", "engine:air", "engine:air",
+            "engine:air", "engine:air", "engine:air", "engine:air", "core:stone", "core:stone",
+            "core:stone:engine:Stair.BACK", "engine:air", "engine:air", "engine:air", "engine:air", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone:engine:Stair.BACK", "engine:air", "engine:air",
+            "engine:air", "engine:air", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone:engine:Stair.BACK", "engine:air", "engine:air", "engine:air", "engine:air",
+            "engine:air", "core:stone", "core:stone", "core:stone", "core:stone:engine:Stair.BACK", "engine:air",
+            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "core:stone", "core:stone",
+            "core:stone:engine:Stair.BACK", "engine:air", "engine:air", "engine:air", "engine:air", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone");
 
     @ReceiveEvent
     public void onCreateStartQuestsEvent(CreateStartQuestsEvent event, EntityRef character,
@@ -120,18 +159,33 @@ public class DungeonQuestSystem extends BaseComponentSystem {
 
         Region3i dungeonRegion = getDungeonRegionFromSurfaceBlockPosition(spawnPos);
 
-        Block airBlock = blockManager.getBlock(BlockManager.AIR_ID);
-
-
-        for (Vector3i pos : dungeonRegion) {
-            worldProvider.setBlock(pos, airBlock);
+        boolean emptyTemplateMode = false;
+        if (emptyTemplateMode) {
+            Block airBlock = blockManager.getBlock(BlockManager.AIR_ID);
+            for (Vector3i pos : dungeonRegion) {
+                worldProvider.setBlock(pos, airBlock);
+            }
+        } else {
+            int index = 0;
+            for (Vector3i pos : dungeonRegion) {
+                Block block = blockManager.getBlock(blockURIList.get(index));
+                worldProvider.setBlock(pos, block);
+                index++;
+            }
         }
 
-        // TODO example code for future use:
-        // Block stairBlock = blockManager.getBlock("core:stone:engine:Stair.LEFT");
-        // worldProvider.setBlock(spawnPos, stairBlock);
-    }
+        boolean debugItem = false;
+        if (debugItem) {
+            EntityBuilder entityBuilder = entityManager.newBuilder("GooeysQuests:copyBlockRegionTool");
+            CopyBlockRegionComponent copyBlockRegonComponent = entityBuilder.getComponent(CopyBlockRegionComponent.class);
+            copyBlockRegonComponent.corner1.set(dungeonRegion.min());
+            copyBlockRegonComponent.corner2.set(dungeonRegion.max());
+            entityBuilder.saveComponent(copyBlockRegonComponent);
+            EntityRef copyItem = entityBuilder.build();
 
+            inventoryManager.giveItem(quest.getOwner(), EntityRef.NULL, copyItem);
+        }
+    }
 
 
     /**
@@ -146,11 +200,11 @@ public class DungeonQuestSystem extends BaseComponentSystem {
 
     private Region3i getDungeonRegionFromSurfaceBlockPosition(Vector3i surfaceGroundBlockPosition) {
         int minX = surfaceGroundBlockPosition.getX() - ((DUNGEON_WIDTH / 2) - 1);
-        int minY = surfaceGroundBlockPosition.getY() - (DUNGEON_HEIGHT - 1) ;
+        int minY = surfaceGroundBlockPosition.getY() - (DUNGEON_HEIGHT - 1);
         int minZ = surfaceGroundBlockPosition.getZ() - ((DUNGEON_LENGTH / 2) - 1);
-        int maxX = minX + (DUNGEON_WIDTH -1);
+        int maxX = minX + (DUNGEON_WIDTH - 1);
         int maxY = surfaceGroundBlockPosition.getY();
-        int maxZ = minZ + (DUNGEON_LENGTH -1);
+        int maxZ = minZ + (DUNGEON_LENGTH - 1);
 
         Vector3i min = new Vector3i(minX, minY, minZ);
         Vector3i max = new Vector3i(maxX, maxY, maxZ);
@@ -163,7 +217,7 @@ public class DungeonQuestSystem extends BaseComponentSystem {
         int yScanStart = position.getY() + VERTICAL_SCAN_DISTANCE;
         // TODO simplify algorithm
         boolean airFound = false;
-        for (int y = yScanStart; y> yScanStop; y--) {
+        for (int y = yScanStart; y > yScanStop; y--) {
             int x = position.getX();
             int z = position.getZ();
             Block block = worldProvider.getBlock(x, y, z);
