@@ -1,0 +1,11 @@
+{
+  "parent" : "engine:iconItem",
+  "DisplayName" : {
+    "name" : "Block region copy tool",
+    "description": "Copies the blocks uris at a fixed location to the clipboard. For use by developers"
+  },
+  "Item" : {
+    "icon" : "engine:items#whiteRecipe"
+  },
+  "CopyBlockRegion": {}
+}
