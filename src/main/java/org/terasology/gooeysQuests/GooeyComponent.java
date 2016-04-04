@@ -22,5 +22,5 @@ import org.terasology.entitySystem.entity.EntityRef;
  * Used to find the character "Gooey".
  */
 public class GooeyComponent implements Component {
-    EntityRef offeredQuest = EntityRef.NULL;
+    public EntityRef offeredQuest = EntityRef.NULL;
 }
