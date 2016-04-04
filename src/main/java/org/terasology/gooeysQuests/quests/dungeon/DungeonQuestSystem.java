@@ -56,10 +56,6 @@ public class DungeonQuestSystem extends BaseComponentSystem {
     private static final int MAX_HORIZONTAL_DISTANCE = 20;
     private static final int MIN_HORIZONTAL_DISTANCE = 5;
     private static final int VERTICAL_SCAN_DISTANCE = 5;
-    private static final int DUNGEON_HEIGHT = 5;
-    private static final int DUNGEON_LENGTH = 10;
-    private static final int DUNGEON_WIDTH = 4;
-
     @In
     private AssetManager assetManager;
 
@@ -82,37 +78,21 @@ public class DungeonQuestSystem extends BaseComponentSystem {
 
     private Random random = new Random();
 
-    private final List<String> blockURIList = Arrays.asList("core:stone", "core:stone", "core:stone", "core:stone",
-            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
-            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
-            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
-            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
-            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
-            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
-            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
-            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
-            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone:engine:Stair.BACK", "engine:air",
-            "engine:air", "engine:air", "engine:air", "core:stone", "core:stone", "core:stone", "core:stone",
-            "core:stone:engine:Stair.BACK", "engine:air", "engine:air", "engine:air", "Core:torch.RIGHT", "engine:air",
-            "core:stone", "core:stone", "core:stone", "core:stone:engine:Stair.BACK", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "core:stone", "core:stone",
-            "core:stone:engine:Stair.BACK", "engine:air", "engine:air", "engine:air", "engine:air", "core:stone",
-            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
-            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
-            "core:stone", "core:stone", "core:stone", "core:stone:engine:Stair.BACK", "engine:air", "engine:air",
-            "engine:air", "engine:air", "core:stone", "core:stone", "core:stone", "core:stone",
-            "core:stone:engine:Stair.BACK", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "core:stone", "core:stone", "core:stone", "core:stone:engine:Stair.BACK", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "core:stone", "core:stone",
-            "core:stone:engine:Stair.BACK", "engine:air", "engine:air", "engine:air", "engine:air", "core:stone",
-            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
-            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
-            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
-            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
-            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
-            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
-            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
-            "core:stone", "core:stone", "core:stone", "core:stone");
+    private final List<String> blockURIList = Arrays.asList("engine:air", "engine:air", "core:stone", "core:stone",
+            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
+            "engine:air", "Core:torch.FRONT", "core:stone", "core:stone", "engine:air", "engine:air", "engine:air",
+            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "core:stone",
+            "core:stone", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
+            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
+            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
+            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
+            "engine:air", "engine:air", "engine:air", "engine:air", "core:stone", "core:stone", "engine:air",
+            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
+            "engine:air", "core:stone", "core:stone", "engine:air", "engine:air", "engine:air", "engine:air",
+            "engine:air", "engine:air", "engine:air", "engine:air", "Core:torch.FRONT", "core:stone", "core:stone",
+            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
+            "engine:air", "engine:air", "core:stone", "core:stone", "engine:air", "engine:air", "engine:air",
+            "engine:air", "engine:air", "engine:air", "engine:air");
 
     @ReceiveEvent
     public void onCreateStartQuestsEvent(CreateStartQuestsEvent event, EntityRef character,
@@ -141,11 +121,13 @@ public class DungeonQuestSystem extends BaseComponentSystem {
             return;
         }
 
-        Region3i dungeonArea = getDungeonRegionFromSurfaceBlockPosition(surfaceGroundBlockPosition);
-
-        if (!blockRegionChecker.allBlocksMatch(dungeonArea, BlockRegionChecker.BLOCK_IS_GROUND_LIKE)) {
-            return;
+        for (RegionWithCondition regionWithCondition: EntranceRegionWithCondition.values()) {
+            Region3i region = regionWithCondition.getRegion(surfaceGroundBlockPosition);
+            if (!blockRegionChecker.allBlocksMatch(region, regionWithCondition.getCondition())) {
+                return;
+            }
         }
+
         questToFoundSpawnPositionMap.put(quest, surfaceGroundBlockPosition);
         quest.send(new QuestReadyEvent());
     }
@@ -157,7 +139,7 @@ public class DungeonQuestSystem extends BaseComponentSystem {
             return; // TODO report failure to client and gooey system
         }
 
-        Region3i dungeonRegion = getDungeonRegionFromSurfaceBlockPosition(spawnPos);
+        Region3i dungeonRegion = getEntranceRegion(spawnPos);
 
         boolean emptyTemplateMode = false;
         if (emptyTemplateMode) {
@@ -198,13 +180,13 @@ public class DungeonQuestSystem extends BaseComponentSystem {
     }
 
 
-    private Region3i getDungeonRegionFromSurfaceBlockPosition(Vector3i surfaceGroundBlockPosition) {
-        int minX = surfaceGroundBlockPosition.getX() - ((DUNGEON_WIDTH / 2) - 1);
-        int minY = surfaceGroundBlockPosition.getY() - (DUNGEON_HEIGHT - 1);
-        int minZ = surfaceGroundBlockPosition.getZ() - ((DUNGEON_LENGTH / 2) - 1);
-        int maxX = minX + (DUNGEON_WIDTH - 1);
-        int maxY = surfaceGroundBlockPosition.getY();
-        int maxZ = minZ + (DUNGEON_LENGTH - 1);
+    private Region3i getEntranceRegion(Vector3i origin) {
+        int minX = origin.getX() - 1;
+        int minY = origin.getY();
+        int minZ = origin.getZ();
+        int maxX = origin.getX() + 1;
+        int maxY = origin.getY() + 2;
+        int maxZ = origin.getZ() + 10;
 
         Vector3i min = new Vector3i(minX, minY, minZ);
         Vector3i max = new Vector3i(maxX, maxY, maxZ);
