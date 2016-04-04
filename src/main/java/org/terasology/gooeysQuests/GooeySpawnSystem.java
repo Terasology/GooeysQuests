@@ -30,10 +30,7 @@ import org.terasology.gooeysQuests.api.CreateStartQuestsEvent;
 import org.terasology.gooeysQuests.api.PersonalQuestsComponent;
 import org.terasology.gooeysQuests.api.PrepareQuestEvent;
 import org.terasology.gooeysQuests.api.QuestReadyEvent;
-import org.terasology.logic.console.commandSystem.annotations.Command;
-import org.terasology.logic.console.commandSystem.annotations.Sender;
 import org.terasology.logic.location.LocationComponent;
-import org.terasology.logic.permission.PermissionManager;
 import org.terasology.logic.players.event.OnPlayerSpawnedEvent;
 import org.terasology.math.Direction;
 import org.terasology.math.Region3i;
@@ -41,7 +38,6 @@ import org.terasology.math.TeraMath;
 import org.terasology.math.geom.Quat4f;
 import org.terasology.math.geom.Vector3f;
 import org.terasology.math.geom.Vector3i;
-import org.terasology.network.ClientComponent;
 import org.terasology.registry.In;
 import org.terasology.world.WorldProvider;
 
@@ -98,6 +94,7 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
             }
             return;
         }
+
         nextQuestCooldown = 0;
         questToSpawnGooeyFor = EntityRef.NULL;
 
@@ -263,22 +260,4 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
         return true;
     }
 
-
-    @Command(shortDescription = "Respawns gooey infront of the player", runOnServer = true, requiredPermission = PermissionManager.CHEAT_PERMISSION)
-    public String respawnGooey(@Sender EntityRef sender) {
-        for (EntityRef existinGooey: entityManager.getEntitiesWith(GooeyComponent.class)) {
-            existinGooey.destroy();
-        }
-
-        ClientComponent clientComponent = sender.getComponent(ClientComponent.class);
-
-        EntityRef character = clientComponent.character;
-        LocationComponent characterLocation = character.getComponent(LocationComponent.class);
-        if (characterLocation != null) {
-            // charactertoSpawnGooeyAt = character;
-            return "Command no longer supported";
-        } else {
-            return "Character has no location";
-        }
-    }
 }
