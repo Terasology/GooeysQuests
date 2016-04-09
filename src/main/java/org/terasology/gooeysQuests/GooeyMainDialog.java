@@ -16,6 +16,7 @@
 package org.terasology.gooeysQuests;
 
 import org.terasology.entitySystem.entity.EntityRef;
+import org.terasology.gooeysQuests.api.GooeysQuestComponent;
 import org.terasology.gooeysQuests.api.QuestStartRequest;
 import org.terasology.logic.chat.ChatMessageEvent;
 import org.terasology.logic.players.LocalPlayer;
@@ -23,39 +24,54 @@ import org.terasology.registry.In;
 import org.terasology.rendering.nui.BaseInteractionScreen;
 import org.terasology.rendering.nui.UIWidget;
 import org.terasology.rendering.nui.WidgetUtil;
+import org.terasology.rendering.nui.widgets.UIButton;
 import org.terasology.rendering.nui.widgets.UIText;
 
 /**
  * Dialog that gets shown when you interact (per default hotkey E) with gooey.
  */
 public class GooeyMainDialog extends BaseInteractionScreen {
-    private static final String GOOEYS_TEXT =                    "Hi, I am Gooey\n\n"
-            +                    "I can use my magic to make the world around us a bit more interesting.\n\n"
-            +                    "Just tell me when we are in an area where you want to start a quest and I will see if I can come up with something.\n\n"
-            +                    "Be however warned: My magic may tear our surroundings appart or add new stuff to it.\n\n"
-            +                    "So you may want to lead me to another place first before we start a quest.";
+    private static final String GOOEYS_TEXT_PREFIX = "Hi, I am Gooey\n\n";
 
     @In
     private LocalPlayer localPlayer;
 
     private EntityRef gooey;
+    private UIButton startQuestButton;
+    private UIText gooeysText;
 
     @Override
     protected void initializeWithInteractionTarget(EntityRef interactionTarget) {
         this.gooey = interactionTarget;
+
+        GooeyComponent gooeyComponent = gooey.getComponent(GooeyComponent.class);
+        EntityRef offeredQuest = gooeyComponent.offeredQuest;
+        GooeysQuestComponent gooeysQuestComponent = offeredQuest.getComponent(GooeysQuestComponent.class);
+        if (gooeysQuestComponent == null) {
+            gooeysQuestComponent = new GooeysQuestComponent();
+        }
+
+        if (startQuestButton != null) {
+            startQuestButton.setText(gooeysQuestComponent.startButtonText);
+        }
+
+        if (gooeysText != null) {
+            gooeysText.setText(GOOEYS_TEXT_PREFIX + gooeysQuestComponent.description);
+        }
     }
 
     @Override
     protected void initialise() {
-        UIText gooeysText = find("gooeysText", UIText.class);
+        gooeysText = find("gooeysText", UIText.class);
 
-        if (gooeysText != null) {
-            gooeysText.setText(GOOEYS_TEXT);
-        }
         WidgetUtil.trySubscribe(this, "closeButton", button -> getManager().popScreen());
         WidgetUtil.trySubscribe(this, "followButton", this::onFollowClicked);
         WidgetUtil.trySubscribe(this, "stayButton", this::onStayClicked);
-        WidgetUtil.trySubscribe(this, "startQuestButton", this::onStartQuestClicked);
+
+        startQuestButton = find("startQuestButton", UIButton.class);
+        if (startQuestButton != null) {
+            startQuestButton.subscribe(this::onStartQuestClicked);
+        }
     }
 
     

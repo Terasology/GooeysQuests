@@ -27,9 +27,11 @@ import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.entitySystem.systems.UpdateSubscriberSystem;
 import org.terasology.gooeysQuests.api.BlockRegionChecker;
 import org.terasology.gooeysQuests.api.CreateStartQuestsEvent;
+import org.terasology.gooeysQuests.api.GooeysQuestComponent;
 import org.terasology.gooeysQuests.api.PersonalQuestsComponent;
 import org.terasology.gooeysQuests.api.PrepareQuestEvent;
 import org.terasology.gooeysQuests.api.QuestReadyEvent;
+import org.terasology.logic.chat.ChatMessageEvent;
 import org.terasology.logic.location.LocationComponent;
 import org.terasology.logic.players.event.OnPlayerSpawnedEvent;
 import org.terasology.math.Direction;
@@ -169,10 +171,17 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
         gooeyComponent.offeredQuest = questToSpawnGooeyFor;
         entityBuilder.addOrSaveComponent(gooeyComponent);
 
-        questToSpawnGooeyFor = EntityRef.NULL;
-        entityBuilder.build();
+        EntityRef gooey = entityBuilder.build();
+        GooeysQuestComponent gooeysQuestComponent = questToSpawnGooeyFor.getComponent(GooeysQuestComponent.class);
+        if (gooeysQuestComponent == null) {
+            gooeysQuestComponent = new GooeysQuestComponent();
+        }
+        character.getOwner().send(new ChatMessageEvent(gooeysQuestComponent.greetingText, gooey));
+
 
         spawnTeleportParticles(spawnPos);
+        questToSpawnGooeyFor = EntityRef.NULL;
+
     }
 
     private void spawnTeleportParticles(Vector3f spawnPos) {

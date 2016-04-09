@@ -15,6 +15,8 @@
  */
 package org.terasology.gooeysQuests.api;
 
+import org.terasology.entitySystem.Component;
+
 /**
  * Marks an entity to be a quest offered by gooey.
  *
@@ -27,6 +29,10 @@ package org.terasology.gooeysQuests.api;
  * preperation, it sends a {@link QuestReadyEvent} to the quest entitiy.
  *
  */
-public class GooeysQuestComponent {
-    public String name;
+public class GooeysQuestComponent implements Component {
+    public String greetingText = "Hi";
+    public String startButtonText = "Start Quest";
+    public String description="Up for a quest?\n\n"
+            + "Sadly I have no further description for you.\n\n"
+            + "However be warned: Starting a quest can result in possibly unwanted world modificaitons!";
 }

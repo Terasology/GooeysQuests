@@ -1,4 +1,9 @@
 {
     "persistent": true,
-    "DungeonQuest": {}
+    "DungeonQuest": {},
+    "GooeysQuest": {
+        "greetingText": "Hi, up for some dungeon exploration?",
+        "startButtonText": "Yes, please add a dungeon to this world",
+        "description": "Interested in some dungeon exploration?\n\nI could use my magic to add a dungoen to this world."
+    }
 }
