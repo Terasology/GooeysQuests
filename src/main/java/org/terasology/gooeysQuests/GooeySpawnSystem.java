@@ -171,6 +171,16 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
 
         questToSpawnGooeyFor = EntityRef.NULL;
         entityBuilder.build();
+
+        spawnTeleportParticles(spawnPos);
+    }
+
+    private void spawnTeleportParticles(Vector3f spawnPos) {
+        Prefab prefab = assetManager.getAsset("GooeysQuests:teleportParticleEffect", Prefab.class).get();
+        EntityBuilder entityBuilder = entityManager.newBuilder(prefab);
+        LocationComponent locationComponent = entityBuilder.getComponent(LocationComponent.class);
+        locationComponent.setWorldPosition(spawnPos);
+        entityBuilder.build();
     }
 
     private Quat4f distanceDeltaToYAxisRotation(Vector3f direction) {

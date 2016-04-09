@@ -1,0 +1,40 @@
+{
+    "location" : {},
+    "blockParticleEffect" : {
+        "spawnCount" : 64,
+        "initialVelocityRange" : [4, 4, 4],
+        "spawnRange" : [0.3, 0.3, 0.3],
+        "destroyEntityOnCompletion" : true,
+        "minSize" : 0.25,
+        "maxSize" : 0.25,
+        "minLifespan" : 0.5,
+        "maxLifespan" : 1.0,
+        "targetVelocity" : [0, 2, 0],
+        "acceleration" : [2, 2, 2],
+        "collideWithBlocks" : true,
+        "texture" : "GooeysQuests:whitePurpleParticle",
+        "blendMode" : "ADD",
+        "color" : [1.0, 1.0, 1.0, 1.0]
+    },
+    "engine:Light": {
+        "lightColorAmbient": [
+            0.45,
+            0.5,
+            1.0
+        ],
+        "lightAttenuationRange": 16.0,
+        "lightSpecularPower": 1.0,
+        "lightSpecularIntensity": 0.1,
+        "lightColorDiffuse": [
+            0.45,
+            0.5,
+            1.0
+        ],
+        "simulateFading": false,
+        "lightAmbientIntensity": 1.0,
+        "lightType": "POINT",
+        "lightRenderingDistance": 0.0,
+        "lightAttenuationFalloff": 1.25,
+        "lightDiffuseIntensity": 1.0
+    }
+}
