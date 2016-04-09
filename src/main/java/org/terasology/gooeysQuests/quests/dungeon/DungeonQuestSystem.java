@@ -78,21 +78,67 @@ public class DungeonQuestSystem extends BaseComponentSystem {
 
     private Random random = new Random();
 
-    private final List<String> blockURIList = Arrays.asList("engine:air", "engine:air", "core:stone", "core:stone",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "Core:torch.FRONT", "core:stone", "core:stone", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "core:stone",
+    private final List<String> entranceDoorRegionBlocks = Arrays.asList(
+            null, null, "core:stone",
+            "engine:air", "engine:air", "core:stone",
+            "engine:air", "engine:air", "core:stone",
+            "engine:air", "engine:air", "core:stone",
+            null, null, "core:stone",
+            "engine:air", "engine:air", "engine:air",
+            "engine:air", "engine:air", "engine:air",
+            "engine:air", "engine:air", "core:stone",
+            null, null, "core:stone",
+            "engine:air", "engine:air", "core:stone",
+            "engine:air", "engine:air", "core:stone",
+            "engine:air", "engine:air", "core:stone");
+    private final List<String> entranceCooridorRegionBlocks = Arrays.asList(
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
             "core:stone", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
+            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "core:stone",
+            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
+            "engine:air", "engine:air", "Core:torch.RIGHT", "engine:air", "engine:air", "core:stone", "engine:air",
+            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
+            "engine:air", "engine:air", "engine:air", "engine:air", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "engine:air", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "engine:air", "engine:air", "engine:air", "engine:air",
             "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
             "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
             "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "core:stone", "core:stone", "engine:air",
             "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "core:stone", "core:stone", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "Core:torch.FRONT", "core:stone", "core:stone",
+            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "engine:air", "engine:air",
             "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "core:stone", "core:stone", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air");
+            "engine:air", "engine:air", "engine:air", "core:stone", "engine:air", "engine:air", "engine:air",
+            "engine:air", "Core:torch.LEFT", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
+            "engine:air", "engine:air", "core:stone", "engine:air", "engine:air", "engine:air", "engine:air",
+            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
+            "engine:air", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
+            "core:stone", "core:stone", "core:stone");
 
     @ReceiveEvent
     public void onCreateStartQuestsEvent(CreateStartQuestsEvent event, EntityRef character,
@@ -139,33 +185,51 @@ public class DungeonQuestSystem extends BaseComponentSystem {
             return; // TODO report failure to client and gooey system
         }
 
-        Region3i dungeonRegion = getEntranceRegion(spawnPos);
+
+        Region3i entranceDoorRegion = getEntranceDoorRegion(spawnPos);
+        spawnRegion(entranceDoorRegion, entranceDoorRegionBlocks);
+
+        Region3i entranceCooridorRegion = getCorridorRegion(spawnPos);
 
         boolean emptyTemplateMode = false;
         if (emptyTemplateMode) {
             Block airBlock = blockManager.getBlock(BlockManager.AIR_ID);
-            for (Vector3i pos : dungeonRegion) {
+            for (Vector3i pos : entranceCooridorRegion) {
                 worldProvider.setBlock(pos, airBlock);
             }
         } else {
-            int index = 0;
-            for (Vector3i pos : dungeonRegion) {
-                Block block = blockManager.getBlock(blockURIList.get(index));
-                worldProvider.setBlock(pos, block);
-                index++;
-            }
+            spawnRegion(entranceCooridorRegion, entranceCooridorRegionBlocks);
         }
 
         boolean debugItem = false;
         if (debugItem) {
             EntityBuilder entityBuilder = entityManager.newBuilder("GooeysQuests:copyBlockRegionTool");
             CopyBlockRegionComponent copyBlockRegonComponent = entityBuilder.getComponent(CopyBlockRegionComponent.class);
-            copyBlockRegonComponent.corner1.set(dungeonRegion.min());
-            copyBlockRegonComponent.corner2.set(dungeonRegion.max());
+            copyBlockRegonComponent.corner1.set(entranceCooridorRegion.min());
+            copyBlockRegonComponent.corner2.set(entranceCooridorRegion.max());
             entityBuilder.saveComponent(copyBlockRegonComponent);
             EntityRef copyItem = entityBuilder.build();
 
             inventoryManager.giveItem(quest.getOwner(), EntityRef.NULL, copyItem);
+        }
+    }
+
+    private void spawnRegion(Region3i region, List<String> blockURIList) {
+        int index = 0;
+        Block dirtBlock = blockManager.getBlock("engine:Dirt");
+        Block grassBlock = blockManager.getBlock("engine:Grass");
+        for (Vector3i pos : region) {
+            String blockUri = blockURIList.get(index);
+            if (blockUri != null) {
+                Block block = blockManager.getBlock(blockUri);
+                worldProvider.setBlock(pos, block);
+            } else {
+                Block existingBlock = worldProvider.getBlock(pos);
+                if (existingBlock == dirtBlock) {
+                    worldProvider.setBlock(pos, grassBlock);
+                }
+            }
+            index++;
         }
     }
 
@@ -180,13 +244,26 @@ public class DungeonQuestSystem extends BaseComponentSystem {
     }
 
 
-    private Region3i getEntranceRegion(Vector3i origin) {
+    private Region3i getEntranceDoorRegion(Vector3i origin) {
         int minX = origin.getX() - 1;
-        int minY = origin.getY();
-        int minZ = origin.getZ();
         int maxX = origin.getX() + 1;
-        int maxY = origin.getY() + 2;
-        int maxZ = origin.getZ() + 10;
+        int minY = origin.getY();
+        int maxY = origin.getY() + 3;
+        int minZ = origin.getZ();
+        int maxZ = origin.getZ() + 2;
+
+        Vector3i min = new Vector3i(minX, minY, minZ);
+        Vector3i max = new Vector3i(maxX, maxY, maxZ);
+        return Region3i.createFromMinMax(min, max);
+    }
+
+    private Region3i getCorridorRegion(Vector3i origin) {
+        int minX = origin.getX() - 2;
+        int maxX = origin.getX() + 2;
+        int minY = origin.getY();
+        int maxY = origin.getY() + 4;
+        int minZ = origin.getZ() + 3;
+        int maxZ = origin.getZ() + 15;
 
         Vector3i min = new Vector3i(minX, minY, minZ);
         Vector3i max = new Vector3i(maxX, maxY, maxZ);

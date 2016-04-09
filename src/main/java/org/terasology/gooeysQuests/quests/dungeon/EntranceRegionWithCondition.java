@@ -30,17 +30,15 @@ public enum EntranceRegionWithCondition implements RegionWithCondition {
 
     FIRST_ROW_GROUND(-1, 1, 0, 0, 0, 0, BlockRegionChecker.BLOCK_IS_GROUND_LIKE),
 
-    FIRST_ROW_AIR_ABOVE(-1, 1, 1, 4, 0, 0, BlockRegionChecker.BLOCK_IS_AIR_LIKE),
+    FIRST_ROW_AIR_ABOVE(-1, 1, 2, 4, 0, 0, BlockRegionChecker.BLOCK_IS_AIR_LIKE),
 
-    SECOND_ROW_GROUND(-2, 2, 0, 0, 1, 1, BlockRegionChecker.BLOCK_IS_GROUND_LIKE),
+    SECOND_ROW_GROUND(-2, 2, 0, 1, 1, 1, BlockRegionChecker.BLOCK_IS_GROUND_LIKE),
 
-    SECOND_ROW_AIR_ABOVE(-1, 1, 2, 3, 1, 1, BlockRegionChecker.BLOCK_IS_AIR_LIKE),
+    SECOND_ROW_AIR_ABOVE(-1, 1, 4, 4, 1, 1, BlockRegionChecker.BLOCK_IS_AIR_LIKE),
 
-    THIRD_ROW_GROUND(-2, 2, -1, 2, 2, 2, BlockRegionChecker.BLOCK_IS_GROUND_LIKE),
+    THIRD_ROW_GROUND(-2, 2, -1, 4, 2, 2, BlockRegionChecker.BLOCK_IS_GROUND_LIKE),
 
-    FOURTH_ROW_GROUND(-2, 2, -1, 3, 3, 3, BlockRegionChecker.BLOCK_IS_GROUND_LIKE),
-
-    REMAINING_ROWS_GROUND(-2, 2, -1, 3, 4, 11, BlockRegionChecker.BLOCK_IS_GROUND_LIKE),
+    CORRIDOR_GROUND(-2, 2, -1, 5, 3, 15, BlockRegionChecker.BLOCK_IS_GROUND_LIKE),
 
 
     ;
