@@ -38,7 +38,7 @@ public enum EntranceRegionWithCondition implements RegionWithCondition {
 
     THIRD_ROW_GROUND(-2, 2, -1, 4, 2, 2, BlockRegionChecker.BLOCK_IS_GROUND_LIKE),
 
-    CORRIDOR_GROUND(-2, 2, -1, 5, 3, 15, BlockRegionChecker.BLOCK_IS_GROUND_LIKE),
+    CORRIDOR_GROUND(-2, 2, -5, 5, 3, 20, BlockRegionChecker.BLOCK_IS_GROUND_LIKE),
 
 
     ;
