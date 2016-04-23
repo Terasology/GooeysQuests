@@ -34,7 +34,9 @@ import org.terasology.gooeysQuests.api.QuestReadyEvent;
 import org.terasology.gooeysQuests.api.QuestStartRequest;
 import org.terasology.logic.inventory.InventoryManager;
 import org.terasology.logic.location.LocationComponent;
+import org.terasology.logic.particles.BlockParticleEffectComponent;
 import org.terasology.math.Region3i;
+import org.terasology.math.geom.Vector3f;
 import org.terasology.math.geom.Vector3i;
 import org.terasology.registry.In;
 import org.terasology.world.WorldProvider;
@@ -146,6 +148,15 @@ public class DungeonQuestSystem extends BaseComponentSystem {
             "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
             "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air");
 
+
+    private Prefab spawnDungeonParticlePrefab;
+
+
+    @Override
+    public void initialise() {
+        spawnDungeonParticlePrefab = assetManager.getAsset("GooeysQuests:teleportParticleEffect", Prefab.class).get();
+    }
+
     @ReceiveEvent
     public void onCreateStartQuestsEvent(CreateStartQuestsEvent event, EntityRef character,
                                          PersonalQuestsComponent questsComponent) {
@@ -194,6 +205,7 @@ public class DungeonQuestSystem extends BaseComponentSystem {
 
         Region3i entranceDoorRegion = getEntranceDoorRegion(spawnPos);
         spawnRegion(entranceDoorRegion, entranceDoorRegionBlocks);
+        spawnMagicalBuildParticles(entranceDoorRegion);
 
         Region3i entranceCooridorInnerRegion = getCorridorInnerRegion(spawnPos);
         Block stoneBlock = blockManager.getBlock("core:stone");
@@ -364,5 +376,18 @@ public class DungeonQuestSystem extends BaseComponentSystem {
         } else {
             return -1;
         }
+    }
+
+
+    private void spawnMagicalBuildParticles(Region3i region) {
+
+        EntityBuilder entityBuilder = entityManager.newBuilder(spawnDungeonParticlePrefab);
+        LocationComponent locationComponent = entityBuilder.getComponent(LocationComponent.class);
+        locationComponent.setWorldPosition(region.center());
+        BlockParticleEffectComponent particleEffect = entityBuilder.getComponent(BlockParticleEffectComponent.class);
+        Vector3f size = new Vector3f(region.size().toVector3f());
+        size.scale(0.5f);
+        particleEffect.spawnRange = size;
+        entityBuilder.build();
     }
 }
