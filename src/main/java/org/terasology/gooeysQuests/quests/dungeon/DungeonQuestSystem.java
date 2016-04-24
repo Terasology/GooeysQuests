@@ -27,6 +27,7 @@ import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.gooeysQuests.CopyBlockRegionComponent;
 import org.terasology.gooeysQuests.api.BlockRegionChecker;
+import org.terasology.gooeysQuests.api.CheckSpawnConditionEvent;
 import org.terasology.gooeysQuests.api.CreateStartQuestsEvent;
 import org.terasology.gooeysQuests.api.PersonalQuestsComponent;
 import org.terasology.gooeysQuests.api.PrepareQuestEvent;
@@ -150,12 +151,23 @@ public class DungeonQuestSystem extends BaseComponentSystem {
 
 
     private Prefab spawnDungeonParticlePrefab;
+    private EntityRef entranceSpawnCondition;
 
 
     @Override
     public void initialise() {
         spawnDungeonParticlePrefab = assetManager.getAsset("GooeysQuests:teleportParticleEffect", Prefab.class).get();
+
     }
+
+
+    @Override
+    public void postBegin() {
+        Prefab entranceSpawnConditionPrefab = assetManager.getAsset("GooeysQuests:dungeonEntranceSpawnCondition", Prefab.class)
+                .get();
+        entranceSpawnCondition = entityManager.create(entranceSpawnConditionPrefab);
+    }
+
 
     @ReceiveEvent
     public void onCreateStartQuestsEvent(CreateStartQuestsEvent event, EntityRef character,
@@ -184,11 +196,11 @@ public class DungeonQuestSystem extends BaseComponentSystem {
             return;
         }
 
-        for (RegionWithCondition regionWithCondition: EntranceRegionWithCondition.values()) {
-            Region3i region = regionWithCondition.getRegion(surfaceGroundBlockPosition);
-            if (!blockRegionChecker.allBlocksMatch(region, regionWithCondition.getCondition())) {
-                return;
-            }
+        CheckSpawnConditionEvent checkConditionEvent = new CheckSpawnConditionEvent(surfaceGroundBlockPosition);
+        entranceSpawnCondition.send(checkConditionEvent);
+        boolean spawnConditionNotMet = checkConditionEvent.isConsumed();
+        if (spawnConditionNotMet) {
+            return;
         }
 
         questToFoundSpawnPositionMap.put(quest, surfaceGroundBlockPosition);

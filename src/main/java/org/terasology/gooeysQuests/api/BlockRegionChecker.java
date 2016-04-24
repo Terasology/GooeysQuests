@@ -15,6 +15,7 @@
  */
 package org.terasology.gooeysQuests.api;
 
+import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.math.Region3i;
 import org.terasology.registry.In;
 import org.terasology.world.block.Block;
@@ -32,4 +33,7 @@ public interface BlockRegionChecker {
 
 
     boolean allBlocksMatch(Region3i region, Predicate<Block> condition);
+
+    void checkSpawnFor(CheckSpawnConditionEvent event, EntityRef entity,
+                       AbstractBlockRegionConditionComponent component, Predicate<Block> condition);
 }

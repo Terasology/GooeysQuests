@@ -15,10 +15,17 @@
  */
 package org.terasology.gooeysQuests;
 
+import org.terasology.entitySystem.entity.EntityRef;
+import org.terasology.entitySystem.event.ReceiveEvent;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
+import org.terasology.gooeysQuests.api.AbstractBlockRegionConditionComponent;
+import org.terasology.gooeysQuests.api.AirLikeBlockRegionConditionComponent;
 import org.terasology.gooeysQuests.api.BlockRegionChecker;
+import org.terasology.gooeysQuests.api.CheckSpawnConditionEvent;
+import org.terasology.gooeysQuests.api.Region;
+import org.terasology.gooeysQuests.api.SolidBlockRegionConditionComponent;
 import org.terasology.math.Region3i;
 import org.terasology.registry.In;
 import org.terasology.registry.Share;
@@ -29,11 +36,12 @@ import java.util.function.Predicate;
 
 /**
  * Implementation of {@link BlockRegionChecker}. See interface for more information.
+ *
+ * Implements also the checking of some condition components.
  */
 @RegisterSystem(RegisterMode.AUTHORITY)
 @Share(BlockRegionChecker.class)
 public class QuestBlockAreaCheckerSystem extends BaseComponentSystem implements BlockRegionChecker {
-
 
     @In
     private WorldProvider worldProvider;
@@ -57,5 +65,32 @@ public class QuestBlockAreaCheckerSystem extends BaseComponentSystem implements 
             }
         }
         return true;
+    }
+
+    @Override
+    public void checkSpawnFor(CheckSpawnConditionEvent event, EntityRef entity,
+                              AbstractBlockRegionConditionComponent component, Predicate<Block> condition) {
+        for (Region region: component.regions) {
+            Region3i region3i = Region3i.createBounded(region.min, region.max);
+            region3i = region3i.move(event.getSpawnPosition());
+            boolean match = allBlocksMatch(region3i, condition);
+            if (!match) {
+                event.consume();
+                return;
+            }
+        }
+    }
+
+
+    @ReceiveEvent
+    public void onAirLikeBlockRegionCheck(CheckSpawnConditionEvent event, EntityRef entity,
+                             AirLikeBlockRegionConditionComponent conditionComponent) {
+        checkSpawnFor(event, entity, conditionComponent, BlockRegionChecker.BLOCK_IS_AIR_LIKE);
+    }
+
+    @ReceiveEvent
+    public void onSolidBlockRegionCheck(CheckSpawnConditionEvent event, EntityRef entity,
+                                      SolidBlockRegionConditionComponent conditionComponent) {
+        checkSpawnFor(event, entity, conditionComponent, BlockRegionChecker.BLOCK_IS_GROUND_LIKE);
     }
 }
