@@ -33,6 +33,7 @@ import org.terasology.gooeysQuests.api.PersonalQuestsComponent;
 import org.terasology.gooeysQuests.api.PrepareQuestEvent;
 import org.terasology.gooeysQuests.api.QuestReadyEvent;
 import org.terasology.gooeysQuests.api.QuestStartRequest;
+import org.terasology.gooeysQuests.api.SpawnStructureEvent;
 import org.terasology.logic.inventory.InventoryManager;
 import org.terasology.logic.location.LocationComponent;
 import org.terasology.logic.particles.BlockParticleEffectComponent;
@@ -45,7 +46,6 @@ import org.terasology.world.block.Block;
 import org.terasology.world.block.BlockManager;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,76 +82,10 @@ public class DungeonQuestSystem extends BaseComponentSystem {
 
     private Random random = new Random();
 
-    private final List<String> entranceDoorRegionBlocks = Arrays.asList(
-            null, null, "core:stone",
-            "engine:air", "engine:air", "core:stone",
-            "engine:air", "engine:air", "core:stone",
-            "engine:air", "engine:air", "core:stone",
-            null, null, "core:stone",
-            "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "core:stone",
-            null, null, "core:stone",
-            "engine:air", "engine:air", "core:stone",
-            "engine:air", "engine:air", "core:stone",
-            "engine:air", "engine:air", "core:stone");
-    private final List<String> entranceCooridorRegionBlocks = Arrays.asList(
-            "core:stone", "core:stone", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "core:stone", "core:stone", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "Core:torch.RIGHT",
-            "engine:air", "engine:air", "engine:air", "engine:air", "core:stone", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "core:stone",
-            "GooeysQuests:stoneIllusion", "GooeysQuests:stoneIllusion", "GooeysQuests:stoneIllusion",
-            "GooeysQuests:stoneIllusion", "GooeysQuests:stoneIllusion", "core:stone", "core:stone",
-            "core:stone", "core:stone", "GooeysQuests:stoneIllusion", "GooeysQuests:stoneIllusion",
-            "GooeysQuests:stoneIllusion", "core:stone", "core:stone", "core:stone", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "Core:torch.RIGHT", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "core:stone",
-            "core:stone", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "core:stone", "core:stone", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "core:stone", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "core:stone",
-            "GooeysQuests:stoneIllusion", "GooeysQuests:stoneIllusion", "GooeysQuests:stoneIllusion",
-            "GooeysQuests:stoneIllusion", "GooeysQuests:stoneIllusion", "core:stone", "GooeysQuests:stoneIllusion",
-            "GooeysQuests:stoneIllusion", "core:stone", "GooeysQuests:stoneIllusion", "GooeysQuests:stoneIllusion",
-            "GooeysQuests:stoneIllusion", "core:stone", "core:stone", "core:stone", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "core:stone", "core:stone", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "core:stone",
-            "core:stone", "engine:air", "engine:air", "Core:torch.LEFT", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "core:stone", "core:stone", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "core:stone", "core:stone", "core:stone", "core:stone",
-            "core:stone", "core:stone", "core:stone", "GooeysQuests:stoneIllusion", "GooeysQuests:stoneIllusion",
-            "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone", "core:stone",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "Core:torch.LEFT", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air",
-            "engine:air", "engine:air", "engine:air", "engine:air", "engine:air", "engine:air");
-
-
     private Prefab spawnDungeonParticlePrefab;
     private EntityRef entranceSpawnCondition;
+    private EntityRef entranceSpawner;
+    private EntityRef cooridorSpawner;
 
 
     @Override
@@ -163,11 +97,17 @@ public class DungeonQuestSystem extends BaseComponentSystem {
 
     @Override
     public void postBegin() {
-        Prefab entranceSpawnConditionPrefab = assetManager.getAsset("GooeysQuests:dungeonEntranceSpawnCondition", Prefab.class)
-                .get();
-        entranceSpawnCondition = entityManager.create(entranceSpawnConditionPrefab);
+        entranceSpawnCondition = createEntityFromPrefab("GooeysQuests:dungeonEntranceSpawnCondition");
+        entranceSpawner = createEntityFromPrefab("GooeysQuests:dungeonEntranceSpawner");
+        cooridorSpawner = createEntityFromPrefab("GooeysQuests:dungeonCorridorSpawner");
     }
 
+    private EntityRef createEntityFromPrefab(String prefabUrn) {
+        Prefab prefab = assetManager.getAsset(prefabUrn, Prefab.class)
+                .get();
+        return entityManager.create(prefab);
+
+    }
 
     @ReceiveEvent
     public void onCreateStartQuestsEvent(CreateStartQuestsEvent event, EntityRef character,
@@ -216,34 +156,38 @@ public class DungeonQuestSystem extends BaseComponentSystem {
 
 
         Region3i entranceDoorRegion = getEntranceDoorRegion(spawnPos);
-        spawnRegion(entranceDoorRegion, entranceDoorRegionBlocks);
+        entranceSpawner.send(new SpawnStructureEvent(spawnPos));
         spawnMagicalBuildParticles(entranceDoorRegion);
 
         Region3i entranceCooridorInnerRegion = getCorridorInnerRegion(spawnPos);
-        Block stoneBlock = blockManager.getBlock("core:stone");
-        Block airBlock = blockManager.getBlock(BlockManager.AIR_ID);
-        for (Region3i wallRegion: outerWallRegionsOf(entranceCooridorInnerRegion)) {
-            for (Vector3i pos : wallRegion) {
-                if (worldProvider.getBlock(pos) != airBlock) {
-                    worldProvider.setBlock(pos, stoneBlock);
+        if (false) {
+            Block stoneBlock = blockManager.getBlock("core:stone");
+            Block airBlock = blockManager.getBlock(BlockManager.AIR_ID);
+            for (Region3i wallRegion : outerWallRegionsOf(entranceCooridorInnerRegion)) {
+                for (Vector3i pos : wallRegion) {
+                    if (worldProvider.getBlock(pos) != airBlock) {
+                        worldProvider.setBlock(pos, stoneBlock);
+                    }
+                }
+            }
+            boolean emptyTemplateMode = false;
+            if (emptyTemplateMode) {
+                for (Vector3i pos : entranceCooridorInnerRegion) {
+                    worldProvider.setBlock(pos, airBlock);
                 }
             }
         }
-        boolean emptyTemplateMode = false;
-        if (emptyTemplateMode) {
-            for (Vector3i pos : entranceCooridorInnerRegion) {
-                worldProvider.setBlock(pos, airBlock);
-            }
-        } else {
-            spawnRegion(entranceCooridorInnerRegion, entranceCooridorRegionBlocks);
-        }
 
+        Vector3i doorPosition = new Vector3i(spawnPos);
+        doorPosition.addZ(2);
+        cooridorSpawner.send(new SpawnStructureEvent(doorPosition));
         boolean debugItem = false;
         if (debugItem) {
             EntityBuilder entityBuilder = entityManager.newBuilder("GooeysQuests:copyBlockRegionTool");
             CopyBlockRegionComponent copyBlockRegonComponent = entityBuilder.getComponent(CopyBlockRegionComponent.class);
-            copyBlockRegonComponent.corner1.set(entranceCooridorInnerRegion.min());
-            copyBlockRegonComponent.corner2.set(entranceCooridorInnerRegion.max());
+            copyBlockRegonComponent.corner1.set(entranceDoorRegion.min());
+            copyBlockRegonComponent.corner2.set(entranceDoorRegion.max());
+            copyBlockRegonComponent.origin.set(spawnPos);
             entityBuilder.saveComponent(copyBlockRegonComponent);
             EntityRef copyItem = entityBuilder.build();
 

@@ -13,17 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.terasology.gooeysQuests;
+package org.terasology.gooeysQuests.api;
 
-import org.terasology.entitySystem.Component;
+import org.terasology.entitySystem.event.Event;
 import org.terasology.math.geom.Vector3i;
 
 /**
- * Used to describe an block region location
+ * When sent to entities with components like {@link SpawnBlockRegionsComponent} then the structure described by
+ * that entity will be generated.
  */
-public class CopyBlockRegionComponent implements Component {
+public class SpawnStructureEvent implements Event {
+    private Vector3i spawnPosition;
 
-    public Vector3i corner1 = new Vector3i();
-    public Vector3i corner2 = new Vector3i();
-    public Vector3i origin = new Vector3i();
+    public SpawnStructureEvent(Vector3i spawnPosition) {
+        this.spawnPosition = spawnPosition;
+    }
+
+    public Vector3i getSpawnPosition() {
+        return spawnPosition;
+    }
 }

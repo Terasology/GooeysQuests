@@ -17,27 +17,23 @@ package org.terasology.gooeysQuests.quests.dungeon;
 
 import org.terasology.entitySystem.event.Event;
 import org.terasology.network.OwnerEvent;
-import org.terasology.world.block.Block;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Sent from the server to the client with copied data.
  */
 @OwnerEvent
 public class CopyBlockRegionResultEvent implements Event {
-    private List<Block> blocks;
+    private String json;
 
     protected CopyBlockRegionResultEvent() {
         // for serialization
     }
 
-    public CopyBlockRegionResultEvent(List<Block> blocks) {
-        this.blocks = new ArrayList<Block>(blocks);
+    public CopyBlockRegionResultEvent(String json) {
+        this.json = json;
     }
 
-    public List<Block> getBlocks() {
-        return blocks;
+    public String getJson() {
+        return json;
     }
 }

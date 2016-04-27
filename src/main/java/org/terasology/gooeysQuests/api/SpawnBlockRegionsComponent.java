@@ -13,17 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.terasology.gooeysQuests;
+package org.terasology.gooeysQuests.api;
 
 import org.terasology.entitySystem.Component;
-import org.terasology.math.geom.Vector3i;
+import org.terasology.reflection.MappedContainer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Used to describe an block region location
+ *
  */
-public class CopyBlockRegionComponent implements Component {
+public class SpawnBlockRegionsComponent implements Component{
+    public List<RegionToFill> regionsToFill = new ArrayList<>();
 
-    public Vector3i corner1 = new Vector3i();
-    public Vector3i corner2 = new Vector3i();
-    public Vector3i origin = new Vector3i();
+
+    @MappedContainer
+    public static class RegionToFill {
+        public Region region;
+        public String blockType;
+    }
+
 }

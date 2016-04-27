@@ -23,7 +23,6 @@ import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.gooeysQuests.quests.dungeon.CopyBlockRegionResultEvent;
 import org.terasology.logic.clipboard.ClipboardManager;
 import org.terasology.registry.In;
-import org.terasology.world.block.Block;
 
 /**
  * Handles the result of the activation of the copyBlockRegionTool item.
@@ -36,12 +35,6 @@ public class CopyBlockRegionClientSystem extends BaseComponentSystem {
 
     @ReceiveEvent
     public void onCopyBlockRegionResultEvent(CopyBlockRegionResultEvent event, EntityRef entity) {
-        StringBuilder sb = new StringBuilder();
-        for (Block block : event.getBlocks()) {
-            sb.append('"');
-            sb.append(block.getURI().toString());
-            sb.append("\", ");
-        }
-        clipboardManager.setClipboardContents(sb.toString());
+        clipboardManager.setClipboardContents(event.getJson());
     }
 }
