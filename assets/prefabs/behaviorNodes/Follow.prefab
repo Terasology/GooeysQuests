@@ -4,8 +4,8 @@
     "name"      : "Follow",
     "category"  : "gooey",
     "shape"     : "rect",
-    "color"     : [0.7, 0.7, 0.7],
+    "color"     : [180, 180, 180, 255],
     "description": "Make the actor use pathfinding algorithms to follow the target entity. \nSUCCESS: never \nFAILURE: When it was no longer possible to follow the entity.",
-    "textColor" : [  0,   0,   0]
+    "textColor" : [  0,   0,   0, 255]
   }
 }

@@ -4,8 +4,8 @@
     "name"      : "Set Target to Follow",
     "category"  : "gooey",
     "shape"     : "rect",
-    "color"     : [0.7, 0.7, 0.7],
+    "color"     : [180, 180, 180, 255],
     "description": "Sets the target of the MinionMoveComponent to the entity Specified by the FollowComponent. \nSUCCESS: When the target has been set.\nFAILURE: When it was not possible",
-    "textColor" : [  0,   0,   0]
+    "textColor" : [  0,   0,   0, 255]
   }
 }
