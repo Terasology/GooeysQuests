@@ -7,5 +7,9 @@
   "Item" : {
     "icon" : "engine:items#whiteRecipe"
   },
-  "CopyBlockRegion": {}
+  "StructureTemplateEditor": {},
+  "InteractionTarget": {},
+  "InteractionScreen": {
+    "screen": "GooeysQuests:StructureTemplateEditor"
+  }
 }

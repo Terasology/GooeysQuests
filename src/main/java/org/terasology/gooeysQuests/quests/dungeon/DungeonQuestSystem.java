@@ -25,7 +25,7 @@ import org.terasology.entitySystem.prefab.Prefab;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
-import org.terasology.gooeysQuests.CopyBlockRegionComponent;
+import org.terasology.gooeysQuests.StructureTemplateEditorComponent;
 import org.terasology.gooeysQuests.api.BlockRegionChecker;
 import org.terasology.gooeysQuests.api.CheckSpawnConditionEvent;
 import org.terasology.gooeysQuests.api.CreateStartQuestsEvent;
@@ -33,6 +33,7 @@ import org.terasology.gooeysQuests.api.PersonalQuestsComponent;
 import org.terasology.gooeysQuests.api.PrepareQuestEvent;
 import org.terasology.gooeysQuests.api.QuestReadyEvent;
 import org.terasology.gooeysQuests.api.QuestStartRequest;
+import org.terasology.gooeysQuests.api.Region;
 import org.terasology.gooeysQuests.api.SpawnStructureEvent;
 import org.terasology.logic.inventory.InventoryManager;
 import org.terasology.logic.location.LocationComponent;
@@ -183,15 +184,16 @@ public class DungeonQuestSystem extends BaseComponentSystem {
         cooridorSpawner.send(new SpawnStructureEvent(doorPosition));
         boolean debugItem = false;
         if (debugItem) {
-            EntityBuilder entityBuilder = entityManager.newBuilder("GooeysQuests:copyBlockRegionTool");
-            CopyBlockRegionComponent copyBlockRegonComponent = entityBuilder.getComponent(CopyBlockRegionComponent.class);
-            copyBlockRegonComponent.corner1.set(entranceDoorRegion.min());
-            copyBlockRegonComponent.corner2.set(entranceDoorRegion.max());
-            copyBlockRegonComponent.origin.set(spawnPos);
-            entityBuilder.saveComponent(copyBlockRegonComponent);
-            EntityRef copyItem = entityBuilder.build();
+            EntityBuilder entityBuilder = entityManager.newBuilder("GooeysQuests:structureTemplateEditor");
+            StructureTemplateEditorComponent editorComponent = entityBuilder.getComponent(StructureTemplateEditorComponent.class);
+            editorComponent.editRegion = new Region();
+            editorComponent.editRegion.min.set(new Vector3i(-1, 0, 0));
+            editorComponent.editRegion.max.set(new Vector3i(1, 3, 2));
+            editorComponent.origin.set(spawnPos);
+            entityBuilder.saveComponent(editorComponent);
+            EntityRef editorItem = entityBuilder.build();
 
-            inventoryManager.giveItem(quest.getOwner(), EntityRef.NULL, copyItem);
+            inventoryManager.giveItem(quest.getOwner(), EntityRef.NULL, editorItem);
         }
     }
 

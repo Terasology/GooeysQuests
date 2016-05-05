@@ -13,17 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.terasology.gooeysQuests;
+package org.terasology.gooeysQuests.quests.dungeon;
 
-import org.terasology.entitySystem.Component;
-import org.terasology.math.geom.Vector3i;
+import org.terasology.entitySystem.event.Event;
+import org.terasology.network.ServerEvent;
 
 /**
- * Used to describe an block region location
+ * Requests the server to return a copy of the region specified by the entity to the client via a
+ * {@link CopyBlockRegionResultEvent} event. The event gets trigged by a button in the structure template editor.
+ *
  */
-public class CopyBlockRegionComponent implements Component {
-
-    public Vector3i corner1 = new Vector3i();
-    public Vector3i corner2 = new Vector3i();
-    public Vector3i origin = new Vector3i();
+@ServerEvent
+public class CopyBlockRegionRequest implements Event {
 }

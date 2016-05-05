@@ -27,7 +27,7 @@ import static org.junit.Assert.assertEquals;
 /**
  *
  */
-public class CopyBlockRegionServerSystemTest {
+public class StructureTemplateEditorServerSystemTest {
 
 
 
@@ -46,7 +46,7 @@ public class CopyBlockRegionServerSystemTest {
         regions.add(copyOf(regionC));
         regions.add(copyOf(regionB));
 
-        CopyBlockRegionServerSystem.mergeRegionsByX(regions);
+        StructureTemplateEditorServerSystem.mergeRegionsByX(regions);
         RegionToFill regionAB = createRegion(blockA, 2, 0, -1, 6, 1, 5);
 
         List<RegionToFill> expectedRegions = new ArrayList<>();
@@ -67,7 +67,7 @@ public class CopyBlockRegionServerSystemTest {
         regions.add(copyOf(regionA));
         regions.add(copyOf(regionB));
 
-        CopyBlockRegionServerSystem.mergeRegionsByX(regions);
+        StructureTemplateEditorServerSystem.mergeRegionsByX(regions);
 
         List<RegionToFill> expectedRegions = new ArrayList<>();
         expectedRegions.add(regionA);
@@ -85,7 +85,7 @@ public class CopyBlockRegionServerSystemTest {
         List<RegionToFill> regions = new ArrayList<>();
         regions.add(copyOf(regionA));
         regions.add(copyOf(regionB));
-        CopyBlockRegionServerSystem.mergeRegionsByX(regions);
+        StructureTemplateEditorServerSystem.mergeRegionsByX(regions);
 
         List<RegionToFill> expectedRegions = new ArrayList<>();
         expectedRegions.add(regionA);
@@ -104,7 +104,7 @@ public class CopyBlockRegionServerSystemTest {
         List<RegionToFill> regions = new ArrayList<>();
         regions.add(copyOf(regionA));
         regions.add(copyOf(regionB));
-        CopyBlockRegionServerSystem.mergeRegionsByX(regions);
+        StructureTemplateEditorServerSystem.mergeRegionsByX(regions);
 
         List<RegionToFill> expectedRegions = new ArrayList<>();
         expectedRegions.add(regionA);
@@ -123,7 +123,7 @@ public class CopyBlockRegionServerSystemTest {
         List<RegionToFill> regions = new ArrayList<>();
         regions.add(copyOf(regionA));
         regions.add(copyOf(regionB));
-        CopyBlockRegionServerSystem.mergeRegionsByX(regions);
+        StructureTemplateEditorServerSystem.mergeRegionsByX(regions);
 
         List<RegionToFill> expectedRegions = new ArrayList<>();
         expectedRegions.add(regionA);
@@ -142,7 +142,7 @@ public class CopyBlockRegionServerSystemTest {
         List<RegionToFill> regions = new ArrayList<>();
         regions.add(copyOf(regionA));
         regions.add(copyOf(regionB));
-        CopyBlockRegionServerSystem.mergeRegionsByX(regions);
+        StructureTemplateEditorServerSystem.mergeRegionsByX(regions);
 
         List<RegionToFill> expectedRegions = new ArrayList<>();
         expectedRegions.add(regionA);
@@ -162,7 +162,7 @@ public class CopyBlockRegionServerSystemTest {
         List<RegionToFill> regions = new ArrayList<>();
         regions.add(copyOf(regionA));
         regions.add(copyOf(regionB));
-        CopyBlockRegionServerSystem.mergeRegionsByX(regions);
+        StructureTemplateEditorServerSystem.mergeRegionsByX(regions);
 
         List<RegionToFill> expectedRegions = new ArrayList<>();
         expectedRegions.add(regionA);
@@ -195,7 +195,7 @@ public class CopyBlockRegionServerSystemTest {
         regions.add(copyOf(regionB));
 
 
-        CopyBlockRegionServerSystem.mergeRegionsByX(regions);
+        StructureTemplateEditorServerSystem.mergeRegionsByX(regions);
 
         RegionToFill regionAB = createRegion(blockA, 2, 0, 1, 5, -1, 5);
 

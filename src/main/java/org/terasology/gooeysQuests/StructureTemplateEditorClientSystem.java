@@ -41,7 +41,7 @@ import org.terasology.rendering.logic.RegionOutlineComponent;
  * Handles the result of the activation of the copyBlockRegionTool item.
  */
 @RegisterSystem(RegisterMode.CLIENT)
-public class CopyBlockRegionClientSystem extends BaseComponentSystem {
+public class StructureTemplateEditorClientSystem extends BaseComponentSystem {
 
     @In
     private ClipboardManager clipboardManager;
@@ -66,19 +66,19 @@ public class CopyBlockRegionClientSystem extends BaseComponentSystem {
 
     @ReceiveEvent
     public void onAddedCopyBlockRegionComponent(OnAddedComponent event, EntityRef entity,
-                                                CopyBlockRegionComponent component) {
+                                                StructureTemplateEditorComponent component) {
         updateOutlineEntity();
     }
 
     @ReceiveEvent
     public void onChangedCopyBlockRegionComponent(OnChangedComponent event, EntityRef entity,
-                                             CopyBlockRegionComponent component) {
+                                             StructureTemplateEditorComponent component) {
         updateOutlineEntity();
     }
 
     @ReceiveEvent
     public void onBeforeRemoveCopyBlockRegionComponent(BeforeRemoveComponent event, EntityRef entity,
-                                                  CopyBlockRegionComponent component) {
+                                                  StructureTemplateEditorComponent component) {
         updateOutlineEntity();
     }
 
@@ -143,22 +143,18 @@ public class CopyBlockRegionClientSystem extends BaseComponentSystem {
         inventoryComponent.itemSlots.get(selectedSlotComponent.slot);
 
         EntityRef item = inventoryManager.getItemInSlot(characterEntity, selectedSlotComponent.slot);
-        CopyBlockRegionComponent copyBlockRegionComponent = item.getComponent(CopyBlockRegionComponent.class);
-        if (copyBlockRegionComponent == null) {
+        StructureTemplateEditorComponent structureTemplateEditorComponent = item.getComponent(StructureTemplateEditorComponent.class);
+        if (structureTemplateEditorComponent == null) {
             return null;
         }
 
-        if (copyBlockRegionComponent.origin == null) {
+        if (structureTemplateEditorComponent.origin == null) {
             return null;
         }
 
-        Region3i region = Region3i.createBounded(copyBlockRegionComponent.corner1, copyBlockRegionComponent.corner2);
-        region.move(copyBlockRegionComponent.origin);
-
-        Vector3i min = new Vector3i(copyBlockRegionComponent.corner1);
-        min.min(copyBlockRegionComponent.corner2);
-        Vector3i max = new Vector3i(copyBlockRegionComponent.corner1);
-        max.max(copyBlockRegionComponent.corner2);
+        Region3i region = Region3i.createBounded(structureTemplateEditorComponent.editRegion.min,
+                structureTemplateEditorComponent.editRegion.max);
+        region = region.move(structureTemplateEditorComponent.origin);
         return region;
     }
 }

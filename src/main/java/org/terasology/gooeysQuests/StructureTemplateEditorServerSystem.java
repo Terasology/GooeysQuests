@@ -22,8 +22,8 @@ import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.gooeysQuests.api.Region;
 import org.terasology.gooeysQuests.api.SpawnBlockRegionsComponent.RegionToFill;
+import org.terasology.gooeysQuests.quests.dungeon.CopyBlockRegionRequest;
 import org.terasology.gooeysQuests.quests.dungeon.CopyBlockRegionResultEvent;
-import org.terasology.logic.common.ActivateEvent;
 import org.terasology.math.Region3i;
 import org.terasology.math.geom.Vector3i;
 import org.terasology.registry.In;
@@ -39,7 +39,7 @@ import java.util.List;
  * Handles the activation of the copyBlockRegionTool item.
  */
 @RegisterSystem(RegisterMode.AUTHORITY)
-public class CopyBlockRegionServerSystem extends BaseComponentSystem {
+public class StructureTemplateEditorServerSystem extends BaseComponentSystem {
     private static final Comparator<RegionToFill> REGION_BY_MIN_X_COMPARATOR = Comparator.comparing(r -> r.region.min.x());
     private static final Comparator<RegionToFill> REGION_BY_MIN_Y_COMPARATOR = Comparator.comparing(r -> r.region.min.y());
     private static final Comparator<RegionToFill> REGION_BY_MIN_Z_COMPARATOR = Comparator.comparing(r -> r.region.min.z());
@@ -51,12 +51,13 @@ public class CopyBlockRegionServerSystem extends BaseComponentSystem {
     private BlockManager blockManager;
 
     @ReceiveEvent
-    public void onActivate(ActivateEvent event, EntityRef entity, CopyBlockRegionComponent copyBlockRegionComponent) {
-        Region3i dungeonRegion = Region3i.createBounded(copyBlockRegionComponent.corner1,
-                copyBlockRegionComponent.corner2);
+    public void onCopyBlockRegionRequest(CopyBlockRegionRequest event, EntityRef entity, StructureTemplateEditorComponent structureTemplateEditorComponent) {
+        Region3i absoluteRegion = Region3i.createBounded(structureTemplateEditorComponent.editRegion.min
+                , structureTemplateEditorComponent.editRegion.max);
+        absoluteRegion = absoluteRegion.move(structureTemplateEditorComponent.origin);
         Block airBlock = blockManager.getBlock("engine:air");
         List<RegionToFill> regionsToFill = new ArrayList<>();
-        for (Vector3i absolutePosition : dungeonRegion) {
+        for (Vector3i absolutePosition : absoluteRegion) {
             Block block = worldProvider.getBlock(absolutePosition);
             if (block == airBlock) {
                 /*
@@ -67,7 +68,7 @@ public class CopyBlockRegionServerSystem extends BaseComponentSystem {
             }
             RegionToFill regionToFill = new RegionToFill();
             Vector3i relativePosition = new Vector3i(absolutePosition);
-            relativePosition.sub(copyBlockRegionComponent.origin);
+            relativePosition.sub(structureTemplateEditorComponent.origin);
             regionToFill.region = new Region();
             regionToFill.region.min.set(relativePosition);
             regionToFill.region.max.set(relativePosition);
