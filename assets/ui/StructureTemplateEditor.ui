@@ -73,6 +73,11 @@
                                 "type" : "UIButton",
                                 "text" : "Selected -> Clipboard",
                                 "id" : "copyToClipboardButton"
+                            },
+                            {
+                                "type" : "UIButton",
+                                "text" : "Create Structure Spawner",
+                                "id" : "createSpawnerButton"
                             }
                         ]
                     }

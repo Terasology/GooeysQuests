@@ -16,6 +16,7 @@
 package org.terasology.gooeysQuests;
 
 import org.terasology.entitySystem.entity.EntityRef;
+import org.terasology.gooeysQuests.api.CreateStructureSpawnItemRequest;
 import org.terasology.gooeysQuests.quests.dungeon.CopyBlockRegionRequest;
 import org.terasology.rendering.nui.BaseInteractionScreen;
 import org.terasology.rendering.nui.UIWidget;
@@ -35,6 +36,7 @@ public class StructureTemplateEditorScreen extends BaseInteractionScreen {
     private UIText maxYField;
     private UIText maxZField;
     private UIButton copyToClipboardButton;
+    private UIButton createSpawnerButton;
 
     @Override
     protected void initializeWithInteractionTarget(EntityRef interactionTarget) {
@@ -126,6 +128,15 @@ public class StructureTemplateEditorScreen extends BaseInteractionScreen {
             copyToClipboardButton.subscribe(this::onCopyToClipboardClicked);
         }
 
+        createSpawnerButton = find("createSpawnerButton", UIButton.class);
+        if (createSpawnerButton != null) {
+            createSpawnerButton.subscribe(this::onCreateSpawnerButton);
+        }
+
+    }
+
+    private void onCreateSpawnerButton(UIWidget button) {
+        getInteractionTarget().send(new CreateStructureSpawnItemRequest());
     }
 
     private void onCopyToClipboardClicked(UIWidget button) {

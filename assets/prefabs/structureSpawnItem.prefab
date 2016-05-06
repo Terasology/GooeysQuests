@@ -1,0 +1,11 @@
+{
+  "parent" : "engine:iconItem",
+  "DisplayName" : {
+    "name" : "Structure Spawn Item",
+    "description": "Instantly spawns a structure, the structure is item specific"
+  },
+  "Item" : {
+    "icon" : "engine:items#redRecipe"
+  },
+  "SpawnStructureAction": {}
+}

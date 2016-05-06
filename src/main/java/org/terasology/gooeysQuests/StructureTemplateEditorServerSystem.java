@@ -22,7 +22,9 @@ import org.terasology.entitySystem.event.ReceiveEvent;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
+import org.terasology.gooeysQuests.api.CreateStructureSpawnItemRequest;
 import org.terasology.gooeysQuests.api.Region;
+import org.terasology.gooeysQuests.api.SpawnBlockRegionsComponent;
 import org.terasology.gooeysQuests.api.SpawnBlockRegionsComponent.RegionToFill;
 import org.terasology.gooeysQuests.quests.dungeon.CopyBlockRegionRequest;
 import org.terasology.gooeysQuests.quests.dungeon.CopyBlockRegionResultEvent;
@@ -87,8 +89,30 @@ public class StructureTemplateEditorServerSystem extends BaseComponentSystem {
 
     }
 
+
+    @ReceiveEvent
+    public void onCreateStructureSpawnItemRequest(CreateStructureSpawnItemRequest event, EntityRef entity,
+                                                  StructureTemplateEditorComponent structureTemplateEditorComponent) {
+        EntityBuilder entityBuilder = entityManager.newBuilder("GooeysQuests:structureSpawnItem");
+        SpawnBlockRegionsComponent spawnBlockRegionsComponent = new SpawnBlockRegionsComponent();
+        spawnBlockRegionsComponent.regionsToFill = createRegionsToFill(structureTemplateEditorComponent);
+
+        entityBuilder.addOrSaveComponent(spawnBlockRegionsComponent);
+        EntityRef structureSpawnITem = entityBuilder.build();
+
+        inventoryManager.giveItem(entity.getOwner(), EntityRef.NULL, structureSpawnITem);
+    }
+
     @ReceiveEvent
     public void onCopyBlockRegionRequest(CopyBlockRegionRequest event, EntityRef entity, StructureTemplateEditorComponent structureTemplateEditorComponent) {
+        List<RegionToFill> regionsToFill = createRegionsToFill(structureTemplateEditorComponent);
+        String textToSend = formatAsString(regionsToFill);
+
+        CopyBlockRegionResultEvent resultEvent = new CopyBlockRegionResultEvent(textToSend);
+        entity.send(resultEvent);
+    }
+
+    private List<RegionToFill> createRegionsToFill(StructureTemplateEditorComponent structureTemplateEditorComponent) {
         Region3i absoluteRegion = Region3i.createBounded(structureTemplateEditorComponent.editRegion.min
                 , structureTemplateEditorComponent.editRegion.max);
         absoluteRegion = absoluteRegion.move(structureTemplateEditorComponent.origin);
@@ -115,10 +139,7 @@ public class StructureTemplateEditorServerSystem extends BaseComponentSystem {
         mergeRegionsByX(regionsToFill);
         mergeRegionsByY(regionsToFill);
         mergeRegionsByZ(regionsToFill);
-        String textToSend = formatAsString(regionsToFill);
-
-        CopyBlockRegionResultEvent resultEvent = new CopyBlockRegionResultEvent(textToSend);
-        entity.send(resultEvent);
+        return regionsToFill;
     }
 
 
