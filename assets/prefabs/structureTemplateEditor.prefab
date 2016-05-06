@@ -5,7 +5,7 @@
     "description": "Copies the blocks uris at a selectable region to the clipboard. For use by developers"
   },
   "Item" : {
-    "icon" : "engine:items#whiteRecipe"
+    "icon" : "engine:items#blueRecipe"
   },
   "StructureTemplateEditor": {},
   "InteractionTarget": {},
