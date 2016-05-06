@@ -15,6 +15,8 @@
  */
 package org.terasology.gooeysQuests;
 
+import org.terasology.entitySystem.entity.EntityBuilder;
+import org.terasology.entitySystem.entity.EntityManager;
 import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.entitySystem.event.ReceiveEvent;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
@@ -24,11 +26,15 @@ import org.terasology.gooeysQuests.api.Region;
 import org.terasology.gooeysQuests.api.SpawnBlockRegionsComponent.RegionToFill;
 import org.terasology.gooeysQuests.quests.dungeon.CopyBlockRegionRequest;
 import org.terasology.gooeysQuests.quests.dungeon.CopyBlockRegionResultEvent;
+import org.terasology.logic.common.ActivateEvent;
+import org.terasology.logic.inventory.InventoryComponent;
+import org.terasology.logic.inventory.InventoryManager;
 import org.terasology.math.Region3i;
 import org.terasology.math.geom.Vector3i;
 import org.terasology.registry.In;
 import org.terasology.world.WorldProvider;
 import org.terasology.world.block.Block;
+import org.terasology.world.block.BlockComponent;
 import org.terasology.world.block.BlockManager;
 
 import java.util.ArrayList;
@@ -49,6 +55,37 @@ public class StructureTemplateEditorServerSystem extends BaseComponentSystem {
 
     @In
     private BlockManager blockManager;
+
+    @In
+    private InventoryManager inventoryManager;
+
+    @In
+    private EntityManager entityManager;
+
+
+    @ReceiveEvent
+    public void onActivate(ActivateEvent event, EntityRef entity,
+                           StructureTemplateGeneratorComponent structureTemplateEditorComponent) {
+        BlockComponent blockComponent = event.getTarget().getComponent(BlockComponent.class);
+        if (blockComponent == null) {
+            return;
+        }
+        EntityRef owner = entity.getOwner();
+        InventoryComponent inventoryComponent = owner.getComponent(InventoryComponent.class);
+        Vector3i position = blockComponent.getPosition();
+
+        EntityBuilder entityBuilder = entityManager.newBuilder("GooeysQuests:structureTemplateEditor");
+        StructureTemplateEditorComponent editorComponent = entityBuilder.getComponent(StructureTemplateEditorComponent.class);
+        editorComponent.editRegion = new Region();
+        editorComponent.editRegion.min.set(new Vector3i(-2, 0, 0));
+        editorComponent.editRegion.max.set(new Vector3i(2, 4, 6));
+        editorComponent.origin.set(position);
+        entityBuilder.saveComponent(editorComponent);
+        EntityRef editorItem = entityBuilder.build();
+
+        inventoryManager.giveItem(owner, owner, editorItem);
+
+    }
 
     @ReceiveEvent
     public void onCopyBlockRegionRequest(CopyBlockRegionRequest event, EntityRef entity, StructureTemplateEditorComponent structureTemplateEditorComponent) {

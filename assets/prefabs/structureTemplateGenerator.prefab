@@ -1,0 +1,11 @@
+{
+  "parent" : "engine:iconItem",
+  "DisplayName" : {
+    "name" : "Structure Template Generator",
+    "description": "Generates empty structure templates that have their origin (e.g. should be usually the block below entrance position) at the specified location."
+  },
+  "Item" : {
+    "icon" : "engine:items#blueRecipe"
+  },
+  "StructureTemplateGenerator": {}
+}

@@ -16,20 +16,10 @@
 package org.terasology.gooeysQuests;
 
 import org.terasology.entitySystem.Component;
-import org.terasology.gooeysQuests.api.Region;
-import org.terasology.math.geom.Vector3i;
 
 /**
- * Used to describe an block region location
+ * Used to make the structure template generator item behave like it should
  */
-public class StructureTemplateEditorComponent implements Component {
-    /**
-     * Edit region relative to origin.
-     */
-    public Region editRegion = new Region();
+public class StructureTemplateGeneratorComponent implements Component {
 
-    /**
-     * Origin for editRegion values. To get the avsolute edit region add this value to it.
-     */
-    public Vector3i origin = new Vector3i();
 }
