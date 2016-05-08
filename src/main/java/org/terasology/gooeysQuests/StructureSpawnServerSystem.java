@@ -36,7 +36,7 @@ import org.terasology.world.block.BlockManager;
  * the regions specified by that component will be filled with the specified block types.s
  */
 @RegisterSystem(RegisterMode.AUTHORITY)
-public class StructureSpawnSystem extends BaseComponentSystem {
+public class StructureSpawnServerSystem extends BaseComponentSystem {
 
     @In
     private BlockManager blockManager;
