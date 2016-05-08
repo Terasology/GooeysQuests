@@ -15,20 +15,24 @@
  */
 package org.terasology.gooeysQuests.api;
 
-import org.terasology.entitySystem.event.Event;
+import org.terasology.math.Region3i;
+import org.terasology.math.Side;
+import org.terasology.math.geom.Vector3i;
+import org.terasology.world.block.Block;
 
 /**
- * When sent to entities with components like {@link SpawnBlockRegionsComponent} then the structure described by
- * that entity will be generated.
+ * Describes a transformation for a region of blocks like a rotation of 90 degrees.
  */
-public class SpawnStructureEvent implements Event {
-    private BlockRegionTransform transformation;
+public interface BlockRegionTransform {
 
-    public SpawnStructureEvent(BlockRegionTransform transform) {
-        this.transformation = transform;
-    }
+    Block transformBlock(Block block);
 
-    public BlockRegionTransform getTransformation() {
-        return transformation;
+    Side transformSide(Side side);
+
+    Vector3i transformVector3i(Vector3i position);
+
+
+    default Region3i transformRegion(Region3i region) {
+        return Region3i.createBounded(transformVector3i(region.min()), transformVector3i(region.max()));
     }
 }

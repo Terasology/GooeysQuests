@@ -27,6 +27,7 @@ import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.gooeysQuests.StructureTemplateEditorComponent;
 import org.terasology.gooeysQuests.api.BlockRegionChecker;
+import org.terasology.gooeysQuests.api.BlockRegionMovement;
 import org.terasology.gooeysQuests.api.CheckSpawnConditionEvent;
 import org.terasology.gooeysQuests.api.CreateStartQuestsEvent;
 import org.terasology.gooeysQuests.api.PersonalQuestsComponent;
@@ -157,7 +158,7 @@ public class DungeonQuestSystem extends BaseComponentSystem {
 
 
         Region3i entranceDoorRegion = getEntranceDoorRegion(spawnPos);
-        entranceSpawner.send(new SpawnStructureEvent(spawnPos));
+        entranceSpawner.send(new SpawnStructureEvent(new BlockRegionMovement(spawnPos)));
         spawnMagicalBuildParticles(entranceDoorRegion);
 
         Region3i entranceCooridorInnerRegion = getCorridorInnerRegion(spawnPos);
@@ -181,7 +182,7 @@ public class DungeonQuestSystem extends BaseComponentSystem {
 
         Vector3i doorPosition = new Vector3i(spawnPos);
         doorPosition.addZ(2);
-        cooridorSpawner.send(new SpawnStructureEvent(doorPosition));
+        cooridorSpawner.send(new SpawnStructureEvent(new BlockRegionMovement(doorPosition)));
         boolean debugItem = false;
         if (debugItem) {
             EntityBuilder entityBuilder = entityManager.newBuilder("GooeysQuests:structureTemplateEditor");

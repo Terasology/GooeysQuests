@@ -25,6 +25,8 @@ import org.terasology.entitySystem.event.ReceiveEvent;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
+import org.terasology.entitySystem.systems.UpdateSubscriberSystem;
+import org.terasology.gooeysQuests.api.BlockRegionTransform;
 import org.terasology.gooeysQuests.api.SpawnBlockRegionsComponent;
 import org.terasology.gooeysQuests.api.SpawnStructureActionComponent;
 import org.terasology.logic.clipboard.ClipboardManager;
@@ -32,9 +34,12 @@ import org.terasology.logic.inventory.InventoryComponent;
 import org.terasology.logic.inventory.InventoryManager;
 import org.terasology.logic.inventory.SelectedInventorySlotComponent;
 import org.terasology.logic.inventory.events.InventorySlotChangedEvent;
+import org.terasology.logic.location.LocationComponent;
 import org.terasology.logic.players.LocalPlayer;
 import org.terasology.logic.players.PlayerTargetChangedEvent;
 import org.terasology.math.Region3i;
+import org.terasology.math.Side;
+import org.terasology.math.geom.Vector3f;
 import org.terasology.math.geom.Vector3i;
 import org.terasology.registry.In;
 import org.terasology.rendering.logic.RegionOutlineComponent;
@@ -49,7 +54,7 @@ import java.util.List;
  * {@link SpawnStructureActionComponent} and {@link SpawnBlockRegionsComponent}.
  */
 @RegisterSystem(RegisterMode.CLIENT)
-public class StructureSpawnClientSystem extends BaseComponentSystem {
+public class StructureSpawnClientSystem extends BaseComponentSystem implements UpdateSubscriberSystem{
 
     @In
     private ClipboardManager clipboardManager;
@@ -68,6 +73,25 @@ public class StructureSpawnClientSystem extends BaseComponentSystem {
 
     private Vector3i spawnPosition;
 
+    private Side direction;
+
+
+    @Override
+    public void update(float delta) {
+        LocationComponent locationComponent = locatPlayer.getCharacterEntity().getComponent(LocationComponent.class);
+        if (locationComponent == null) {
+            direction = null;
+            return;
+        }
+
+        Vector3f directionVector = locationComponent.getWorldDirection();
+        Side newDirection = Side.inHorizontalDirection(directionVector.getX(), directionVector.getZ());
+        if (direction != newDirection) {
+            direction = newDirection;
+            updateOutlineEntity();
+        }
+
+    }
 
     @ReceiveEvent
     public void onActivatedSpawnStructureActionComponent(OnActivatedComponent event, EntityRef entity,
@@ -159,14 +183,20 @@ public class StructureSpawnClientSystem extends BaseComponentSystem {
             return Collections.emptyList();
         }
 
+        if (direction == null) {
+            return Collections.emptyList();
+        }
+
+        BlockRegionTransform regionTransform = SpawnStructureActionServerSystem.createBlockRegionTransformForCharacterTargeting(
+                direction, spawnPosition);
+
         List<Region3i> regionsToDraw = new ArrayList<>();
         for (SpawnBlockRegionsComponent.RegionToFill regionToFill: spawnBlockRegionsComponent.regionsToFill) {
             Region3i region = Region3i.createBounded(regionToFill.region.min,
                     regionToFill.region.max);
-            region = region.move(spawnPosition);
+            region = regionTransform.transformRegion(region);
             regionsToDraw.add(region);
         }
-
 
         return regionsToDraw;
     }

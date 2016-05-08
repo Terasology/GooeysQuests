@@ -20,6 +20,7 @@ import org.terasology.entitySystem.event.ReceiveEvent;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
+import org.terasology.gooeysQuests.api.BlockRegionTransform;
 import org.terasology.gooeysQuests.api.SpawnBlockRegionsComponent;
 import org.terasology.gooeysQuests.api.SpawnBlockRegionsComponent.RegionToFill;
 import org.terasology.gooeysQuests.api.SpawnStructureEvent;
@@ -47,12 +48,16 @@ public class StructureSpawnServerSystem extends BaseComponentSystem {
     @ReceiveEvent
     public void onSpawnBlockRegions(SpawnStructureEvent event, EntityRef entity,
                                  SpawnBlockRegionsComponent spawnBlockRegionComponent) {
-        Vector3i spawnPosition = event.getSpawnPosition();
+        BlockRegionTransform transformation = event.getTransformation();
         for (RegionToFill regionToFill: spawnBlockRegionComponent.regionsToFill) {
             Block block = blockManager.getBlock(regionToFill.blockType);
-            Region3i region = Region3i.createBounded(regionToFill.region.min,
-                    regionToFill.region.max);
-            region = region.move(spawnPosition);
+
+            Vector3i corner1 = new Vector3i(regionToFill.region.min);
+            Vector3i corner2 = new Vector3i(regionToFill.region.max);
+            Region3i region = Region3i.createBounded(corner1, corner2);
+            region = transformation.transformRegion(region);
+            block = transformation.transformBlock(block);
+
             for (Vector3i pos : region) {
                 worldProvider.setBlock(pos, block);
             }
