@@ -23,6 +23,7 @@ import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.gooeysQuests.api.BlockRegionMovement;
 import org.terasology.gooeysQuests.api.BlockRegionTransform;
 import org.terasology.gooeysQuests.api.BlockRegionTransformationList;
+import org.terasology.gooeysQuests.api.FrontDirectionComponent;
 import org.terasology.gooeysQuests.api.HorizontalBlockRegionRotation;
 import org.terasology.gooeysQuests.api.SpawnStructureActionComponent;
 import org.terasology.gooeysQuests.api.SpawnStructureEvent;
@@ -52,22 +53,24 @@ public class SpawnStructureActionServerSystem extends BaseComponentSystem {
         Vector3f directionVector =  characterLocation.getWorldDirection();
 
         Side facedDirection = Side.inHorizontalDirection(directionVector.getX(), directionVector.getZ());
+        Side wantedFrontOfStructure = facedDirection.reverse();
+
+        FrontDirectionComponent templateFrontDirComp = entity.getComponent(FrontDirectionComponent.class);
+        Side frontOfStructure = (templateFrontDirComp != null) ? templateFrontDirComp.direction : Side.FRONT;
 
 
-
-        BlockRegionTransform blockRegionTransform = createBlockRegionTransformForCharacterTargeting(facedDirection,
-                blockComponent.getPosition());
+        BlockRegionTransform blockRegionTransform = createBlockRegionTransformForCharacterTargeting(frontOfStructure,
+                wantedFrontOfStructure, blockComponent.getPosition());
 
         entity.send(new SpawnStructureEvent(blockRegionTransform));
 
     }
 
     public static BlockRegionTransform createBlockRegionTransformForCharacterTargeting(
-            Side facedDirection, Vector3i target) {
-        Side sideOfStructure = Side.FRONT;
+            Side fromSide, Side toSide, Vector3i target) {
         BlockRegionTransformationList transformList = new BlockRegionTransformationList();
         transformList.addTransformation(
-                HorizontalBlockRegionRotation.createRotationFromSideToSide(sideOfStructure, facedDirection));
+                HorizontalBlockRegionRotation.createRotationFromSideToSide(fromSide, toSide));
         transformList.addTransformation(new BlockRegionMovement(target));
         return transformList;
     }

@@ -27,6 +27,7 @@ import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.entitySystem.systems.UpdateSubscriberSystem;
 import org.terasology.gooeysQuests.api.BlockRegionTransform;
+import org.terasology.gooeysQuests.api.FrontDirectionComponent;
 import org.terasology.gooeysQuests.api.SpawnBlockRegionsComponent;
 import org.terasology.gooeysQuests.api.SpawnStructureActionComponent;
 import org.terasology.logic.clipboard.ClipboardManager;
@@ -73,21 +74,21 @@ public class StructureSpawnClientSystem extends BaseComponentSystem implements U
 
     private Vector3i spawnPosition;
 
-    private Side direction;
+    private Side directionPlayerLooksAt;
 
 
     @Override
     public void update(float delta) {
         LocationComponent locationComponent = locatPlayer.getCharacterEntity().getComponent(LocationComponent.class);
         if (locationComponent == null) {
-            direction = null;
+            directionPlayerLooksAt = null;
             return;
         }
 
         Vector3f directionVector = locationComponent.getWorldDirection();
         Side newDirection = Side.inHorizontalDirection(directionVector.getX(), directionVector.getZ());
-        if (direction != newDirection) {
-            direction = newDirection;
+        if (directionPlayerLooksAt != newDirection) {
+            directionPlayerLooksAt = newDirection;
             updateOutlineEntity();
         }
 
@@ -183,12 +184,17 @@ public class StructureSpawnClientSystem extends BaseComponentSystem implements U
             return Collections.emptyList();
         }
 
-        if (direction == null) {
+        if (directionPlayerLooksAt == null) {
             return Collections.emptyList();
         }
 
+        Side wantedFrontOfStructure = directionPlayerLooksAt.reverse();
+
+        FrontDirectionComponent templateFrontDirComp = item.getComponent(FrontDirectionComponent.class);
+        Side frontOfStructure = (templateFrontDirComp != null) ? templateFrontDirComp.direction : Side.FRONT;
+
         BlockRegionTransform regionTransform = SpawnStructureActionServerSystem.createBlockRegionTransformForCharacterTargeting(
-                direction, spawnPosition);
+                frontOfStructure, wantedFrontOfStructure, spawnPosition);
 
         List<Region3i> regionsToDraw = new ArrayList<>();
         for (SpawnBlockRegionsComponent.RegionToFill regionToFill: spawnBlockRegionsComponent.regionsToFill) {

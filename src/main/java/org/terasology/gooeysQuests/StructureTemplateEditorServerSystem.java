@@ -23,15 +23,18 @@ import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.gooeysQuests.api.CreateStructureSpawnItemRequest;
+import org.terasology.gooeysQuests.api.FrontDirectionComponent;
+import org.terasology.gooeysQuests.api.HorizontalBlockRegionRotation;
 import org.terasology.gooeysQuests.api.Region;
 import org.terasology.gooeysQuests.api.SpawnBlockRegionsComponent;
 import org.terasology.gooeysQuests.api.SpawnBlockRegionsComponent.RegionToFill;
 import org.terasology.gooeysQuests.quests.dungeon.CopyBlockRegionRequest;
 import org.terasology.gooeysQuests.quests.dungeon.CopyBlockRegionResultEvent;
 import org.terasology.logic.common.ActivateEvent;
-import org.terasology.logic.inventory.InventoryComponent;
 import org.terasology.logic.inventory.InventoryManager;
 import org.terasology.math.Region3i;
+import org.terasology.math.Side;
+import org.terasology.math.geom.Vector3f;
 import org.terasology.math.geom.Vector3i;
 import org.terasology.registry.In;
 import org.terasology.world.WorldProvider;
@@ -73,16 +76,32 @@ public class StructureTemplateEditorServerSystem extends BaseComponentSystem {
             return;
         }
         EntityRef owner = entity.getOwner();
-        InventoryComponent inventoryComponent = owner.getComponent(InventoryComponent.class);
         Vector3i position = blockComponent.getPosition();
+
+
+        Vector3f directionVector = event.getDirection();
+        Side directionStructureIsIn = Side.inHorizontalDirection(directionVector.getX(), directionVector.getZ());
+        Side frontDirectionOfStructure = directionStructureIsIn.reverse();
+
+
+        Region3i unrotatedRegion = Region3i.createBounded(new Vector3i(-2, 0, 0), new Vector3i(2, 4, 6));
+
+
+        HorizontalBlockRegionRotation rotation = HorizontalBlockRegionRotation.createRotationFromSideToSide(Side.FRONT,
+                frontDirectionOfStructure);
+        Region3i region = rotation.transformRegion(unrotatedRegion);
+
 
         EntityBuilder entityBuilder = entityManager.newBuilder("GooeysQuests:structureTemplateEditor");
         StructureTemplateEditorComponent editorComponent = entityBuilder.getComponent(StructureTemplateEditorComponent.class);
         editorComponent.editRegion = new Region();
-        editorComponent.editRegion.min.set(new Vector3i(-2, 0, 0));
-        editorComponent.editRegion.max.set(new Vector3i(2, 4, 6));
+        editorComponent.editRegion.min.set(region.min());
+        editorComponent.editRegion.max.set(region.max());
         editorComponent.origin.set(position);
         entityBuilder.saveComponent(editorComponent);
+        FrontDirectionComponent frontDirectionComponent = new FrontDirectionComponent();
+        frontDirectionComponent.direction = frontDirectionOfStructure;
+        entityBuilder.addOrSaveComponent(frontDirectionComponent);
         EntityRef editorItem = entityBuilder.build();
 
         inventoryManager.giveItem(owner, owner, editorItem);
@@ -97,7 +116,13 @@ public class StructureTemplateEditorServerSystem extends BaseComponentSystem {
         SpawnBlockRegionsComponent spawnBlockRegionsComponent = new SpawnBlockRegionsComponent();
         spawnBlockRegionsComponent.regionsToFill = createRegionsToFill(structureTemplateEditorComponent);
 
+        FrontDirectionComponent templateFrontDirComp = entity.getComponent(FrontDirectionComponent.class);
+        Side frontOfStructure = (templateFrontDirComp != null) ? templateFrontDirComp.direction : Side.FRONT;
+
         entityBuilder.addOrSaveComponent(spawnBlockRegionsComponent);
+        FrontDirectionComponent frontDirectionComponent = new FrontDirectionComponent();
+        frontDirectionComponent.direction = frontOfStructure;
+        entityBuilder.addOrSaveComponent(frontDirectionComponent);
         EntityRef structureSpawnITem = entityBuilder.build();
 
         inventoryManager.giveItem(entity.getOwner(), EntityRef.NULL, structureSpawnITem);
