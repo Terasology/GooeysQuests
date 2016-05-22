@@ -70,7 +70,7 @@ public class QuestBlockAreaCheckerSystem extends BaseComponentSystem implements 
     public void checkSpawnFor(CheckSpawnConditionEvent event, EntityRef entity,
                               AbstractBlockRegionConditionComponent component, Predicate<Block> condition) {
         for (Region3i region: component.regions) {
-            Region3i absoluteRegion  = region.move(event.getSpawnPosition());
+            Region3i absoluteRegion = event.getBlockRegionTransform().transformRegion(region);
             boolean match = allBlocksMatch(absoluteRegion, condition);
             if (!match) {
                 event.consume();

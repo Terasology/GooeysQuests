@@ -36,12 +36,15 @@ import org.terasology.logic.inventory.InventoryManager;
 import org.terasology.logic.location.LocationComponent;
 import org.terasology.logic.particles.BlockParticleEffectComponent;
 import org.terasology.math.Region3i;
+import org.terasology.math.Side;
 import org.terasology.math.geom.Vector3f;
 import org.terasology.math.geom.Vector3i;
 import org.terasology.registry.In;
 import org.terasology.structureTemplates.events.SpawnStructureEvent;
-import org.terasology.structureTemplates.internal.systems.StructureTemplateEditorComponent;
 import org.terasology.structureTemplates.util.transform.BlockRegionMovement;
+import org.terasology.structureTemplates.util.transform.BlockRegionTransform;
+import org.terasology.structureTemplates.util.transform.BlockRegionTransformationList;
+import org.terasology.structureTemplates.util.transform.HorizontalBlockRegionRotation;
 import org.terasology.world.WorldProvider;
 import org.terasology.world.block.Block;
 import org.terasology.world.block.BlockManager;
@@ -79,7 +82,7 @@ public class DungeonQuestSystem extends BaseComponentSystem {
     @In
     private InventoryManager inventoryManager;
 
-    private Map<EntityRef, Vector3i> questToFoundSpawnPositionMap = new HashMap<>();
+    private Map<EntityRef, BlockRegionTransform> questToFoundSpawnTransformationMap = new HashMap<>();
 
     private Random random = new Random();
 
@@ -135,62 +138,58 @@ public class DungeonQuestSystem extends BaseComponentSystem {
             return;
         }
 
-        CheckSpawnConditionEvent checkConditionEvent = new CheckSpawnConditionEvent(surfaceGroundBlockPosition);
-        entranceSpawner.send(checkConditionEvent);
-        boolean spawnConditionNotMet = checkConditionEvent.isConsumed();
-        if (spawnConditionNotMet) {
+        BlockRegionTransform foundSpawnTransformation =  findGoodSpawnTransformation(surfaceGroundBlockPosition);
+        if (foundSpawnTransformation == null) {
             return;
         }
 
-        questToFoundSpawnPositionMap.put(quest, surfaceGroundBlockPosition);
+
+        questToFoundSpawnTransformationMap.put(quest, foundSpawnTransformation);
         quest.send(new QuestReadyEvent());
+    }
+
+
+    private BlockRegionTransform findGoodSpawnTransformation(Vector3i spawnPosition) {
+        for (Side side: Side.horizontalSides()) {
+            BlockRegionTransformationList transformList = createTransformation(spawnPosition, side);
+
+            CheckSpawnConditionEvent checkConditionEvent = new CheckSpawnConditionEvent(transformList);
+            entranceSpawner.send(checkConditionEvent);
+            boolean spawnConditionMet = !checkConditionEvent.isConsumed();
+            if (spawnConditionMet) {
+                return transformList;
+            }
+        }
+
+        return null;
+    }
+
+    private BlockRegionTransformationList createTransformation(Vector3i spawnPosition, Side side) {
+        BlockRegionTransformationList transformList = new BlockRegionTransformationList();
+        transformList.addTransformation(
+                HorizontalBlockRegionRotation.createRotationFromSideToSide(Side.FRONT, side));
+        transformList.addTransformation(new BlockRegionMovement(spawnPosition));
+        return transformList;
     }
 
     @ReceiveEvent(components = DungeonQuestComponent.class)
     public void onQuestStart(QuestStartRequest event, EntityRef quest) {
-        Vector3i spawnPos = questToFoundSpawnPositionMap.get(quest);
-        if (spawnPos == null) {
+        BlockRegionTransform spawnTransformation = questToFoundSpawnTransformationMap.get(quest);
+        if (spawnTransformation == null) {
             return; // TODO report failure to client and gooey system
         }
 
-
-        Region3i entranceDoorRegion = getEntranceDoorRegion(spawnPos);
-        entranceSpawner.send(new SpawnStructureEvent(new BlockRegionMovement(spawnPos)));
+        Region3i entranceDoorRegion = getEntranceDoorRegion(spawnTransformation);
+        entranceSpawner.send(new SpawnStructureEvent(spawnTransformation));
         spawnMagicalBuildParticles(entranceDoorRegion);
 
-        Region3i entranceCooridorInnerRegion = getCorridorInnerRegion(spawnPos);
-        if (false) {
-            Block stoneBlock = blockManager.getBlock("core:stone");
-            Block airBlock = blockManager.getBlock(BlockManager.AIR_ID);
-            for (Region3i wallRegion : outerWallRegionsOf(entranceCooridorInnerRegion)) {
-                for (Vector3i pos : wallRegion) {
-                    if (worldProvider.getBlock(pos) != airBlock) {
-                        worldProvider.setBlock(pos, stoneBlock);
-                    }
-                }
-            }
-            boolean emptyTemplateMode = false;
-            if (emptyTemplateMode) {
-                for (Vector3i pos : entranceCooridorInnerRegion) {
-                    worldProvider.setBlock(pos, airBlock);
-                }
-            }
-        }
 
-        Vector3i cooridorSpawnPosition = new Vector3i(spawnPos);
-        cooridorSpawnPosition.addZ(3);
-        cooridorSpawner.send(new SpawnStructureEvent(new BlockRegionMovement(cooridorSpawnPosition)));
-        boolean debugItem = false;
-        if (debugItem) {
-            EntityBuilder entityBuilder = entityManager.newBuilder("GooeysQuests:structureTemplateEditor");
-            StructureTemplateEditorComponent editorComponent = entityBuilder.getComponent(StructureTemplateEditorComponent.class);
-            editorComponent.editRegion = Region3i.createBounded(new Vector3i(-1, 0, 0), new Vector3i(1, 3, 2));
-            editorComponent.origin.set(spawnPos);
-            entityBuilder.saveComponent(editorComponent);
-            EntityRef editorItem = entityBuilder.build();
+        Vector3i cooridorSpawnPosition = new Vector3i(0,0,3);
+        cooridorSpawnPosition = spawnTransformation.transformVector3i(cooridorSpawnPosition);
 
-            inventoryManager.giveItem(quest.getOwner(), EntityRef.NULL, editorItem);
-        }
+        Side cooridorRotation = spawnTransformation.transformSide(Side.FRONT);
+        BlockRegionTransform cooridorSpawnTransformation = createTransformation(cooridorSpawnPosition, cooridorRotation);
+        cooridorSpawner.send(new SpawnStructureEvent(cooridorSpawnTransformation));
     }
 
     Region3i wallRegionBelow(Region3i region) {
@@ -266,21 +265,15 @@ public class DungeonQuestSystem extends BaseComponentSystem {
     @ReceiveEvent
     public void onDeactivateQuestEntity(BeforeDeactivateComponent event, EntityRef questEntity,
                                         PersonalQuestsComponent questsComponent) {
-        questToFoundSpawnPositionMap.remove(questEntity);
+        questToFoundSpawnTransformationMap.remove(questEntity);
     }
 
 
-    private Region3i getEntranceDoorRegion(Vector3i origin) {
-        int minX = origin.getX() - 1;
-        int maxX = origin.getX() + 1;
-        int minY = origin.getY();
-        int maxY = origin.getY() + 3;
-        int minZ = origin.getZ();
-        int maxZ = origin.getZ() + 2;
-
-        Vector3i min = new Vector3i(minX, minY, minZ);
-        Vector3i max = new Vector3i(maxX, maxY, maxZ);
-        return Region3i.createFromMinMax(min, max);
+    private Region3i getEntranceDoorRegion(BlockRegionTransform transformation) {
+        Vector3i min = new Vector3i(-1, 0, 0);
+        Vector3i max = new Vector3i(1, 3, 2);
+        Region3i region = Region3i.createFromMinMax(min, max);
+        return transformation.transformRegion(region);
     }
 
     private Region3i getCorridorInnerRegion(Vector3i origin) {

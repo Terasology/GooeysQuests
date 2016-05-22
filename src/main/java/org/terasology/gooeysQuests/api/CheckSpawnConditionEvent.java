@@ -16,20 +16,20 @@
 package org.terasology.gooeysQuests.api;
 
 import org.terasology.entitySystem.event.AbstractConsumableEvent;
-import org.terasology.math.geom.Vector3i;
+import org.terasology.structureTemplates.util.transform.BlockRegionTransform;
 
 /**
  * Sent to entities with spawn condition components, in order to check if the spawn conditions are met at a certain
  * position. See {@link SolidBlockRegionConditionComponent} for an example for a spawn condition component.
  */
 public class CheckSpawnConditionEvent extends AbstractConsumableEvent {
-    private Vector3i spawnPosition;
+    private BlockRegionTransform blockRegionTransform;
 
-    public CheckSpawnConditionEvent(Vector3i spawnPosition) {
-        this.spawnPosition = spawnPosition;
+    public CheckSpawnConditionEvent(BlockRegionTransform blockRegionTransform) {
+        this.blockRegionTransform = blockRegionTransform;
     }
 
-    public Vector3i getSpawnPosition() {
-        return spawnPosition;
+    public BlockRegionTransform getBlockRegionTransform() {
+        return blockRegionTransform;
     }
 }
