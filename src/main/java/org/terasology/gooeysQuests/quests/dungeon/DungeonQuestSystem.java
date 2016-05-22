@@ -84,7 +84,6 @@ public class DungeonQuestSystem extends BaseComponentSystem {
     private Random random = new Random();
 
     private Prefab spawnDungeonParticlePrefab;
-    private EntityRef entranceSpawnCondition;
     private EntityRef entranceSpawner;
     private EntityRef cooridorSpawner;
 
@@ -98,7 +97,6 @@ public class DungeonQuestSystem extends BaseComponentSystem {
 
     @Override
     public void postBegin() {
-        entranceSpawnCondition = createEntityFromPrefab("GooeysQuests:dungeonEntranceSpawnCondition");
         entranceSpawner = createEntityFromPrefab("GooeysQuests:dungeonEntranceSpawner");
         cooridorSpawner = createEntityFromPrefab("GooeysQuests:dungeonCorridorSpawner");
     }
@@ -138,7 +136,7 @@ public class DungeonQuestSystem extends BaseComponentSystem {
         }
 
         CheckSpawnConditionEvent checkConditionEvent = new CheckSpawnConditionEvent(surfaceGroundBlockPosition);
-        entranceSpawnCondition.send(checkConditionEvent);
+        entranceSpawner.send(checkConditionEvent);
         boolean spawnConditionNotMet = checkConditionEvent.isConsumed();
         if (spawnConditionNotMet) {
             return;
