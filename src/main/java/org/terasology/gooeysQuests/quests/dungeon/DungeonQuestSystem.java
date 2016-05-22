@@ -62,7 +62,6 @@ import java.util.Random;
 public class DungeonQuestSystem extends BaseComponentSystem {
 
     private static final int MAX_HORIZONTAL_DISTANCE = 20;
-    private static final int MIN_HORIZONTAL_DISTANCE = 5;
     private static final int VERTICAL_SCAN_DISTANCE = 5;
     @In
     private AssetManager assetManager;
@@ -314,7 +313,7 @@ public class DungeonQuestSystem extends BaseComponentSystem {
     }
 
     private int randomHorizontalOffset() {
-        return randomSign() * (MIN_HORIZONTAL_DISTANCE + random.nextInt(MAX_HORIZONTAL_DISTANCE));
+        return randomSign() * (random.nextInt(MAX_HORIZONTAL_DISTANCE));
     }
 
     private int randomSign() {
