@@ -28,7 +28,6 @@ import org.terasology.gooeysQuests.api.SolidBlockRegionConditionComponent;
 import org.terasology.math.Region3i;
 import org.terasology.registry.In;
 import org.terasology.registry.Share;
-import org.terasology.structureTemplates.components.container.Region;
 import org.terasology.world.WorldProvider;
 import org.terasology.world.block.Block;
 
@@ -70,10 +69,9 @@ public class QuestBlockAreaCheckerSystem extends BaseComponentSystem implements 
     @Override
     public void checkSpawnFor(CheckSpawnConditionEvent event, EntityRef entity,
                               AbstractBlockRegionConditionComponent component, Predicate<Block> condition) {
-        for (Region region: component.regions) {
-            Region3i region3i = Region3i.createBounded(region.min, region.max);
-            region3i = region3i.move(event.getSpawnPosition());
-            boolean match = allBlocksMatch(region3i, condition);
+        for (Region3i region: component.regions) {
+            Region3i absoluteRegion  = region.move(event.getSpawnPosition());
+            boolean match = allBlocksMatch(absoluteRegion, condition);
             if (!match) {
                 event.consume();
                 return;

@@ -39,7 +39,6 @@ import org.terasology.math.Region3i;
 import org.terasology.math.geom.Vector3f;
 import org.terasology.math.geom.Vector3i;
 import org.terasology.registry.In;
-import org.terasology.structureTemplates.components.container.Region;
 import org.terasology.structureTemplates.events.SpawnStructureEvent;
 import org.terasology.structureTemplates.internal.systems.StructureTemplateEditorComponent;
 import org.terasology.structureTemplates.util.transform.BlockRegionMovement;
@@ -180,16 +179,14 @@ public class DungeonQuestSystem extends BaseComponentSystem {
             }
         }
 
-        Vector3i doorPosition = new Vector3i(spawnPos);
-        doorPosition.addZ(2);
-        cooridorSpawner.send(new SpawnStructureEvent(new BlockRegionMovement(doorPosition)));
+        Vector3i cooridorSpawnPosition = new Vector3i(spawnPos);
+        cooridorSpawnPosition.addZ(3);
+        cooridorSpawner.send(new SpawnStructureEvent(new BlockRegionMovement(cooridorSpawnPosition)));
         boolean debugItem = false;
         if (debugItem) {
             EntityBuilder entityBuilder = entityManager.newBuilder("GooeysQuests:structureTemplateEditor");
             StructureTemplateEditorComponent editorComponent = entityBuilder.getComponent(StructureTemplateEditorComponent.class);
-            editorComponent.editRegion = new Region();
-            editorComponent.editRegion.min.set(new Vector3i(-1, 0, 0));
-            editorComponent.editRegion.max.set(new Vector3i(1, 3, 2));
+            editorComponent.editRegion = Region3i.createBounded(new Vector3i(-1, 0, 0), new Vector3i(1, 3, 2));
             editorComponent.origin.set(spawnPos);
             entityBuilder.saveComponent(editorComponent);
             EntityRef editorItem = entityBuilder.build();

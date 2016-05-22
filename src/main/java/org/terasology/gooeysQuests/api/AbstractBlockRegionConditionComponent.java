@@ -16,7 +16,7 @@
 package org.terasology.gooeysQuests.api;
 
 import org.terasology.entitySystem.Component;
-import org.terasology.structureTemplates.components.container.Region;
+import org.terasology.math.Region3i;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +27,6 @@ import java.util.List;
  */
 public abstract class AbstractBlockRegionConditionComponent implements Component {
 
-    public List<Region> regions = new ArrayList<>();
+    public List<Region3i> regions = new ArrayList<>();
 
 }
