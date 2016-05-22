@@ -16,6 +16,7 @@
 package org.terasology.gooeysQuests.api;
 
 import org.terasology.entitySystem.Component;
+import org.terasology.structureTemplates.components.container.Region;
 
 import java.util.ArrayList;
 import java.util.List;

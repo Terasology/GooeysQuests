@@ -24,12 +24,11 @@ import org.terasology.gooeysQuests.api.AbstractBlockRegionConditionComponent;
 import org.terasology.gooeysQuests.api.AirLikeBlockRegionConditionComponent;
 import org.terasology.gooeysQuests.api.BlockRegionChecker;
 import org.terasology.gooeysQuests.api.CheckSpawnConditionEvent;
-import org.terasology.gooeysQuests.api.Region;
 import org.terasology.gooeysQuests.api.SolidBlockRegionConditionComponent;
-import org.terasology.gooeysQuests.api.SpawnStructureEvent;
 import org.terasology.math.Region3i;
 import org.terasology.registry.In;
 import org.terasology.registry.Share;
+import org.terasology.structureTemplates.components.container.Region;
 import org.terasology.world.WorldProvider;
 import org.terasology.world.block.Block;
 
