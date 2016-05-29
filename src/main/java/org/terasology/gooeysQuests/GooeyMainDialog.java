@@ -61,7 +61,7 @@ public class GooeyMainDialog extends BaseInteractionScreen {
     }
 
     @Override
-    protected void initialise() {
+    public void initialise() {
         gooeysText = find("gooeysText", UIText.class);
 
         WidgetUtil.trySubscribe(this, "closeButton", button -> getManager().popScreen());
