@@ -23,5 +23,26 @@
             { "min": [-1, 2, 0], "size": [3, 3, 1]},
             { "min": [-1, 4, 1], "size": [3, 1, 1]}
         ]
-    }
+    },
+    "StructureConnectionPoints" : {
+        "points": [
+            {
+                "type": "3x3StoneCooridor",
+                "direction": "BACK",
+                "position": [0, 0, 3],
+                "outgoing": true,
+                "incoming": false
+            }
+
+        ]
+    },
+    /* For debugging purposes it is an item: */
+    "parent" : "engine:iconItem",
+    "DisplayName" : {
+        "name" : "Spawn dungeon entrance"
+    },
+    "Item" : {
+        "icon" : "engine:items#whiteRecipe"
+    },
+    "SpawnStructureAction": {}
 }

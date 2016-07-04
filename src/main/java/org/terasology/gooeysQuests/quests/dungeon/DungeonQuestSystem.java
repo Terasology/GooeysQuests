@@ -101,6 +101,8 @@ public class DungeonQuestSystem extends BaseComponentSystem {
     public void postBegin() {
         entranceSpawner = createEntityFromPrefab("GooeysQuests:dungeonEntranceSpawner");
         cooridorSpawner = createEntityFromPrefab("GooeysQuests:dungeonCorridorSpawner");
+        createEntityFromPrefab("GooeysQuests:dungeonCorridorRightTurnSpawner");
+        createEntityFromPrefab("GooeysQuests:dungeonCorridorEnd");
     }
 
     private EntityRef createEntityFromPrefab(String prefabUrn) {
@@ -183,12 +185,14 @@ public class DungeonQuestSystem extends BaseComponentSystem {
         spawnMagicalBuildParticles(entranceDoorRegion);
 
 
-        Vector3i cooridorSpawnPosition = new Vector3i(0,0,3);
-        cooridorSpawnPosition = spawnTransformation.transformVector3i(cooridorSpawnPosition);
+        if (false) {
+            Vector3i cooridorSpawnPosition = new Vector3i(0, 0, 3);
+            cooridorSpawnPosition = spawnTransformation.transformVector3i(cooridorSpawnPosition);
 
-        Side cooridorRotation = spawnTransformation.transformSide(Side.FRONT);
-        BlockRegionTransform cooridorSpawnTransformation = createTransformation(cooridorSpawnPosition, cooridorRotation);
-        cooridorSpawner.send(new SpawnStructureEvent(cooridorSpawnTransformation));
+            Side cooridorRotation = spawnTransformation.transformSide(Side.FRONT);
+            BlockRegionTransform cooridorSpawnTransformation = createTransformation(cooridorSpawnPosition, cooridorRotation);
+            cooridorSpawner.send(new SpawnStructureEvent(cooridorSpawnTransformation));
+        }
     }
 
     Region3i wallRegionBelow(Region3i region) {
