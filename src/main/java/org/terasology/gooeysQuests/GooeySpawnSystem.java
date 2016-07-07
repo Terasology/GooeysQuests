@@ -261,7 +261,7 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
         int maxZ = spawnPosition.getZ() + 1;
         int groundY = spawnPosition.getY() - 2;
 
-        Region3i groundRegion = Region3i.createFromMinMax(new Vector3i(minX, groundY, minZ), new Vector3i(maxZ, groundY,
+        Region3i groundRegion = Region3i.createFromMinMax(new Vector3i(minX, groundY, minZ), new Vector3i(maxX, groundY,
                 maxZ));
         boolean groundExists = blockRegionChecker.allBlocksMatch(groundRegion, BlockRegionChecker.BLOCK_IS_GROUND_LIKE);
         if (!groundExists) {
