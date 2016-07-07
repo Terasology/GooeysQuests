@@ -25,8 +25,6 @@ import org.terasology.entitySystem.prefab.Prefab;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
-import org.terasology.gooeysQuests.api.BlockRegionChecker;
-import org.terasology.gooeysQuests.api.CheckSpawnConditionEvent;
 import org.terasology.gooeysQuests.api.CreateStartQuestsEvent;
 import org.terasology.gooeysQuests.api.PersonalQuestsComponent;
 import org.terasology.gooeysQuests.api.PrepareQuestEvent;
@@ -40,7 +38,9 @@ import org.terasology.math.Side;
 import org.terasology.math.geom.Vector3f;
 import org.terasology.math.geom.Vector3i;
 import org.terasology.registry.In;
+import org.terasology.structureTemplates.events.CheckSpawnConditionEvent;
 import org.terasology.structureTemplates.events.SpawnStructureEvent;
+import org.terasology.structureTemplates.interfaces.BlockPredicateProvider;
 import org.terasology.structureTemplates.util.transform.BlockRegionMovement;
 import org.terasology.structureTemplates.util.transform.BlockRegionTransform;
 import org.terasology.structureTemplates.util.transform.BlockRegionTransformationList;
@@ -54,6 +54,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.function.Predicate;
 
 /**
  * Makes gooey offer a dungeon quest
@@ -76,10 +77,10 @@ public class DungeonQuestSystem extends BaseComponentSystem {
     private BlockManager blockManager;
 
     @In
-    private BlockRegionChecker blockRegionChecker;
+    private InventoryManager inventoryManager;
 
     @In
-    private InventoryManager inventoryManager;
+    private BlockPredicateProvider blockPredicateProvider;
 
     private Map<EntityRef, BlockRegionTransform> questToFoundSpawnTransformationMap = new HashMap<>();
 
@@ -88,6 +89,9 @@ public class DungeonQuestSystem extends BaseComponentSystem {
     private Prefab spawnDungeonParticlePrefab;
     private EntityRef entranceSpawner;
     private EntityRef cooridorSpawner;
+    private Predicate<Block> isAirCondition;
+    private Predicate<Block> isGroundCondition;
+
 
 
     @Override
@@ -103,6 +107,8 @@ public class DungeonQuestSystem extends BaseComponentSystem {
         cooridorSpawner = createEntityFromPrefab("GooeysQuests:dungeonCorridorSpawner");
         createEntityFromPrefab("GooeysQuests:dungeonCorridorRightTurnSpawner");
         createEntityFromPrefab("GooeysQuests:dungeonCorridorEnd");
+        isAirCondition = blockPredicateProvider.getBlockPredicate("StructureTemplates:IsAirLike");
+        isGroundCondition = blockPredicateProvider.getBlockPredicate("StructureTemplates:IsGroundLike");
     }
 
     private EntityRef createEntityFromPrefab(String prefabUrn) {
@@ -156,8 +162,7 @@ public class DungeonQuestSystem extends BaseComponentSystem {
 
             CheckSpawnConditionEvent checkConditionEvent = new CheckSpawnConditionEvent(transformList);
             entranceSpawner.send(checkConditionEvent);
-            boolean spawnConditionMet = !checkConditionEvent.isConsumed();
-            if (spawnConditionMet) {
+            if (!checkConditionEvent.isPreventSpawn()) {
                 return transformList;
             }
         }
@@ -302,9 +307,9 @@ public class DungeonQuestSystem extends BaseComponentSystem {
             int x = position.getX();
             int z = position.getZ();
             Block block = worldProvider.getBlock(x, y, z);
-            if (BlockRegionChecker.BLOCK_IS_AIR_LIKE.test(block)) {
+            if (isAirCondition.test(block)) {
                 airFound = true;
-            } else if (BlockRegionChecker.BLOCK_IS_GROUND_LIKE.test(block)) {
+            } else if (isGroundCondition.test(block)) {
                 if (!airFound) {
                     return null; // found ground first -> not surface
                 }

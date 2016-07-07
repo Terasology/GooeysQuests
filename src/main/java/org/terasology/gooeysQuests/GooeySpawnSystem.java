@@ -25,7 +25,6 @@ import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.entitySystem.systems.UpdateSubscriberSystem;
-import org.terasology.gooeysQuests.api.BlockRegionChecker;
 import org.terasology.gooeysQuests.api.CreateStartQuestsEvent;
 import org.terasology.gooeysQuests.api.GooeysQuestComponent;
 import org.terasology.gooeysQuests.api.PersonalQuestsComponent;
@@ -41,10 +40,15 @@ import org.terasology.math.geom.Quat4f;
 import org.terasology.math.geom.Vector3f;
 import org.terasology.math.geom.Vector3i;
 import org.terasology.registry.In;
+import org.terasology.structureTemplates.interfaces.BlockPredicateProvider;
+import org.terasology.structureTemplates.interfaces.BlockRegionChecker;
+import org.terasology.structureTemplates.util.transform.BlockRegionTransformationList;
 import org.terasology.world.WorldProvider;
+import org.terasology.world.block.Block;
 
 import java.util.List;
 import java.util.Random;
+import java.util.function.Predicate;
 
 
 /**
@@ -76,15 +80,26 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
     @In
     private BlockRegionChecker blockRegionChecker;
 
+    @In
+    private BlockPredicateProvider blockPredicateProvider;
+
     private Random random = new Random();
 
     private EntityRef questToSpawnGooeyFor = EntityRef.NULL;
 
     private float nextQuestCooldown;
+    private Predicate<Block> airLikeCondition;
+    private Predicate<Block> groundLikeCondition;
 
     @Override
     public void initialise() {
         nextQuestCooldown = 3;
+    }
+
+    @Override
+    public void postBegin() {
+        this.airLikeCondition = blockPredicateProvider.getBlockPredicate("StructureTemplates:IsAirLike");
+        this.groundLikeCondition = blockPredicateProvider.getBlockPredicate("StructureTemplates:IsGroundLike");
     }
 
     @Override
@@ -229,7 +244,8 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
      */
     private boolean hasLineOfSight(Vector3i spawnBlockPos, Vector3i characterPos) {
         Region3i region = Region3i.createBounded(spawnBlockPos, characterPos);
-        return blockRegionChecker.allBlocksMatch(region, BlockRegionChecker.BLOCK_IS_AIR_LIKE);
+        return blockRegionChecker.allBlocksMatch(region, new BlockRegionTransformationList(),
+                airLikeCondition);
     }
 
     private Vector3f locationInfrontOf(LocationComponent location, float minDistance, float maxDistance,
@@ -263,7 +279,8 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
 
         Region3i groundRegion = Region3i.createFromMinMax(new Vector3i(minX, groundY, minZ), new Vector3i(maxX, groundY,
                 maxZ));
-        boolean groundExists = blockRegionChecker.allBlocksMatch(groundRegion, BlockRegionChecker.BLOCK_IS_GROUND_LIKE);
+        boolean groundExists = blockRegionChecker.allBlocksMatch(groundRegion, new BlockRegionTransformationList(),
+                groundLikeCondition);
         if (!groundExists) {
             return false;
         }
@@ -272,7 +289,8 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
         int airMax = airMin + 3;
         Region3i airRegion = Region3i.createFromMinMax(new Vector3i(minX, airMin, minZ), new Vector3i(maxZ, airMax,
                 maxZ));
-        boolean enoughAirAbove = blockRegionChecker.allBlocksMatch(airRegion, BlockRegionChecker.BLOCK_IS_AIR_LIKE);
+        boolean enoughAirAbove = blockRegionChecker.allBlocksMatch(airRegion, new BlockRegionTransformationList(),
+                airLikeCondition);
         if (!enoughAirAbove) {
             return false;
         }

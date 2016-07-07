@@ -26,7 +26,7 @@ import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.entitySystem.systems.UpdateSubscriberSystem;
-import org.terasology.gooeysQuests.api.CheckSpawnConditionEvent;
+import org.terasology.structureTemplates.events.CheckSpawnConditionEvent;
 import org.terasology.gooeysQuests.api.PendingStructureSpawnComponent;
 import org.terasology.gooeysQuests.api.StructureConnectionPointsComponent;
 import org.terasology.gooeysQuests.api.StructureConnectionPointsComponent.ConnectionPoint;
@@ -178,8 +178,7 @@ public class ConnectedStructureSpawnSystem extends BaseComponentSystem implement
         CheckSpawnConditionEvent checkSpawnConditionEvent = new CheckSpawnConditionEvent(transformList);
         EntityRef structureToSpawn = spawnPossiblity.getStructureToSpawn();
         structureToSpawn.send(checkSpawnConditionEvent);
-        boolean spawnConditionMet = !checkSpawnConditionEvent.isConsumed();
-        if (!spawnConditionMet) {
+        if (checkSpawnConditionEvent.isPreventSpawn()) {
             return;
         }
         structureToSpawn.send(new SpawnStructureEvent(transformList));

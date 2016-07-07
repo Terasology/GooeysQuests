@@ -39,5 +39,13 @@
             /** space for dungeon end */
             { "min": [0, 0, 3], "size": [5, 5, 4]}
         ]
+    },
+    "CheckBlockRegionCondition" : {
+        "checksToPerform": [
+            {"condition": "StructureTemplates:IsGroundLike", "region" :{ "min": [0, 0, -2], "size": [5, 5, 5]}},
+
+            /** space for dungeon end */
+            {"condition": "StructureTemplates:IsGroundLike", "region" :{ "min": [0, 0, 3], "size": [5, 5, 4]}}
+        ]
     }
 }

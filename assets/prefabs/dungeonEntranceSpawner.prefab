@@ -10,18 +10,17 @@
             { "blockType": "core:stone", "region": { "min": [1, 1, 2], "size": [1, 2, 1]}}
         ]
     },
-    "SolidBlockRegionCondition" : {
-        "regions" : [
-            { "min": [-1, 0, 0], "size": [3, 1, 1]},
-            { "min": [-2, 0, 1], "size": [5, 2, 1]},
-            { "min": [-2, -1, 2], "size": [5, 6, 1]},
-            { "min": [-2, -5, 3], "size": [5,  11, 18]}
-        ]
-    },
-    "AirLikeBlockRegionCondition" : {
-        "regions" : [
-            { "min": [-1, 2, 0], "size": [3, 3, 1]},
-            { "min": [-1, 4, 1], "size": [3, 1, 1]}
+
+    "CheckBlockRegionCondition" : {
+        "checksToPerform": [
+            {"condition": "StructureTemplates:IsGroundLike", "region" :{ "min": [-1, 0, 0], "size": [3, 1, 1]}},
+            {"condition": "StructureTemplates:IsGroundLike", "region" :{ "min": [-2, 0, 1], "size": [5, 2, 1]}},
+            {"condition": "StructureTemplates:IsGroundLike", "region" :{ "min": [-2, -1, 2], "size": [5, 6, 1]}},
+            {"condition": "StructureTemplates:IsGroundLike", "region" :{ "min": [-2, -5, 3], "size": [5,  11, 18]}},
+
+            {"condition": "StructureTemplates:IsAirLike", "region" :{ "min": [-1, 2, 0], "size": [3, 3, 1]}},
+            {"condition": "StructureTemplates:IsAirLike", "region" :{ "min": [-1, 4, 1], "size": [3, 1, 1]}}
+
         ]
     },
     "StructureConnectionPoints" : {
