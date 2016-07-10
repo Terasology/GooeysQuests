@@ -32,7 +32,6 @@ import org.terasology.gooeysQuests.api.QuestReadyEvent;
 import org.terasology.gooeysQuests.api.QuestStartRequest;
 import org.terasology.logic.inventory.InventoryManager;
 import org.terasology.logic.location.LocationComponent;
-import org.terasology.math.Region3i;
 import org.terasology.math.Side;
 import org.terasology.math.geom.Vector3i;
 import org.terasology.registry.In;
@@ -196,14 +195,6 @@ public class DungeonQuestSystem extends BaseComponentSystem {
     public void onDeactivateQuestEntity(BeforeDeactivateComponent event, EntityRef questEntity,
                                         PersonalQuestsComponent questsComponent) {
         questToFoundSpawnPossibilityMap.remove(questEntity);
-    }
-
-
-    private Region3i getEntranceDoorRegion(BlockRegionTransform transformation) {
-        Vector3i min = new Vector3i(-1, 0, 0);
-        Vector3i max = new Vector3i(1, 3, 2);
-        Region3i region = Region3i.createFromMinMax(min, max);
-        return transformation.transformRegion(region);
     }
 
     private Vector3i findSurfaceGroundBlockPosition(Vector3i position) {
