@@ -1,5 +1,8 @@
 {
-    "persisted": false,
+    "StructureTemplate" : {
+        "type": "GooeysQuests:dungeon3x3StoneCorridor",
+        "front": "FRONT"
+    },
     "SpawnBlockRegions": {
         "regionsToFill":[
             /** Fill inner region first with air, then add blocks*/
@@ -38,21 +41,12 @@
             { "blockType": "core:stone", "region": { "min": [2, 1, 9], "size": [1, 3, 7]}}
         ]
     },
-    "StructureConnectionPoints" : {
-        "points": [
+    "ScheduleStructurePlacement" : {
+        "placementsToSchedule": [
             {
-                "type": "3x3StoneCooridor",
-                "direction": "FRONT",
-                "position": [0, 0, 0],
-                "outgoing": false,
-                "incoming": true
-            },
-            {
-                "type": "3x3StoneCooridor",
-                "direction": "BACK",
-                "position": [0, 0, 16],
-                "outgoing": true,
-                "incoming": false
+                "structureTemplateType": "GooeysQuests:dungeon3x3StoneCorridor",
+                "front": "FRONT",
+                "position": [0, 0, 16]
             }
 
         ]

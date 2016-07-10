@@ -1,5 +1,8 @@
 {
-    "persisted": false,
+    "StructureTemplate" : {
+        "type": "GooeysQuests:dungeon3x3StoneCorridor",
+        "front": "LEFT"
+    },
     "SpawnBlockRegions": {
         "regionsToFill":[
             /** Fill inner region first with air, then add blocks*/
@@ -13,31 +16,13 @@
             { "blockType": "core:stone", "region": { "min": [4, 1, -1], "size": [1, 3, 4]}}
         ]
     },
-    "StructureConnectionPoints" : {
-        "points": [
+    "ScheduleStructurePlacement" : {
+        "placementsToSchedule": [
             {
-                "type": "3x3StoneCooridor",
-                "direction": "LEFT",
-                "position": [0, 0, 0],
-                "outgoing": false,
-                "incoming": true
+                "structureTemplateType": "GooeysQuests:dungeon3x3StoneCorridor",
+                "front": "FRONT",
+                "position": [2, 0, 3]
             }
-
-        ,{
-                "type": "3x3StoneCooridor",
-                "direction": "BACK",
-                "position": [2, 0, 3],
-                "outgoing": true,
-                "incoming": false
-            }
-        ]
-    },
-    "SolidBlockRegionCondition" : {
-        "regions" : [
-            { "min": [0, 0, -2], "size": [5, 5, 5]},
-
-            /** space for dungeon end */
-            { "min": [0, 0, 3], "size": [5, 5, 4]}
         ]
     },
     "CheckBlockRegionCondition" : {
@@ -47,5 +32,14 @@
             /** space for dungeon end */
             {"condition": "StructureTemplates:IsGroundLike", "region" :{ "min": [0, 0, 3], "size": [5, 5, 4]}}
         ]
-    }
+    },
+    /* For debugging purposes it is an item: */
+    "parent" : "engine:iconItem",
+    "DisplayName" : {
+        "name" : "Spawn dungeon corridor right turn"
+    },
+    "Item" : {
+        "icon" : "engine:items#whiteRecipe"
+    },
+    "SpawnStructureAction": {}
 }

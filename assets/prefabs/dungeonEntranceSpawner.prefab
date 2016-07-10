@@ -1,5 +1,7 @@
 {
-    "persisted": false,
+    "StructureTemplate" : {
+        "front": "FRONT"
+    },
     "SpawnBlockRegions": {
         "regionsToFill":[
             { "blockType": "engine:air", "region": { "min": [-1, 1, 0], "size": [3, 3, 2]}},
@@ -23,14 +25,12 @@
 
         ]
     },
-    "StructureConnectionPoints" : {
-        "points": [
+    "ScheduleStructurePlacement" : {
+        "placementsToSchedule": [
             {
-                "type": "3x3StoneCooridor",
-                "direction": "BACK",
-                "position": [0, 0, 3],
-                "outgoing": true,
-                "incoming": false
+                "structureTemplateType": "GooeysQuests:dungeon3x3StoneCorridor",
+                "front": "FRONT",
+                "position": [0, 0, 3]
             }
 
         ]

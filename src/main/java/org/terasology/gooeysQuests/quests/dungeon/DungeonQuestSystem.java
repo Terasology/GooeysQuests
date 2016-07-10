@@ -88,7 +88,7 @@ public class DungeonQuestSystem extends BaseComponentSystem {
 
     private Prefab spawnDungeonParticlePrefab;
     private EntityRef entranceSpawner;
-    private EntityRef cooridorSpawner;
+    private EntityRef CorridorSpawner;
     private Predicate<Block> isAirCondition;
     private Predicate<Block> isGroundCondition;
 
@@ -103,18 +103,17 @@ public class DungeonQuestSystem extends BaseComponentSystem {
 
     @Override
     public void postBegin() {
-        entranceSpawner = createEntityFromPrefab("GooeysQuests:dungeonEntranceSpawner");
-        cooridorSpawner = createEntityFromPrefab("GooeysQuests:dungeonCorridorSpawner");
-        createEntityFromPrefab("GooeysQuests:dungeonCorridorRightTurnSpawner");
-        createEntityFromPrefab("GooeysQuests:dungeonCorridorEnd");
         isAirCondition = blockPredicateProvider.getBlockPredicate("StructureTemplates:IsAirLike");
         isGroundCondition = blockPredicateProvider.getBlockPredicate("StructureTemplates:IsGroundLike");
+        entranceSpawner = createNonPersistentEntityFromPrefab("GooeysQuests:dungeonEntranceSpawner");
     }
 
-    private EntityRef createEntityFromPrefab(String prefabUrn) {
+    private EntityRef createNonPersistentEntityFromPrefab(String prefabUrn) {
         Prefab prefab = assetManager.getAsset(prefabUrn, Prefab.class)
                 .get();
-        return entityManager.create(prefab);
+        EntityBuilder entityBuilder = entityManager.newBuilder(prefab);
+        entityBuilder.setPersistent(false);
+        return entityBuilder.build();
 
     }
 
@@ -191,12 +190,12 @@ public class DungeonQuestSystem extends BaseComponentSystem {
 
 
         if (false) {
-            Vector3i cooridorSpawnPosition = new Vector3i(0, 0, 3);
-            cooridorSpawnPosition = spawnTransformation.transformVector3i(cooridorSpawnPosition);
+            Vector3i CorridorSpawnPosition = new Vector3i(0, 0, 3);
+            CorridorSpawnPosition = spawnTransformation.transformVector3i(CorridorSpawnPosition);
 
-            Side cooridorRotation = spawnTransformation.transformSide(Side.FRONT);
-            BlockRegionTransform cooridorSpawnTransformation = createTransformation(cooridorSpawnPosition, cooridorRotation);
-            cooridorSpawner.send(new SpawnStructureEvent(cooridorSpawnTransformation));
+            Side CorridorRotation = spawnTransformation.transformSide(Side.FRONT);
+            BlockRegionTransform CorridorSpawnTransformation = createTransformation(CorridorSpawnPosition, CorridorRotation);
+            CorridorSpawner.send(new SpawnStructureEvent(CorridorSpawnTransformation));
         }
     }
 
