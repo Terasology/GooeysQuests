@@ -41,6 +41,7 @@ import org.terasology.registry.In;
 import org.terasology.structureTemplates.events.CheckSpawnConditionEvent;
 import org.terasology.structureTemplates.events.SpawnStructureEvent;
 import org.terasology.structureTemplates.interfaces.BlockPredicateProvider;
+import org.terasology.structureTemplates.interfaces.StructureTemplateProvider;
 import org.terasology.structureTemplates.util.transform.BlockRegionMovement;
 import org.terasology.structureTemplates.util.transform.BlockRegionTransform;
 import org.terasology.structureTemplates.util.transform.BlockRegionTransformationList;
@@ -49,9 +50,7 @@ import org.terasology.world.WorldProvider;
 import org.terasology.world.block.Block;
 import org.terasology.world.block.BlockManager;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.function.Predicate;
@@ -82,13 +81,14 @@ public class DungeonQuestSystem extends BaseComponentSystem {
     @In
     private BlockPredicateProvider blockPredicateProvider;
 
-    private Map<EntityRef, BlockRegionTransform> questToFoundSpawnTransformationMap = new HashMap<>();
+    @In
+    private StructureTemplateProvider structureTemplateProvider;
+
+    private Map<EntityRef, FoundSpawnPossiblity> questToFoundSpawnPossibilityMap = new HashMap<>();
 
     private Random random = new Random();
 
     private Prefab spawnDungeonParticlePrefab;
-    private EntityRef entranceSpawner;
-    private EntityRef CorridorSpawner;
     private Predicate<Block> isAirCondition;
     private Predicate<Block> isGroundCondition;
 
@@ -105,16 +105,6 @@ public class DungeonQuestSystem extends BaseComponentSystem {
     public void postBegin() {
         isAirCondition = blockPredicateProvider.getBlockPredicate("StructureTemplates:IsAirLike");
         isGroundCondition = blockPredicateProvider.getBlockPredicate("StructureTemplates:IsGroundLike");
-        entranceSpawner = createNonPersistentEntityFromPrefab("GooeysQuests:dungeonEntranceSpawner");
-    }
-
-    private EntityRef createNonPersistentEntityFromPrefab(String prefabUrn) {
-        Prefab prefab = assetManager.getAsset(prefabUrn, Prefab.class)
-                .get();
-        EntityBuilder entityBuilder = entityManager.newBuilder(prefab);
-        entityBuilder.setPersistent(false);
-        return entityBuilder.build();
-
     }
 
     @ReceiveEvent
@@ -144,18 +134,39 @@ public class DungeonQuestSystem extends BaseComponentSystem {
             return;
         }
 
-        BlockRegionTransform foundSpawnTransformation =  findGoodSpawnTransformation(surfaceGroundBlockPosition);
+        EntityRef etranceSpawner = structureTemplateProvider.
+                getRandomTemplateOfType("GooeysQuests:dungeonEntrance");
+
+        BlockRegionTransform foundSpawnTransformation = findGoodSpawnTransformation(surfaceGroundBlockPosition,
+                etranceSpawner);
         if (foundSpawnTransformation == null) {
             return;
         }
 
 
-        questToFoundSpawnTransformationMap.put(quest, foundSpawnTransformation);
+        questToFoundSpawnPossibilityMap.put(quest, new FoundSpawnPossiblity(etranceSpawner, foundSpawnTransformation));
         quest.send(new QuestReadyEvent());
     }
 
+    private static class FoundSpawnPossiblity {
+        private EntityRef entranceSpawner;
+        private BlockRegionTransform transformation;
 
-    private BlockRegionTransform findGoodSpawnTransformation(Vector3i spawnPosition) {
+        public FoundSpawnPossiblity(EntityRef entranceSpawner, BlockRegionTransform transformation) {
+            this.entranceSpawner = entranceSpawner;
+            this.transformation = transformation;
+        }
+
+        public EntityRef getEntranceSpawner() {
+            return entranceSpawner;
+        }
+
+        public BlockRegionTransform getTransformation() {
+            return transformation;
+        }
+    }
+
+    private BlockRegionTransform findGoodSpawnTransformation(Vector3i spawnPosition, EntityRef entranceSpawner) {
         for (Side side: Side.horizontalSides()) {
             BlockRegionTransformationList transformList = createTransformation(spawnPosition, side);
 
@@ -179,92 +190,17 @@ public class DungeonQuestSystem extends BaseComponentSystem {
 
     @ReceiveEvent(components = DungeonQuestComponent.class)
     public void onQuestStart(QuestStartRequest event, EntityRef quest) {
-        BlockRegionTransform spawnTransformation = questToFoundSpawnTransformationMap.get(quest);
+        FoundSpawnPossiblity spawnPossiblity = questToFoundSpawnPossibilityMap.get(quest);
+        BlockRegionTransform spawnTransformation = spawnPossiblity.getTransformation();
         if (spawnTransformation == null) {
             return; // TODO report failure to client and gooey system
         }
 
         Region3i entranceDoorRegion = getEntranceDoorRegion(spawnTransformation);
+        EntityRef entranceSpawner = spawnPossiblity.getEntranceSpawner();
         entranceSpawner.send(new SpawnStructureEvent(spawnTransformation));
         spawnMagicalBuildParticles(entranceDoorRegion);
-
-
-        if (false) {
-            Vector3i CorridorSpawnPosition = new Vector3i(0, 0, 3);
-            CorridorSpawnPosition = spawnTransformation.transformVector3i(CorridorSpawnPosition);
-
-            Side CorridorRotation = spawnTransformation.transformSide(Side.FRONT);
-            BlockRegionTransform CorridorSpawnTransformation = createTransformation(CorridorSpawnPosition, CorridorRotation);
-            CorridorSpawner.send(new SpawnStructureEvent(CorridorSpawnTransformation));
-        }
     }
-
-    Region3i wallRegionBelow(Region3i region) {
-        Vector3i min= new Vector3i(region.minX(), region.minY() - 1, region.minZ());
-        Vector3i max= new Vector3i(region.maxX(), region.minY() - 1, region.maxZ());
-        return Region3i.createFromMinMax(min,max);
-    }
-
-    Region3i wallRegionAbove(Region3i region) {
-        Vector3i min= new Vector3i(region.minX(), region.maxY() + 1, region.minZ());
-        Vector3i max= new Vector3i(region.maxX(), region.maxY() + 1, region.maxZ());
-        return Region3i.createFromMinMax(min,max);
-    }
-
-    Region3i wallRegionLeft(Region3i region) {
-        Vector3i min= new Vector3i(region.minX() - 1 , region.minY(), region.minZ());
-        Vector3i max= new Vector3i(region.minX() - 1, region.maxY(), region.maxZ());
-        return Region3i.createFromMinMax(min,max);
-    }
-
-    Region3i wallRegionRight(Region3i region) {
-        Vector3i min= new Vector3i(region.maxX() + 1, region.minY(), region.minZ());
-        Vector3i max= new Vector3i(region.maxX() + 1, region.maxY(), region.maxZ());
-        return Region3i.createFromMinMax(min,max);
-    }
-
-    Region3i wallRegionFront(Region3i region) {
-        Vector3i min= new Vector3i(region.minX(), region.minY(), region.minZ() - 1);
-        Vector3i max= new Vector3i(region.maxX(), region.maxY(), region.minZ() - 1);
-        return Region3i.createFromMinMax(min,max);
-    }
-
-    Region3i wallRegionBack(Region3i region) {
-        Vector3i min= new Vector3i(region.minX(), region.minY(), region.maxZ() + 1);
-        Vector3i max= new Vector3i(region.maxX(), region.maxY(), region.maxZ() + 1);
-        return Region3i.createFromMinMax(min,max);
-    }
-
-    List<Region3i> outerWallRegionsOf(Region3i region) {
-        List<Region3i> regions = new ArrayList<>();
-        regions.add(wallRegionBelow(region));
-        regions.add(wallRegionAbove(region));
-        regions.add(wallRegionLeft(region));
-        regions.add(wallRegionRight(region));
-        regions.add(wallRegionFront(region));
-        regions.add(wallRegionBack(region));
-        return regions;
-    }
-
-    private void spawnRegion(Region3i region, List<String> blockURIList) {
-        int index = 0;
-        Block dirtBlock = blockManager.getBlock("engine:Dirt");
-        Block grassBlock = blockManager.getBlock("engine:Grass");
-        for (Vector3i pos : region) {
-            String blockUri = blockURIList.get(index);
-            if (blockUri != null) {
-                Block block = blockManager.getBlock(blockUri);
-                worldProvider.setBlock(pos, block);
-            } else {
-                Block existingBlock = worldProvider.getBlock(pos);
-                if (existingBlock == dirtBlock) {
-                    worldProvider.setBlock(pos, grassBlock);
-                }
-            }
-            index++;
-        }
-    }
-
 
     /**
      * Free the memory once the quest is no longer loaded
@@ -272,7 +208,7 @@ public class DungeonQuestSystem extends BaseComponentSystem {
     @ReceiveEvent
     public void onDeactivateQuestEntity(BeforeDeactivateComponent event, EntityRef questEntity,
                                         PersonalQuestsComponent questsComponent) {
-        questToFoundSpawnTransformationMap.remove(questEntity);
+        questToFoundSpawnPossibilityMap.remove(questEntity);
     }
 
 
@@ -282,20 +218,6 @@ public class DungeonQuestSystem extends BaseComponentSystem {
         Region3i region = Region3i.createFromMinMax(min, max);
         return transformation.transformRegion(region);
     }
-
-    private Region3i getCorridorInnerRegion(Vector3i origin) {
-        int minX = origin.getX() - 1;
-        int maxX = origin.getX() + 1;
-        int minY = origin.getY() - 3;
-        int maxY = origin.getY() + 3;
-        int minZ = origin.getZ() + 3;
-        int maxZ = origin.getZ() + 18;
-
-        Vector3i min = new Vector3i(minX, minY, minZ);
-        Vector3i max = new Vector3i(maxX, maxY, maxZ);
-        return Region3i.createFromMinMax(min, max);
-    }
-
 
     private Vector3i findSurfaceGroundBlockPosition(Vector3i position) {
         int yScanStop = position.getY() - VERTICAL_SCAN_DISTANCE;
