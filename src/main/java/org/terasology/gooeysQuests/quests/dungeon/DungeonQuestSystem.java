@@ -32,10 +32,8 @@ import org.terasology.gooeysQuests.api.QuestReadyEvent;
 import org.terasology.gooeysQuests.api.QuestStartRequest;
 import org.terasology.logic.inventory.InventoryManager;
 import org.terasology.logic.location.LocationComponent;
-import org.terasology.logic.particles.BlockParticleEffectComponent;
 import org.terasology.math.Region3i;
 import org.terasology.math.Side;
-import org.terasology.math.geom.Vector3f;
 import org.terasology.math.geom.Vector3i;
 import org.terasology.registry.In;
 import org.terasology.structureTemplates.events.CheckSpawnConditionEvent;
@@ -88,17 +86,8 @@ public class DungeonQuestSystem extends BaseComponentSystem {
 
     private Random random = new Random();
 
-    private Prefab spawnDungeonParticlePrefab;
     private Predicate<Block> isAirCondition;
     private Predicate<Block> isGroundCondition;
-
-
-
-    @Override
-    public void initialise() {
-        spawnDungeonParticlePrefab = assetManager.getAsset("GooeysQuests:teleportParticleEffect", Prefab.class).get();
-
-    }
 
 
     @Override
@@ -196,10 +185,8 @@ public class DungeonQuestSystem extends BaseComponentSystem {
             return; // TODO report failure to client and gooey system
         }
 
-        Region3i entranceDoorRegion = getEntranceDoorRegion(spawnTransformation);
         EntityRef entranceSpawner = spawnPossiblity.getEntranceSpawner();
         entranceSpawner.send(new SpawnStructureEvent(spawnTransformation));
-        spawnMagicalBuildParticles(entranceDoorRegion);
     }
 
     /**
@@ -252,18 +239,5 @@ public class DungeonQuestSystem extends BaseComponentSystem {
         } else {
             return -1;
         }
-    }
-
-
-    private void spawnMagicalBuildParticles(Region3i region) {
-
-        EntityBuilder entityBuilder = entityManager.newBuilder(spawnDungeonParticlePrefab);
-        LocationComponent locationComponent = entityBuilder.getComponent(LocationComponent.class);
-        locationComponent.setWorldPosition(region.center());
-        BlockParticleEffectComponent particleEffect = entityBuilder.getComponent(BlockParticleEffectComponent.class);
-        Vector3f size = new Vector3f(region.size().toVector3f());
-        size.scale(0.5f);
-        particleEffect.spawnRange = size;
-        entityBuilder.build();
     }
 }

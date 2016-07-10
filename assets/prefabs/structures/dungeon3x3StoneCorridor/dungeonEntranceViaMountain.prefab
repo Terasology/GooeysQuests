@@ -13,7 +13,9 @@
             { "blockType": "core:stone", "region": { "min": [1, 1, 2], "size": [1, 2, 1]}}
         ]
     },
-
+    "SpawnMagicBuildParticles": {
+        "region" : { "min": [-1, 1, 0], "size": [3, 3, 2]}
+    },
     "CheckBlockRegionCondition" : {
         "checksToPerform": [
             {"condition": "StructureTemplates:IsGroundLike", "region" :{ "min": [-1, 0, 0], "size": [3, 1, 1]}},
