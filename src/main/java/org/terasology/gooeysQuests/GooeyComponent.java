@@ -17,10 +17,13 @@ package org.terasology.gooeysQuests;
 
 import org.terasology.entitySystem.Component;
 import org.terasology.entitySystem.entity.EntityRef;
+import org.terasology.network.FieldReplicateType;
+import org.terasology.network.Replicate;
 
 /**
  * Used to find the character "Gooey".
  */
 public class GooeyComponent implements Component {
+    @Replicate(FieldReplicateType.SERVER_TO_CLIENT)
     public EntityRef offeredQuest = EntityRef.NULL;
 }
