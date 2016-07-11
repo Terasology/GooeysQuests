@@ -1,7 +1,8 @@
 {
     "StructureTemplate" : {
         "type": "GooeysQuests:dungeon1x2StoneDoorFrame",
-        "front": "FRONT"
+        "front": "FRONT",
+        "spawnChance": 20
     }
     /*
      * Spans nothing so far:
