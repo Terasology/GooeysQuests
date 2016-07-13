@@ -1,0 +1,33 @@
+{
+    "StructureTemplate" : {
+        "type": "GooeysQuests:dungeon3x3StoneCorridor",
+        "front": "FRONT",
+        "spawnChance": 20
+    },
+    "SpawnBlockRegions": {
+        "regionsToFill":[
+            /* First fill everything with air, to make later content placing simpler: */
+            { "blockType": "Core:Chest.FRONT", "region": { "min": [0, 1, 0], "size": [1, 1, 1]}}
+        ]
+    },
+    "AddItemsToChest": {
+        "chestsToFill": [
+            {
+                "position": [0, 1, 0],
+                "items": [
+                    {"slot": 12, "itemPrefab": "Equipment:BronzeDagger"}
+                ]
+            }
+        ]
+    },
+
+    /* For debugging purposes it is an item: */
+    "parent" : "engine:iconItem",
+    "DisplayName" : {
+        "name" : "Places a corridor end reward chest 1"
+    },
+    "Item" : {
+        "icon" : "engine:items#whiteRecipe"
+    },
+    "SpawnStructureAction": {}
+}

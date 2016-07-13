@@ -26,6 +26,17 @@
             { "blockType": "engine:air", "region": { "min": [0, 1, 5], "size": [1, 1, 1]}}
         ]
     },
+    "AddItemsToChest": {
+        "chestsToFill": [
+            {
+                "position": [-1, 1, 5],
+                "items": [
+                    {"slot": 5, "blockFamiliy": "core:stone", "amount": 50 },
+                    {"slot": 12, "itemPrefab": "core:pickaxe"}
+                ]
+            }
+        ]
+    },
     "CheckBlockRegionCondition" : {
         "checksToPerform": [
             {"condition": "StructureTemplates:IsGroundLike", "region" :{"min": [-3, -1, 1], "size": [7, 7, 7]}}

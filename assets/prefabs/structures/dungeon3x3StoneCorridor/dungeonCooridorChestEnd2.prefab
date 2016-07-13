@@ -1,7 +1,8 @@
 {
     "StructureTemplate" : {
         "type": "GooeysQuests:dungeon3x3StoneCorridor",
-        "front": "FRONT"
+        "front": "FRONT",
+        "spawnChance": 10
     },
     "SpawnBlockRegions": {
         "regionsToFill":[
@@ -9,11 +10,21 @@
             { "blockType": "Core:Chest.FRONT", "region": { "min": [0, 1, 0], "size": [1, 1, 1]}}
         ]
     },
+    "AddItemsToChest": {
+        "chestsToFill": [
+            {
+                "position": [0, 1, 0],
+                "items": [
+                    {"slot": 12, "itemPrefab": "Equipment:BronzeHelmet"}
+                ]
+            }
+        ]
+    },
 
     /* For debugging purposes it is an item: */
     "parent" : "engine:iconItem",
     "DisplayName" : {
-        "name" : "Places a corridor end reward chest"
+        "name" : "Places a corridor end reward chest 2"
     },
     "Item" : {
         "icon" : "engine:items#whiteRecipe"
