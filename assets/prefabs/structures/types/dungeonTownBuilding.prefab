@@ -1,0 +1,7 @@
+{
+    "StructureTemplateType": {},
+    "DisplayName": {
+        "name": "Dungeon Town Building",
+        "description": "A building in a dungeon town. Region for building: {min: [-4, 1, 2], size: [10, 9, 7]}"
+    }
+}
