@@ -42,6 +42,14 @@
             }
         ]
     },
+    "SpawnPrefabs": {
+        "prefabsToSpawn": [
+            {
+                "prefab": "GooeysQuests:Skeleton",
+                "position": [0, 2, 5]
+            }
+        ]
+    },
     "CheckBlockRegionCondition" : {
         "checksToPerform": [
             {"condition": "StructureTemplates:IsGroundLike", "region" :{"min": [-11, 0, 1], "size": [23, 12, 22]}}
