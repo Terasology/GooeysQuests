@@ -33,6 +33,9 @@ public class ContinueFollowingCheckNode extends Node {
     @Range(min = 0, max = 20)
     private float minDistance = 0.0f;
 
+    @Range(min = 0, max = 100)
+    private float maxDistance = 100.0f;
+
     @Override
     public ContinueFollowingCheckTask createTask() {
         return new ContinueFollowingCheckTask(this);
@@ -70,8 +73,12 @@ public class ContinueFollowingCheckNode extends Node {
             Vector3f currentPoint = currentLocation.getWorldPosition();
 
             float minDistanceSquared = getNode().getMinDistance() * getNode().getMinDistance();
+            float maxDistanceSquared = getNode().getMaxDistance() * getNode().getMaxDistance();
             float currentDistanceSquared = currentPoint.distanceSquared(targetPoint);
             if (currentDistanceSquared <= minDistanceSquared) {
+                return Status.FAILURE;
+            }
+            if (currentDistanceSquared >= maxDistanceSquared) {
                 return Status.FAILURE;
             }
 
@@ -91,5 +98,8 @@ public class ContinueFollowingCheckNode extends Node {
 
     public float getMinDistance() {
         return minDistance;
+    }
+    public float getMaxDistance() {
+        return maxDistance;
     }
 }
