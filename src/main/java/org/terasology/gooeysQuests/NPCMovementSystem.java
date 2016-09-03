@@ -75,15 +75,20 @@ public class NPCMovementSystem extends BaseComponentSystem implements UpdateSubs
         CharacterMoveInputEvent inputEvent = null;
         if (currentTarget != null) {
             Vector3f worldPos = new Vector3f(location.getWorldPosition());
-            Vector3f targetDirection = new Vector3f();
-            targetDirection.sub(currentTarget, worldPos);
-            float yaw = (float) Math.atan2(targetDirection.x, targetDirection.z);
+            Vector3f deltaToTarget = new Vector3f();
+            deltaToTarget.sub(currentTarget, worldPos);
+            float yaw = (float) Math.atan2(deltaToTarget.x, deltaToTarget.z);
 
             Vector3f drive = new Vector3f();
-            float dist = MIN_DISTANCE;
-            if (targetDirection.x * targetDirection.x + targetDirection.z * targetDirection.z > dist * dist) {
-                targetDirection.scale(0.5f);
-                drive.set(targetDirection);
+            float remainingDistanceSquared = deltaToTarget.x * deltaToTarget.x + deltaToTarget.z * deltaToTarget.z;
+
+            /**
+             * Don't let the character do super mini staps if we are arealdy as good as at the target.
+             */
+            boolean notAtTargetYet = remainingDistanceSquared > MIN_DISTANCE * MIN_DISTANCE;
+            if (notAtTargetYet) {
+                drive.set(deltaToTarget);
+                drive.scale(1.0f / (float) Math.sqrt(remainingDistanceSquared));
                 boolean jumpRequested = jumpRecommended;
                 float requestedYaw = 180f + yaw * TeraMath.RAD_TO_DEG;
                  inputEvent = new CharacterMoveInputEvent(0, 0, requestedYaw, drive, false,
