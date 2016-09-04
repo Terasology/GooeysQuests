@@ -13,31 +13,23 @@
           }
         },
         {
-          "nodeType": "engine:SetAnimationNode",
-          "nodeId": 2,
-          "node": {
-            "play": "engine:Walk.animationPool",
-            "loop": "engine:Walk.animationPool"
-          }
-        },
-        {
           "nodeType": "engine:WrapperNode",
-          "nodeId": 3,
+          "nodeId": 2,
           "node": {
             "child": {
               "nodeType": "engine:ParallelNode",
-              "nodeId": 4,
+              "nodeId": 3,
               "node": {
                 "successPolicy": "RequireAll",
                 "failurePolicy": "RequireOne",
                 "children": [
                   {
                     "nodeType": "engine:RepeatNode",
-                    "nodeId": 5,
+                    "nodeId": 4,
                     "node": {
                       "child": {
                         "nodeType": "GooeysQuests:ContinueFollowingCheckNode",
-                        "nodeId": 6,
+                        "nodeId": 5,
                         "node": {
                           "minDistance": 1.2,
                           "maxDistance": 100.0
@@ -47,7 +39,7 @@
                   },
                   {
                     "nodeType": "GooeysQuests:FollowNode",
-                    "nodeId": 7,
+                    "nodeId": 6,
                     "node": {}
                   }
                 ]
@@ -57,20 +49,20 @@
         },
         {
           "nodeType": "engine:WrapperNode",
-          "nodeId": 8,
+          "nodeId": 7,
           "node": {
             "child": {
               "nodeType": "engine:RepeatNode",
-              "nodeId": 9,
+              "nodeId": 8,
               "node": {
                 "child": {
                   "nodeType": "engine:SequenceNode",
-                  "nodeId": 10,
+                  "nodeId": 9,
                   "node": {
                     "children": [
                       {
                         "nodeType": "GooeysQuests:ContinueFollowingCheckNode",
-                        "nodeId": 11,
+                        "nodeId": 10,
                         "node": {
                           "minDistance": 0.0,
                           "maxDistance": 1.2
@@ -78,7 +70,7 @@
                       },
                       {
                         "nodeType": "engine:SetAnimationNode",
-                        "nodeId": 12,
+                        "nodeId": 11,
                         "node": {
                           "play": "engine:Walk.animationPool",
                           "loop": "GooeysQuests:MeleeAttack.animationPool"
@@ -86,11 +78,11 @@
                       },
                       {
                         "nodeType": "engine:WrapperNode",
-                        "nodeId": 13,
+                        "nodeId": 12,
                         "node": {
                           "child": {
                             "nodeType": "engine:TimerNode",
-                            "nodeId": 14,
+                            "nodeId": 13,
                             "node": {
                               "time": 0.5
                             }
@@ -99,16 +91,16 @@
                       },
                       {
                         "nodeType": "engine:WrapperNode",
-                        "nodeId": 15,
+                        "nodeId": 14,
                         "node": {
                           "child": {
                             "nodeType": "engine:SequenceNode",
-                            "nodeId": 16,
+                            "nodeId": 15,
                             "node": {
                               "children": [
                                 {
                                   "nodeType": "GooeysQuests:ContinueFollowingCheckNode",
-                                  "nodeId": 17,
+                                  "nodeId": 16,
                                   "node": {
                                     "minDistance": 0.0,
                                     "maxDistance": 1.2
@@ -116,7 +108,7 @@
                                 },
                                 {
                                   "nodeType": "GooeysQuests:DamageFollowedPlayerNode",
-                                  "nodeId": 18,
+                                  "nodeId": 17,
                                   "node": {
                                     "damage": 40
                                   }
@@ -128,11 +120,11 @@
                       },
                       {
                         "nodeType": "engine:WrapperNode",
-                        "nodeId": 19,
+                        "nodeId": 18,
                         "node": {
                           "child": {
                             "nodeType": "engine:TimerNode",
-                            "nodeId": 20,
+                            "nodeId": 19,
                             "node": {
                               "time": 0.5
                             }
@@ -144,14 +136,6 @@
                 }
               }
             }
-          }
-        },
-        {
-          "nodeType": "engine:SetAnimationNode",
-          "nodeId": 21,
-          "node": {
-            "play": "engine:Stand.animationPool",
-            "loop": "engine:Stand.animationPool"
           }
         }
       ]

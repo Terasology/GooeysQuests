@@ -17,16 +17,24 @@ package org.terasology.gooeysQuests;
 
 import org.terasology.entitySystem.entity.EntityManager;
 import org.terasology.entitySystem.entity.EntityRef;
+import org.terasology.entitySystem.entity.lifecycleEvents.OnChangedComponent;
+import org.terasology.entitySystem.event.ReceiveEvent;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.entitySystem.systems.UpdateSubscriberSystem;
 import org.terasology.logic.characters.CharacterMoveInputEvent;
+import org.terasology.logic.characters.StandComponent;
+import org.terasology.logic.characters.WalkComponent;
 import org.terasology.logic.location.LocationComponent;
 import org.terasology.math.TeraMath;
 import org.terasology.math.geom.Vector3f;
 import org.terasology.minion.move.MinionMoveComponent;
 import org.terasology.registry.In;
+import org.terasology.rendering.assets.animation.MeshAnimation;
+import org.terasology.rendering.logic.SkeletalMeshComponent;
+
+import java.util.List;
 
 /**
  * Makes entities with the {@link NPCMovementSystem} move to the target specified by {@link NPCMovementComponent}.
@@ -109,5 +117,37 @@ public class NPCMovementSystem extends BaseComponentSystem implements UpdateSubs
         entity.send(inputEvent);
     }
 
+
+
+
+    @ReceiveEvent
+    public void updateAnimation(OnChangedComponent event, EntityRef entity, NPCMovementComponent component) {
+        WalkComponent walkComponent = entity.getComponent(WalkComponent.class);
+        if (walkComponent == null) {
+            return;
+        }
+        StandComponent standComponent = entity.getComponent(StandComponent.class);
+        if (standComponent == null) {
+            return;
+        }
+        SkeletalMeshComponent skeletalMeshComponent = entity.getComponent(SkeletalMeshComponent.class);
+        if (skeletalMeshComponent == null)  {
+            return;
+        }
+        List<MeshAnimation> wantedAnimationPool;
+        if (component.targetPosition != null) {
+            wantedAnimationPool = walkComponent.animationPool;
+        } else {
+            wantedAnimationPool = standComponent.animationPool;
+        }
+        if (wantedAnimationPool.equals(skeletalMeshComponent.animationPool)) {
+            return;
+        }
+        skeletalMeshComponent.animation = null;
+        skeletalMeshComponent.animationPool.clear();
+        skeletalMeshComponent.animationPool.addAll(wantedAnimationPool);
+        skeletalMeshComponent.loop = true;
+        entity.saveComponent(skeletalMeshComponent);
+    }
 
 }
