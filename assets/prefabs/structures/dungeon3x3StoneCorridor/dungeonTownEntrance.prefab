@@ -45,8 +45,8 @@
     "SpawnPrefabs": {
         "prefabsToSpawn": [
             {
-                "prefab": "GooeysQuests:Skeleton",
-                "position": [0, 2, 5]
+                "prefab": "GooeysQuests:SkeletonPlaceholder",
+                "position": [0, 1, 5]
             }
         ]
     },

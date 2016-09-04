@@ -27,6 +27,7 @@ import org.terasology.gooeysQuests.api.SpawnMagicBuildParticlesComponent;
 import org.terasology.gooeysQuests.api.SpawnPrefabsComponent;
 import org.terasology.logic.location.LocationComponent;
 import org.terasology.math.geom.Vector3i;
+import org.terasology.physics.events.CollideEvent;
 import org.terasology.registry.In;
 import org.terasology.structureTemplates.events.SpawnStructureEvent;
 import org.terasology.world.WorldProvider;
@@ -47,8 +48,8 @@ public class SpawnPrefabServerSystem extends BaseComponentSystem {
     private WorldProvider worldProvider;
 
     @ReceiveEvent
-    public void onShowMagicBuildSpawnParticles(SpawnStructureEvent event, EntityRef entity,
-                                               SpawnPrefabsComponent component) {
+    public void onSpawnStructureWithPrefabSpawn(SpawnStructureEvent event, EntityRef entity,
+                                                SpawnPrefabsComponent component) {
         for (SpawnPrefabsComponent.PrefabToSpawn prefabToSpawn: component.prefabsToSpawn) {
             Vector3i position = event.getTransformation().transformVector3i(prefabToSpawn.position);
             EntityBuilder entityBuilder = entityManager.newBuilder(prefabToSpawn.prefab);
@@ -59,5 +60,17 @@ public class SpawnPrefabServerSystem extends BaseComponentSystem {
         }
 
     }
+    @ReceiveEvent
+    public void onCollision(CollideEvent event, EntityRef entity,
+                            SpawnPrefabOnPlayerCollisionComponent spawnPrefabComponent,
+                            LocationComponent placeholderLocationComponent) {
+
+        EntityBuilder entityBuilder = entityManager.newBuilder(spawnPrefabComponent.prefab);
+        LocationComponent locationComponent = entityBuilder.getComponent(LocationComponent.class);
+        locationComponent.setWorldPosition(placeholderLocationComponent.getWorldPosition());
+        entityBuilder.build();
+        entity.destroy();
+    }
+
 
 }
