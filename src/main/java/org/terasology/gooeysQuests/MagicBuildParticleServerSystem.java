@@ -26,6 +26,7 @@ import org.terasology.gooeysQuests.api.SpawnMagicBuildParticlesComponent;
 import org.terasology.math.Region3i;
 import org.terasology.registry.In;
 import org.terasology.structureTemplates.events.SpawnStructureEvent;
+import org.terasology.structureTemplates.events.StructureSpawnStartedEvent;
 import org.terasology.world.WorldProvider;
 
 /**
@@ -44,7 +45,7 @@ public class MagicBuildParticleServerSystem extends BaseComponentSystem {
     private WorldProvider worldProvider;
 
     @ReceiveEvent
-    public void onShowMagicBuildSpawnParticles(SpawnStructureEvent event, EntityRef entity,
+    public void onShowMagicBuildSpawnParticles(StructureSpawnStartedEvent event, EntityRef entity,
                                                SpawnMagicBuildParticlesComponent component) {
         Region3i region = event.getTransformation().transformRegion(component.region);
         worldProvider.getWorldEntity().send(new SpawnMagicBuildParticlesEvent(region));

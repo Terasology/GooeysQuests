@@ -20,12 +20,13 @@ import org.terasology.entitySystem.prefab.Prefab;
 import org.terasology.math.geom.Vector3i;
 import org.terasology.reflection.MappedContainer;
 import org.terasology.structureTemplates.events.SpawnStructureEvent;
+import org.terasology.structureTemplates.events.StructureBlocksSpawnedEvent;
 
 import java.util.List;
 
 /**
- * If a entity with this component gets a {@link SpawnStructureEvent} then particles will be spawned in the
- * given region.
+ * If a entity with this component gets a {@link SpawnStructureEvent} (that sends a {@link StructureBlocksSpawnedEvent})
+ * then particles will be spawned in the given region.
  */
 public class SpawnPrefabsComponent implements Component {
 

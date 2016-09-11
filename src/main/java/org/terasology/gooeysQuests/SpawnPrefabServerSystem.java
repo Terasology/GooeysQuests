@@ -29,7 +29,7 @@ import org.terasology.logic.location.LocationComponent;
 import org.terasology.math.geom.Vector3i;
 import org.terasology.physics.events.CollideEvent;
 import org.terasology.registry.In;
-import org.terasology.structureTemplates.events.SpawnStructureEvent;
+import org.terasology.structureTemplates.events.StructureBlocksSpawnedEvent;
 import org.terasology.world.WorldProvider;
 
 /**
@@ -48,7 +48,7 @@ public class SpawnPrefabServerSystem extends BaseComponentSystem {
     private WorldProvider worldProvider;
 
     @ReceiveEvent
-    public void onSpawnStructureWithPrefabSpawn(SpawnStructureEvent event, EntityRef entity,
+    public void onSpawnStructureWithPrefabSpawn(StructureBlocksSpawnedEvent event, EntityRef entity,
                                                 SpawnPrefabsComponent component) {
         for (SpawnPrefabsComponent.PrefabToSpawn prefabToSpawn: component.prefabsToSpawn) {
             Vector3i position = event.getTransformation().transformVector3i(prefabToSpawn.position);
