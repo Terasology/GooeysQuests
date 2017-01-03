@@ -15,7 +15,7 @@
                 "minVersion" : "0.2.0"
             },{
                   "id" : "Equipment",
-                  "minVersion" : "0.2.0"
+                  "minVersion" : "1.0.0"
               }
             ],
     "serverSideOnly" : false
