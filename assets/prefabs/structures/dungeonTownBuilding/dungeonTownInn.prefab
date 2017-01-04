@@ -116,7 +116,7 @@
     /* For debugging purposes it is an item: */
     "parent" : "engine:iconItem",
     "DisplayName" : {
-        "name" : "Forge in a dungeon town"
+        "name" : "Inn in a dungeon town"
     },
     "Item" : {
         "icon" : "engine:items#whiteRecipe"
