@@ -1,0 +1,17 @@
+{
+  "translucent": false,
+  "invisible": false,
+  "targetable": true,
+  "penetrable": true,
+  "replacementAllowed": false,
+  "shadowCasting": true,
+  "attachmentAllowed": false,
+  "hardness": 0,
+  "displayName": "Mantle Stone Illusion",
+  "rotation": "symmetric",
+  "sounds": "none",
+  "tiles" : {
+    "all" : "MantleStone"
+  },
+  "shape" : "GooeysQuests:UnoptimizedCube"
+}
