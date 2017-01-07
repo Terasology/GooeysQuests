@@ -39,7 +39,7 @@
                     },
                     {
                         "type" : "UIButton",
-                        "text" : "Thats all",
+                        "text" : "That's all",
                         "id" : "closeButton"
                     }
 
