@@ -1,0 +1,32 @@
+{
+    "StructureTemplate" : {
+        "type": "GooeysQuests:dungeon3x3StoneCorridor",
+        "front": "FRONT",
+        "spawnChance": 2
+    },
+    "SpawnBlockRegions": {
+        "regionsToFill":[
+            /* First fill everything with air, to make later content placing simpler: */
+            { "blockType": "core:Tnt", "region": { "min": [2, 1, 0], "size": [1, 2, 1]}},
+            { "blockType": "core:Tnt", "region": { "min": [2, 3, 0], "size": [3, 1, 1]}},
+            { "blockType": "core:Tnt", "region": { "min": [4, 1, 0], "size": [1, 2, 1]}},
+            { "blockType": "core:Tnt", "region": { "min": [2, 1, 1], "size": [3, 3, 2]}},
+            { "blockType": "core:stone", "region": { "min": [1, 0, 0], "size": [5, 1, 3]}},
+            { "blockType": "core:stone", "region": { "min": [1, 1, 0], "size": [1, 3, 3]}},
+            { "blockType": "core:stone", "region": { "min": [1, 4, 0], "size": [5, 1, 3]}},
+            { "blockType": "core:stone", "region": { "min": [1, 1, 0], "size": [1, 3, 3]}},
+            { "blockType": "core:stone", "region": { "min": [1, 0, 3], "size": [5, 5, 1]}},
+            { "blockType": "engine:air", "region": { "min": [3, 1, 0], "size": [1, 2, 1]}}
+        ]
+    },
+
+    /* For debugging purposes it is an item: */
+    "parent" : "engine:iconItem",
+    "DisplayName" : {
+        "name" : "Places a corridor end with a trap"
+    },
+    "Item" : {
+        "icon" : "engine:items#whiteRecipe"
+    },
+    "SpawnStructureAction": {}
+}
