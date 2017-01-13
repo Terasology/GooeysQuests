@@ -1,6 +1,6 @@
 {
   "StructureTemplate" : {
-    "type": "GooeysQuests:Saw",
+    "type": "GooeysQuests:dungeonEntrance",
     "front": "FRONT",
     "spawnChance": 100
   },
@@ -786,7 +786,7 @@
 	      {
 	        "position": [4, 1, -1],
 	        "items": [
-	          {"slot": 0, "itemPrefab": "Equipment:GoldBadgeOfLuck”}
+	          {"slot": 1, "itemPrefab": "Equipment:GoldBadgeOfLuck”}
 	        ]
 	      },
       "AddItemsToChest": {
@@ -794,7 +794,7 @@
 	      {
 	        "position": [20, -6, 0],
 	        "items": [
-	          {"slot": 0, "itemPrefab": "Equipment:MysticEspeebastard"}
+	          {"slot": 1, "itemPrefab": "Equipment:MysticEspeebastard"}
 	        ]
 	      },
 
