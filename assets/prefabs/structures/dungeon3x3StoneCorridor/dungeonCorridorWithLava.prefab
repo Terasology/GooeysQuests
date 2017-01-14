@@ -38,7 +38,11 @@
             { "blockType": "engine:air", "region": { "min": [-1, 1, -1], "size": [3, 3, 1]}}
         ]
     },
-
+    "CheckBlockRegionCondition" : {
+        "checksToPerform": [
+            {"condition": "StructureTemplates:IsGroundLike", "region" :{"min": [-2, 0, -7], "size": [5, 5, 7]}}
+        ]
+    },
     "ScheduleStructurePlacement" : {
             "placementsToSchedule": [
                 {
