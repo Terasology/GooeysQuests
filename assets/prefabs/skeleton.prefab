@@ -43,16 +43,16 @@
         "speedMultiplier" : 1.0,
         "distanceBetweenFootsteps" : 0.2,
         "distanceBetweenSwimStrokes" : 2.5,
-        "height" : 1.0,
-        "radius" : 0.5,
+        "height" : 3.0,
+        "radius" : 0.3,
         "jumpSpeed" : 12
     },
     "Network" :{},
     "MinionMove" : {},
     "Health" : {
-      "maxHealth": 1,
-      "currentHealth": 1
-      
+      "maxHealth": 50,
+      "currentHealth": 50,
+      "destroyEntityOnNoHealth" : true
     },
     "BoxShape" : {
         "extents" : [1.0, 1.0, 1.0]
