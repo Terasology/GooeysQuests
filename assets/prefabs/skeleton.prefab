@@ -14,7 +14,7 @@
     },
     "skeletalmesh" : {
         "mesh" : "skeleton",
-        "heightOffset" : -0.5,
+        "heightOffset" : -1,
         "material" : "skeletonSkin",
         "animationPool": [
             "skeletonStand"
@@ -43,7 +43,7 @@
         "speedMultiplier" : 1.0,
         "distanceBetweenFootsteps" : 0.2,
         "distanceBetweenSwimStrokes" : 2.5,
-        "height" : 3.0,
+        "height" : 2.0,
         "radius" : 0.3,
         "jumpSpeed" : 12
     },
