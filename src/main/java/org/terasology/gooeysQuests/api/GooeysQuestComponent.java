@@ -34,5 +34,5 @@ public class GooeysQuestComponent implements Component {
     public String startButtonText = "Start Quest";
     public String description="Up for a quest?\n\n"
             + "Sadly I have no further description for you.\n\n"
-            + "However be warned: Starting a quest can result in possibly unwanted world modificaitons!";
+            + "However be warned: Starting a quest can result in possibly unwanted world modifications!";
 }
