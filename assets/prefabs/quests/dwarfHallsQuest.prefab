@@ -1,0 +1,10 @@
+{
+    "persistent": true,
+    "DwarfHallsQuest": {},
+    "GooeysQuest": {
+        "greetingText": "Hi, up for some dwarf hall exploration?",
+        "startButtonText": "Yes, please add a dwarf hall to this world",
+        "description": "Interested in some dwarf hall exploration?\n\nI could use my magic to add a dwarf hall to this world."
+    },
+    "Network":{}
+}
