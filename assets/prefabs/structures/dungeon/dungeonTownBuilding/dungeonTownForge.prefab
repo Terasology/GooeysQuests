@@ -1,7 +1,6 @@
 {
     "StructureTemplate" : {
         "type": "GooeysQuests:dungeonTownBuilding",
-        "front": "FRONT",
         "spawnChance": 100
     },
     "SpawnBlockRegions": {

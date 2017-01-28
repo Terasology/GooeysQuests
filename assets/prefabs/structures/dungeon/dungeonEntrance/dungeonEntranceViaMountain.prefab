@@ -1,7 +1,6 @@
 {
     "StructureTemplate" : {
-        "type": "GooeysQuests:dungeonEntrance",
-        "front": "FRONT"
+        "type": "GooeysQuests:dungeonEntrance"
     },
     "SpawnBlockRegions": {
         "regionsToFill":[

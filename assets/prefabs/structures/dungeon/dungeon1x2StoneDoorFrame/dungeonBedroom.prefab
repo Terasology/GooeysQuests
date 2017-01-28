@@ -1,7 +1,6 @@
 {
     "StructureTemplate" : {
-        "type": "GooeysQuests:dungeon1x2StoneDoorFrame",
-        "front": "FRONT"
+        "type": "GooeysQuests:dungeon1x2StoneDoorFrame"
     },
     "SpawnBlockRegions": {
         "regionsToFill":[

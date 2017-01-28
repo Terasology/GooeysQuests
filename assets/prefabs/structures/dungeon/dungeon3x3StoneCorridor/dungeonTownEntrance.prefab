@@ -1,7 +1,6 @@
 {
     "StructureTemplate" : {
-        "type": "GooeysQuests:dungeon3x3StoneCorridor",
-        "front": "FRONT"
+        "type": "GooeysQuests:dungeon3x3StoneCorridor"
     },
     "SpawnBlockRegions": {
         "regionsToFill":[
