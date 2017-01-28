@@ -1,77 +1,76 @@
 {
     "StructureTemplate" : {
-        "type": "GooeysQuests:dwarfHallsEntrance",
-        "front": "LEFT"
+        "type": "GooeysQuests:dwarfHallsEntrance"
     },
     "SpawnBlockRegions": {
-        "regionsToFill":[
-            { "blockType": "ChiselBlocks:basalt_chaotic-medium", "region": { "min": [5, 1, -2], "size": [2, 4, 1]}},
-            { "blockType": "ChiselBlocks:basalt_chaotic-medium", "region": { "min": [5, 4, -1], "size": [2, 1, 1]}},
-            { "blockType": "ChiselBlocks:basalt_chaotic-medium", "region": { "min": [6, 4, 0], "size": [1, 1, 1]}},
-            { "blockType": "ChiselBlocks:basalt_chaotic-medium", "region": { "min": [5, 4, 1], "size": [2, 1, 2]}},
-            { "blockType": "ChiselBlocks:basalt_chaotic-medium", "region": { "min": [6, 1, 2], "size": [1, 3, 1]}},
-            { "blockType": "ChiselBlocks:basalt_prism", "region": { "min": [4, 1, -2], "size": [1, 4, 1]}},
-            { "blockType": "ChiselBlocks:basalt_prism", "region": { "min": [4, 4, -1], "size": [1, 2, 1]}},
-            { "blockType": "ChiselBlocks:basalt_prism", "region": { "min": [4, 5, 0], "size": [1, 2, 1]}},
-            { "blockType": "ChiselBlocks:basalt_prism", "region": { "min": [4, 4, 1], "size": [1, 2, 1]}},
-            { "blockType": "ChiselBlocks:basalt_prism", "region": { "min": [4, 1, 2], "size": [1, 4, 1]}},
-            { "blockType": "ChiselBlocks:basalt_prism:engine:halfBlock", "region": { "min": [3, 1, -1], "size": [1, 1, 1]}},
-            { "blockType": "ChiselBlocks:basalt_prism:engine:halfBlock", "region": { "min": [4, 7, 0], "size": [1, 1, 1]}},
-            { "blockType": "ChiselBlocks:basalt_prism:engine:halfBlock", "region": { "min": [3, 1, 1], "size": [1, 1, 1]}},
-            { "blockType": "ChiselBlocks:basalt_prism:engine:stair.BACK", "region": { "min": [4, 1, -1], "size": [1, 1, 1]}},
-            { "blockType": "ChiselBlocks:basalt_prism:engine:stair.BACK", "region": { "min": [4, 6, 1], "size": [1, 1, 1]}},
-            { "blockType": "ChiselBlocks:basalt_prism:engine:stair.BACK", "region": { "min": [4, 5, 2], "size": [1, 1, 1]}},
-            { "blockType": "ChiselBlocks:basalt_prism:engine:stair.FRONT", "region": { "min": [4, 5, -2], "size": [1, 1, 1]}},
-            { "blockType": "ChiselBlocks:basalt_prism:engine:stair.FRONT", "region": { "min": [4, 6, -1], "size": [1, 1, 1]}},
-            { "blockType": "ChiselBlocks:basalt_prism:engine:stair.FRONT", "region": { "min": [4, 1, 1], "size": [1, 1, 1]}},
-            { "blockType": "ChiselBlocks:basalt_prism:engine:stair.LEFT", "region": { "min": [3, 1, -2], "size": [1, 1, 1]}},
-            { "blockType": "ChiselBlocks:basalt_prism:engine:stair.LEFT", "region": { "min": [3, 1, 2], "size": [1, 1, 1]}},
-            { "blockType": "ChiselBlocks:prismarine_dent", "region": { "min": [5, 3, 0], "size": [1, 2, 1]}},
-            { "blockType": "ChiselBlocks:prismarine_pillar-side", "region": { "min": [5, 1, -1], "size": [1, 2, 1]}},
-            { "blockType": "ChiselBlocks:prismarine_pillar-side", "region": { "min": [5, 1, 1], "size": [1, 2, 1]}},
-            { "blockType": "ChiselBlocks:prismarine_pillar-top", "region": { "min": [5, 3, -1], "size": [1, 1, 1]}},
-            { "blockType": "ChiselBlocks:prismarine_pillar-top", "region": { "min": [5, 3, 1], "size": [1, 1, 1]}},
-            { "blockType": "ChiselBlocks:prismarine_road", "region": { "min": [6, 0, -2], "size": [1, 1, 1]}},
-            { "blockType": "ChiselBlocks:prismarine_road", "region": { "min": [5, 0, -1], "size": [2, 1, 3]}},
-            { "blockType": "ChiselBlocks:prismarine_road", "region": { "min": [6, 0, 2], "size": [1, 1, 1]}},
-            { "blockType": "Core:torch.LEFT", "region": { "min": [3, 3, -2], "size": [1, 1, 1]}},
-            { "blockType": "Core:torch.LEFT", "region": { "min": [3, 3, 2], "size": [1, 1, 1]}},
-            { "blockType": "Core:torch.RIGHT", "region": { "min": [6, 3, 0], "size": [1, 1, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 1, -4], "size": [1, 2, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 3, -4], "size": [2, 3, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 6, -4], "size": [3, 1, 2]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 7, -4], "size": [4, 1, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 1, -3], "size": [2, 1, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 2, -3], "size": [4, 4, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 7, -3], "size": [2, 1, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 1, -2], "size": [3, 1, 2]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 2, -2], "size": [4, 1, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 3, -2], "size": [3, 1, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 4, -2], "size": [4, 3, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 7, -2], "size": [3, 1, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 2, -1], "size": [5, 2, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 4, -1], "size": [4, 4, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [6, 1, -1], "size": [1, 3, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 1, 0], "size": [7, 2, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 3, 0], "size": [5, 2, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 5, 0], "size": [4, 3, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 1, 1], "size": [3, 1, 2]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 2, 1], "size": [5, 2, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 4, 1], "size": [4, 4, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [6, 1, 1], "size": [1, 3, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 2, 2], "size": [4, 1, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 3, 2], "size": [3, 1, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 4, 2], "size": [4, 3, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 7, 2], "size": [3, 1, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 1, 3], "size": [2, 1, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 2, 3], "size": [4, 4, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 6, 3], "size": [3, 1, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 7, 3], "size": [2, 1, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 1, 4], "size": [1, 2, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 3, 4], "size": [2, 1, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 4, 4], "size": [3, 2, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 6, 4], "size": [4, 1, 1]}},
-            { "blockType": "Engine:Air", "region": { "min": [0, 7, 4], "size": [5, 1, 1]}}
+        "regionsToFill": [
+            { "blockType": "ChiselBlocks:basalt_chaotic-medium", "region": { "min": [-2, 4, 5], "size": [2, 1, 1]}},
+            { "blockType": "ChiselBlocks:basalt_chaotic-medium", "region": { "min": [1, 4, 5], "size": [2, 1, 1]}},
+            { "blockType": "ChiselBlocks:basalt_chaotic-medium", "region": { "min": [2, 1, 5], "size": [1, 3, 2]}},
+            { "blockType": "ChiselBlocks:basalt_chaotic-medium", "region": { "min": [-2, 1, 6], "size": [1, 3, 1]}},
+            { "blockType": "ChiselBlocks:basalt_chaotic-medium", "region": { "min": [-2, 4, 6], "size": [5, 1, 1]}},
+            { "blockType": "ChiselBlocks:basalt_prism", "region": { "min": [-2, 1, 4], "size": [1, 3, 1]}},
+            { "blockType": "ChiselBlocks:basalt_prism", "region": { "min": [-2, 4, 4], "size": [2, 1, 1]}},
+            { "blockType": "ChiselBlocks:basalt_prism", "region": { "min": [-1, 5, 4], "size": [3, 1, 1]}},
+            { "blockType": "ChiselBlocks:basalt_prism", "region": { "min": [0, 6, 4], "size": [1, 1, 1]}},
+            { "blockType": "ChiselBlocks:basalt_prism", "region": { "min": [1, 4, 4], "size": [2, 1, 1]}},
+            { "blockType": "ChiselBlocks:basalt_prism", "region": { "min": [2, 1, 4], "size": [1, 3, 1]}},
+            { "blockType": "ChiselBlocks:basalt_prism:engine:halfBlock", "region": { "min": [-1, 1, 3], "size": [1, 1, 1]}},
+            { "blockType": "ChiselBlocks:basalt_prism:engine:halfBlock", "region": { "min": [1, 1, 3], "size": [1, 1, 1]}},
+            { "blockType": "ChiselBlocks:basalt_prism:engine:halfBlock", "region": { "min": [0, 7, 4], "size": [1, 1, 1]}},
+            { "blockType": "ChiselBlocks:basalt_prism:engine:stair.FRONT", "region": { "min": [-2, 1, 3], "size": [1, 1, 1]}},
+            { "blockType": "ChiselBlocks:basalt_prism:engine:stair.FRONT", "region": { "min": [2, 1, 3], "size": [1, 1, 1]}},
+            { "blockType": "ChiselBlocks:basalt_prism:engine:stair.LEFT", "region": { "min": [-2, 5, 4], "size": [1, 1, 1]}},
+            { "blockType": "ChiselBlocks:basalt_prism:engine:stair.LEFT", "region": { "min": [-1, 6, 4], "size": [1, 1, 1]}},
+            { "blockType": "ChiselBlocks:basalt_prism:engine:stair.LEFT", "region": { "min": [1, 1, 4], "size": [1, 1, 1]}},
+            { "blockType": "ChiselBlocks:basalt_prism:engine:stair.RIGHT", "region": { "min": [-1, 1, 4], "size": [1, 1, 1]}},
+            { "blockType": "ChiselBlocks:basalt_prism:engine:stair.RIGHT", "region": { "min": [1, 6, 4], "size": [1, 1, 1]}},
+            { "blockType": "ChiselBlocks:basalt_prism:engine:stair.RIGHT", "region": { "min": [2, 5, 4], "size": [1, 1, 1]}},
+            { "blockType": "ChiselBlocks:prismarine_dent", "region": { "min": [0, 3, 5], "size": [1, 2, 1]}},
+            { "blockType": "ChiselBlocks:prismarine_pillar-side", "region": { "min": [-1, 1, 5], "size": [1, 2, 1]}},
+            { "blockType": "ChiselBlocks:prismarine_pillar-side", "region": { "min": [1, 1, 5], "size": [1, 2, 1]}},
+            { "blockType": "ChiselBlocks:prismarine_pillar-top", "region": { "min": [-1, 3, 5], "size": [1, 1, 1]}},
+            { "blockType": "ChiselBlocks:prismarine_pillar-top", "region": { "min": [1, 3, 5], "size": [1, 1, 1]}},
+            { "blockType": "ChiselBlocks:prismarine_road", "region": { "min": [-1, 0, 5], "size": [3, 1, 1]}},
+            { "blockType": "ChiselBlocks:prismarine_road", "region": { "min": [-2, 0, 6], "size": [5, 1, 1]}},
+            { "blockType": "Core:torch.BACK", "region": { "min": [0, 3, 6], "size": [1, 1, 1]}},
+            { "blockType": "Core:torch.FRONT", "region": { "min": [-2, 3, 3], "size": [1, 1, 1]}},
+            { "blockType": "Core:torch.FRONT", "region": { "min": [2, 3, 3], "size": [1, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-4, 1, 0], "size": [9, 7, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-4, 3, 1], "size": [9, 5, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-3, 1, 1], "size": [7, 2, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-4, 4, 2], "size": [8, 2, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-4, 6, 2], "size": [9, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-4, 7, 2], "size": [1, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-3, 2, 2], "size": [7, 2, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-2, 1, 2], "size": [5, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-2, 7, 2], "size": [5, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [4, 7, 2], "size": [1, 1, 2]}},
+            { "blockType": "engine:air", "region": { "min": [-4, 6, 3], "size": [1, 2, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-3, 2, 3], "size": [7, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-3, 3, 3], "size": [1, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-3, 4, 3], "size": [7, 2, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-2, 6, 3], "size": [5, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-1, 3, 3], "size": [3, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-1, 7, 3], "size": [3, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [0, 1, 3], "size": [1, 1, 2]}},
+            { "blockType": "engine:air", "region": { "min": [3, 3, 3], "size": [1, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-4, 7, 4], "size": [1, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-1, 2, 4], "size": [3, 2, 1]}},
+            { "blockType": "engine:air", "region": { "min": [0, 4, 4], "size": [1, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [0, 1, 5], "size": [1, 2, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-1, 1, 6], "size": [3, 2, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-1, 3, 6], "size": [1, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [1, 3, 6], "size": [1, 1, 1]}},
+        ]
+    },
+    "ScheduleStructurePlacement": {
+        "placementsToSchedule": [
+            {
+                "structureTemplateType": "GooeysQuests:dwarfHallsStaircase",
+                "front": "FRONT",
+                "position": [0, 0, 4]
+            }
         ]
     },
     "SpawnMagicBuildParticles": {
@@ -80,21 +79,11 @@
     "CheckBlockRegionCondition" : {
         "checksToPerform": [
             /** Space for room */
-            {"condition": "StructureTemplates:IsGroundLike", "region" :{"min": [6, 1, -2], "size": [8, 4, 5]}},
+            {"condition": "StructureTemplates:IsGroundLike", "region" :{"min": [-2, 1, 6], "size": [5, 4, 8]}},
 
             /** require air infront of the region we replace with air, to not create an slightly enclosed area*/
-            {"condition": "StructureTemplates:IsAirLike", "region" :{"min": [0, 1, -2], "size": [1, 4, 5]}}
+            {"condition": "StructureTemplates:IsAirLike", "region" :{"min": [-2, 1, 0], "size": [5, 4, 1]}}
 
-        ]
-    },
-
-    "ScheduleStructurePlacement" : {
-        "placementsToSchedule": [
-            {
-                "structureTemplateType": "GooeysQuests:dwarfHallsStaircase",
-                "front": "LEFT",
-                "position": [6, 0, 0]
-            }
 
         ]
     },
