@@ -20,6 +20,7 @@ import org.terasology.gooeysQuests.api.GooeysQuestComponent;
 import org.terasology.gooeysQuests.api.QuestStartRequest;
 import org.terasology.logic.chat.ChatMessageEvent;
 import org.terasology.logic.players.LocalPlayer;
+import org.terasology.pathfinding.components.FollowComponent;
 import org.terasology.registry.In;
 import org.terasology.rendering.nui.BaseInteractionScreen;
 import org.terasology.rendering.nui.UIWidget;
