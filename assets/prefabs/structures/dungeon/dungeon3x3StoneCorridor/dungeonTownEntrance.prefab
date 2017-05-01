@@ -4,14 +4,14 @@
     },
     "SpawnBlockRegions": {
         "regionsToFill":[
-            { "blockType": "core:stone", "region": { "min": [-11, 0, 1], "size": [23, 1, 21]}},
-            { "blockType": "core:stone", "region": { "min": [-11, 1, 1], "size": [10, 3, 1]}},
-            { "blockType": "core:stone", "region": { "min": [-11, 4, 1], "size": [23, 7, 1]}},
-            { "blockType": "core:stone", "region": { "min": [2, 1, 1], "size": [10, 3, 1]}},
-            { "blockType": "core:stone", "region": { "min": [-11, 1, 2], "size": [1, 9, 20]}},
-            { "blockType": "core:stone", "region": { "min": [-11, 10, 2], "size": [23, 1, 20]}},
-            { "blockType": "core:stone", "region": { "min": [11, 1, 2], "size": [1, 9, 20]}},
-            { "blockType": "core:stone", "region": { "min": [-11, 0, 22], "size": [23, 11, 1]}},
+            { "blockType": "Core:CobbleStone", "region": { "min": [-11, 0, 1], "size": [23, 1, 21]}},
+            { "blockType": "Core:CobbleStone", "region": { "min": [-11, 1, 1], "size": [10, 3, 1]}},
+            { "blockType": "Core:CobbleStone", "region": { "min": [-11, 4, 1], "size": [23, 7, 1]}},
+            { "blockType": "Core:CobbleStone", "region": { "min": [2, 1, 1], "size": [10, 3, 1]}},
+            { "blockType": "Core:CobbleStone", "region": { "min": [-11, 1, 2], "size": [1, 9, 20]}},
+            { "blockType": "Core:CobbleStone", "region": { "min": [-11, 10, 2], "size": [23, 1, 20]}},
+            { "blockType": "Core:CobbleStone", "region": { "min": [11, 1, 2], "size": [1, 9, 20]}},
+            { "blockType": "Core:CobbleStone", "region": { "min": [-11, 0, 22], "size": [23, 11, 1]}},
             { "blockType": "engine:air", "region": { "min": [-1, 1, 1], "size": [3, 3, 1]}},
             { "blockType": "engine:air", "region": { "min": [-10, 1, 2], "size": [21, 9, 20]}}
         ]

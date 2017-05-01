@@ -1,0 +1,17 @@
+{
+    "translucent": false,
+    "invisible": false,
+    "targetable": true,
+    "penetrable": true,
+    "replacementAllowed": false,
+    "shadowCasting": true,
+    "attachmentAllowed": false,
+    "hardness": 0,
+    "displayName": "Stone Illusion",
+    "rotation": "symmetric",
+    "sounds": "none",
+    "tiles" : {
+        "all" : "CobbleStone"
+    },
+    "shape" : "GooeysQuests:UnoptimizedCube"
+}
