@@ -5,11 +5,11 @@
     "penetrable": true,
     "replacementAllowed": false,
     "shadowCasting": true,
-    "attachmentAllowed": false,
-    "hardness": 0,
+    "attachmentAllowed": true,
+    "hardness": 12,
     "displayName": "Stone Illusion",
     "rotation": "symmetric",
-    "sounds": "none",
+    "sounds": "Core:stone",
     "tiles" : {
         "all" : "CobbleStone"
     },
