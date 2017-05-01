@@ -315,5 +315,9 @@
                 "position": [0, 0, 12]
             }
         ]
+    },
+    "ProtectRegionsForAFewHours" : {
+        "regions": [{"min": [-3, 0, 1], "size": [7, 5, 12]}]
     }
+
 }
