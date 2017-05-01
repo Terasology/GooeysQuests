@@ -72,10 +72,11 @@
         "checksToPerform": [
             {"condition": "StructureTemplates:IsGroundLike", "region" :{"min": [-3, -5, 1], "size": [7, 11, 18]}},
             /** region below start. to hide front wall below */
-            {"condition": "StructureTemplates:IsGroundLike", "region" :{"min": [-2, -4, 0], "size": [5, 5, 1]}},
-            /** to prevent wrong manual usage: check for air */
-            {"condition": "StructureTemplates:IsAirLike", "region" :{"min": [-1, 1, 0], "size": [3, 3, 1]}}
+            {"condition": "StructureTemplates:IsGroundLike", "region" :{"min": [-2, -4, 0], "size": [5, 5, 1]}}
         ]
+    },
+    "ProtectRegionsForAFewHours" : {
+        "regions": [{"min": [-3, -5, 1], "size": [7, 11, 18]}]
     },
     /* For debugging purposes it is an item: */
     "parent" : "engine:iconItem",
