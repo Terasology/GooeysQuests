@@ -26,9 +26,9 @@ import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.gooeysQuests.api.SpawnMagicBuildParticlesComponent;
 import org.terasology.logic.location.LocationComponent;
-import org.terasology.logic.particles.BlockParticleEffectComponent;
 import org.terasology.math.Region3i;
 import org.terasology.math.geom.Vector3f;
+import org.terasology.particles.components.generators.PositionRangeGeneratorComponent;
 import org.terasology.registry.In;
 
 /**
@@ -62,10 +62,11 @@ public class MagicBuildParticleClientSystem extends BaseComponentSystem {
         EntityBuilder entityBuilder = entityManager.newBuilder(spawnDungeonParticlePrefab);
         LocationComponent locationComponent = entityBuilder.getComponent(LocationComponent.class);
         locationComponent.setWorldPosition(region.center());
-        BlockParticleEffectComponent particleEffect = entityBuilder.getComponent(BlockParticleEffectComponent.class);
+        PositionRangeGeneratorComponent particleEffect = entityBuilder.getComponent(PositionRangeGeneratorComponent.class);
         Vector3f size = new Vector3f(region.size().toVector3f());
         size.scale(0.5f);
-        particleEffect.spawnRange = size;
+        particleEffect.minPosition = size.mul(-1f);
+        particleEffect.minPosition = size;
         entityBuilder.build();
     }
 }

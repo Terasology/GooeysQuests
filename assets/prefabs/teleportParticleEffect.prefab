@@ -1,20 +1,33 @@
 {
     "location" : {},
-    "blockParticleEffect" : {
-        "spawnCount" : 64,
-        "initialVelocityRange" : [4, 4, 4],
-        "spawnRange" : [0.3, 0.3, 0.3],
-        "destroyEntityOnCompletion" : true,
-        "minSize" : 0.25,
-        "maxSize" : 0.25,
-        "minLifespan" : 0.5,
-        "maxLifespan" : 1.0,
-        "targetVelocity" : [0, 2, 0],
-        "acceleration" : [2, 2, 2],
-        "collideWithBlocks" : true,
-        "texture" : "GooeysQuests:whitePurpleParticle",
-        "blendMode" : "ADD",
-        "color" : [1.0, 1.0, 1.0, 1.0]
+    "particleDataSprite": {
+        "texture": "GooeysQuests:whitePurpleParticle"
+    },
+    "positionRangeGenerator": {
+        "minPosition": [-5, -5, -5],
+        "maxPosition": [5, 5, 5]
+    },
+    "energyRangeGenerator": {
+        "minEnergy": 0.5,
+        "maxEnergy": 1.5
+    },
+    "scaleRangeGenerator": {
+        "minScale": [0.25, 0.25, 0.25],
+        "maxScale": [0.25, 0.25, 0.25]
+    },
+    "velocityRangeGenerator": {
+        "minVelocity": [-5, -5, -5],
+        "maxVelocity": [5, 5, 5]
+    },
+    "velocityAffector": {},
+    "particleEmitter": {
+        "lifeTime": 2,
+        "spawnRateMax": 32,
+        "spawnRateMin": 32,
+        "particleSpawnsLeft": 64,
+        "maxParticles": 64,
+        "particleCollision": false,
+        "destroyEntityWhenDead": true
     },
     "engine:Light": {
         "lightColorAmbient": [
