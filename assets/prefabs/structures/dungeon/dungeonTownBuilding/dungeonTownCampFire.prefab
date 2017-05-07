@@ -1,0 +1,77 @@
+{
+    "StructureTemplate": {
+        "type": "GooeysQuests:dungeonTownBuilding"
+    },
+    "SpawnBlockRegions": {
+        "regionsToFill": [
+            { "blockType": "Core:Chest.FRONT", "region": { "min": [2, 1, 8], "size": [1, 1, 1]}},
+            { "blockType": "Core:CobbleStone", "region": { "min": [0, 1, 7], "size": [1, 3, 1]}},
+            { "blockType": "Core:CobbleStone", "region": { "min": [0, 4, 7], "size": [5, 1, 2]}},
+            { "blockType": "Core:CobbleStone", "region": { "min": [4, 1, 7], "size": [1, 3, 1]}},
+            { "blockType": "Core:CobbleStone:engine:halfBlock", "region": { "min": [2, 1, 2], "size": [1, 1, 1]}},
+            { "blockType": "Core:CobbleStone:engine:halfBlock", "region": { "min": [1, 1, 3], "size": [1, 1, 1]}},
+            { "blockType": "Core:CobbleStone:engine:halfBlock", "region": { "min": [3, 1, 3], "size": [1, 1, 1]}},
+            { "blockType": "Core:CobbleStone:engine:halfBlock", "region": { "min": [2, 1, 4], "size": [1, 1, 1]}},
+            { "blockType": "Core:torch.FRONT", "region": { "min": [0, 2, 6], "size": [1, 1, 1]}},
+            { "blockType": "Core:torch.FRONT", "region": { "min": [4, 2, 6], "size": [1, 1, 1]}},
+            { "blockType": "Core:torch.FRONT", "region": { "min": [-2, 4, 8], "size": [1, 1, 1]}},
+            { "blockType": "Core:torch.FRONT", "region": { "min": [0, 6, 8], "size": [1, 1, 1]}},
+            { "blockType": "Core:torch.FRONT", "region": { "min": [4, 6, 8], "size": [1, 1, 1]}},
+            { "blockType": "Core:torch.TOP", "region": { "min": [2, 1, 3], "size": [1, 1, 1]}},
+            { "blockType": "core:OakTrunk", "region": { "min": [2, 0, 3], "size": [1, 1, 1]}},
+            { "blockType": "core:OakTrunk", "region": { "min": [-4, 1, 4], "size": [2, 1, 2]}},
+            { "blockType": "core:OakTrunk", "region": { "min": [-4, 2, 5], "size": [1, 1, 1]}},
+            { "blockType": "core:OakTrunk", "region": { "min": [-4, 1, 6], "size": [2, 2, 3]}},
+            { "blockType": "engine:air", "region": { "min": [-4, 1, 1], "size": [10, 9, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-4, 1, 2], "size": [6, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-4, 2, 2], "size": [10, 8, 3]}},
+            { "blockType": "engine:air", "region": { "min": [3, 1, 2], "size": [3, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-4, 1, 3], "size": [5, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [4, 1, 3], "size": [2, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-2, 1, 4], "size": [4, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [3, 1, 4], "size": [3, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-4, 3, 5], "size": [10, 7, 2]}},
+            { "blockType": "engine:air", "region": { "min": [-3, 2, 5], "size": [9, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-2, 1, 5], "size": [8, 1, 2]}},
+            { "blockType": "engine:air", "region": { "min": [-2, 2, 6], "size": [2, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [1, 2, 6], "size": [3, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [5, 2, 6], "size": [1, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-4, 3, 7], "size": [4, 2, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-4, 5, 7], "size": [10, 5, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-2, 1, 7], "size": [2, 2, 1]}},
+            { "blockType": "engine:air", "region": { "min": [1, 1, 7], "size": [3, 3, 1]}},
+            { "blockType": "engine:air", "region": { "min": [5, 1, 7], "size": [1, 4, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-4, 3, 8], "size": [10, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-4, 4, 8], "size": [2, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-4, 5, 8], "size": [10, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-4, 6, 8], "size": [4, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-4, 7, 8], "size": [10, 3, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-2, 1, 8], "size": [4, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-2, 2, 8], "size": [8, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [-1, 4, 8], "size": [1, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [1, 6, 8], "size": [3, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [3, 1, 8], "size": [3, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [5, 4, 8], "size": [1, 1, 1]}},
+            { "blockType": "engine:air", "region": { "min": [5, 6, 8], "size": [1, 1, 1]}}
+        ]
+    },
+    "AddItemsToChest": {
+        "chestsToFill": [
+            {
+                "position": [2, 1, 8],
+                "items": [
+                    {"slot": 0, "blockFamiliy": "core:OakTrunk", "amount": 80}
+                ]
+            }
+        ]
+    },
+    "ScheduleStructurePlacement": {
+        "placementsToSchedule": [
+            {
+                "structureTemplateType": "GooeysQuests:dungeon1x2StoneDoorFrame",
+                "front": "FRONT",
+                "position": [2, 4, 8]
+            }
+        ]
+    }
+}
