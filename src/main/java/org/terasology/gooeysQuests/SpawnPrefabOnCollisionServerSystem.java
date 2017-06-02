@@ -24,19 +24,16 @@ import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.gooeysQuests.api.SpawnMagicBuildParticlesComponent;
-import org.terasology.gooeysQuests.api.SpawnPrefabsComponent;
 import org.terasology.logic.location.LocationComponent;
-import org.terasology.math.geom.Vector3i;
 import org.terasology.physics.events.CollideEvent;
 import org.terasology.registry.In;
-import org.terasology.structureTemplates.events.StructureBlocksSpawnedEvent;
 import org.terasology.world.WorldProvider;
 
 /**
  * Contains the server side logic for making the {@link SpawnMagicBuildParticlesComponent} work.
  */
 @RegisterSystem(RegisterMode.AUTHORITY)
-public class SpawnPrefabServerSystem extends BaseComponentSystem {
+public class SpawnPrefabOnCollisionServerSystem extends BaseComponentSystem {
 
     @In
     private EntityManager entityManager;
@@ -47,19 +44,6 @@ public class SpawnPrefabServerSystem extends BaseComponentSystem {
     @In
     private WorldProvider worldProvider;
 
-    @ReceiveEvent
-    public void onSpawnStructureWithPrefabSpawn(StructureBlocksSpawnedEvent event, EntityRef entity,
-                                                SpawnPrefabsComponent component) {
-        for (SpawnPrefabsComponent.PrefabToSpawn prefabToSpawn: component.prefabsToSpawn) {
-            Vector3i position = event.getTransformation().transformVector3i(prefabToSpawn.position);
-            EntityBuilder entityBuilder = entityManager.newBuilder(prefabToSpawn.prefab);
-            LocationComponent locationComponent = entityBuilder.getComponent(LocationComponent.class);
-            locationComponent.setWorldPosition(position.toVector3f());
-
-            entityBuilder.build();
-        }
-
-    }
     @ReceiveEvent
     public void onCollision(CollideEvent event, EntityRef entity,
                             SpawnPrefabOnPlayerCollisionComponent spawnPrefabComponent,
