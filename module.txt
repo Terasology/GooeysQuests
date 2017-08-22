@@ -1,6 +1,6 @@
 {
     "id" : "GooeysQuests",
-    "version" : "0.1.0-SNAPSHOT",
+    "version" : "0.2.0-SNAPSHOT",
     "author" : "Florian",
     "displayName" : "GooeysQuests",
     "description" : "Planed content: A character called gooey will appear. He offers you existing and dangerous quests. However be warned: He might modify your world not in a way you like it!",
