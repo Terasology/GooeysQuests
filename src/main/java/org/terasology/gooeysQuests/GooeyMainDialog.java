@@ -20,7 +20,8 @@ import org.terasology.gooeysQuests.api.GooeysQuestComponent;
 import org.terasology.gooeysQuests.api.QuestStartRequest;
 import org.terasology.logic.chat.ChatMessageEvent;
 import org.terasology.logic.players.LocalPlayer;
-import org.terasology.pathfinding.components.FollowComponent;
+
+import org.terasology.behaviors.components.FollowComponent;
 import org.terasology.registry.In;
 import org.terasology.rendering.nui.BaseInteractionScreen;
 import org.terasology.rendering.nui.UIWidget;
@@ -103,7 +104,7 @@ public class GooeyMainDialog extends BaseInteractionScreen {
         GooeyComponent gooeyComponent = gooey.getComponent(GooeyComponent.class);
         EntityRef offeredQuest = gooeyComponent.offeredQuest;
         if (!offeredQuest.isActive()) {
-            localPlayer.getClientEntity().send(new ChatMessageEvent("Oos, quest is no longer doable", gooey));
+            localPlayer.getClientEntity().send(new ChatMessageEvent("Oops, that quest is no longer doable", gooey));
             return;
         }
         // TODO should it be a request instead so that it can be checked if the quest is still doable?

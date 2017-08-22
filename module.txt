@@ -12,14 +12,18 @@
                  "minVersion" : "0.2.0"
             },{
                 "id" : "Pathfinding",
-                "minVersion" : "0.2.0"
+                "minVersion" : "0.3.0-SNAPSHOT"
             },{
                   "id" : "Equipment",
                   "minVersion" : "1.0.0"
             },{
                 "id" : "ChiselBlocks",
                 "minVersion" : "0.1.0"
-              }
+            },{
+                "id": "Behaviors",
+                "minVersion" : "0.2.0-SNAPSHOT"
+            }
+
             ],
     "serverSideOnly" : false
 }
