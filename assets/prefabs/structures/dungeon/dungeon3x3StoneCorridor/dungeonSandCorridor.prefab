@@ -1,7 +1,7 @@
 {
     "StructureTemplate": {
         "type": "GooeysQuests:dungeon3x3StoneCorridor",
-        "spawnChance": 1000
+        "spawnChance": 20
     },
     "SpawnBlockRegions": {
         "regionsToFill": [
