@@ -1,0 +1,10 @@
+{
+    "persistent": true,
+    "SportsCenterQuest": {},
+    "GooeysQuest": {
+        "greetingText": "Do you want to train?",
+        "startButtonText": "Yes, I want to get in shape",
+        "description": "Are you interested in training?\n\nI could use my magic to add a sports center to this world."
+    },
+    "Network":{}
+}
