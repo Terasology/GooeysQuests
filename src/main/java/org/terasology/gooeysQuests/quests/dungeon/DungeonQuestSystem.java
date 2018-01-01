@@ -39,10 +39,7 @@ import org.terasology.structureTemplates.events.CheckSpawnConditionEvent;
 import org.terasology.structureTemplates.events.SpawnStructureEvent;
 import org.terasology.structureTemplates.interfaces.BlockPredicateProvider;
 import org.terasology.structureTemplates.interfaces.StructureTemplateProvider;
-import org.terasology.structureTemplates.util.transform.BlockRegionMovement;
-import org.terasology.structureTemplates.util.transform.BlockRegionTransform;
-import org.terasology.structureTemplates.util.transform.BlockRegionTransformationList;
-import org.terasology.structureTemplates.util.transform.HorizontalBlockRegionRotation;
+import org.terasology.structureTemplates.util.BlockRegionTransform;
 import org.terasology.world.WorldProvider;
 import org.terasology.world.block.Block;
 import org.terasology.world.block.BlockManager;
@@ -156,7 +153,7 @@ public class DungeonQuestSystem extends BaseComponentSystem {
 
     private BlockRegionTransform findGoodSpawnTransformation(Vector3i spawnPosition, EntityRef entranceSpawner) {
         for (Side side: Side.horizontalSides()) {
-            BlockRegionTransformationList transformList = createTransformation(spawnPosition, side);
+            BlockRegionTransform transformList = createTransformation(spawnPosition, side);
 
             CheckSpawnConditionEvent checkConditionEvent = new CheckSpawnConditionEvent(transformList);
             entranceSpawner.send(checkConditionEvent);
@@ -168,12 +165,8 @@ public class DungeonQuestSystem extends BaseComponentSystem {
         return null;
     }
 
-    private BlockRegionTransformationList createTransformation(Vector3i spawnPosition, Side side) {
-        BlockRegionTransformationList transformList = new BlockRegionTransformationList();
-        transformList.addTransformation(
-                HorizontalBlockRegionRotation.createRotationFromSideToSide(Side.FRONT, side));
-        transformList.addTransformation(new BlockRegionMovement(spawnPosition));
-        return transformList;
+    private BlockRegionTransform createTransformation(Vector3i spawnPosition, Side side) {
+        return BlockRegionTransform.createRotationThenMovement(Side.FRONT, side, spawnPosition);
     }
 
     @ReceiveEvent(components = DungeonQuestComponent.class)
