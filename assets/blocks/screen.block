@@ -1,0 +1,18 @@
+{
+    "translucent": true,
+    "invisible": false,
+    "targetable": true,
+    "penetrable": true,
+    "replacementAllowed": false,
+    "shadowCasting": true,
+    "attachmentAllowed": true,
+    "hardness": 12,
+    "displayName": "Stone Illusion",
+    "rotation": "symmetric",
+    "sounds": "Core:stone",
+     "luminance": 55,
+    "tiles" : {
+        "all" : "screen"
+    },
+    "shape" : "GooeysQuests:UnoptimizedCube"
+}
