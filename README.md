@@ -12,7 +12,7 @@ A module for Terasology.
 
 ## Adding more structures
 
-If you want to add a new structure, first you have to create the structures templates that will form the structure. Then you will have to create two java classes: a component and a system, typically in the folder '/src/main/java/org/terasology/gooeysQuests/quests'
+If you want to add a new structure, first you have to create the structures templates that will form the structure. Then you will have to create two java classes: a component and a system, typically in the `folder /src/main/java/org/terasology/gooeysQuests/quests`
 Naming conventions:
 •	Add the name of your structure at the beginning of the name of each structure template that you create
 •	The format for java class names is: <YourStructure>QuestComponent and <YourStructure>QuestSystem
