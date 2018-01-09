@@ -19,8 +19,8 @@ If you want to add a new structure, first you have to create the structures temp
 
 ## Screenshots
 
-![alt tag](https://user-images.githubusercontent.com/33598488/34733694-92fda2b6-f569-11e7-9d65-a324abc9c5f2.jpg)
-![alt tag](https://user-images.githubusercontent.com/33598488/34733696-9530241e-f569-11e7-97ad-9e973f0647b6.jpg)
+![Gooey in-game](https://user-images.githubusercontent.com/33598488/34733694-92fda2b6-f569-11e7-9d65-a324abc9c5f2.jpg)
+![GooeysQuests UI](https://user-images.githubusercontent.com/33598488/34733696-9530241e-f569-11e7-97ad-9e973f0647b6.jpg)
 
 ## Credits
 
