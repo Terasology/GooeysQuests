@@ -4,8 +4,8 @@
         "texture": "GooeysQuests:whitePurpleParticle"
     },
     "positionRangeGenerator": {
-        "minPosition": [-5, -5, -5],
-        "maxPosition": [5, 5, 5]
+        "minPosition": [-0.5, -1.0, -0.5],
+        "maxPosition": [0.5, -0.5, 0.5]
     },
     "energyRangeGenerator": {
         "minEnergy": 0.5,
@@ -13,18 +13,18 @@
     },
     "scaleRangeGenerator": {
         "minScale": [0.25, 0.25, 0.25],
-        "maxScale": [0.25, 0.25, 0.25]
+        "maxScale": [0.5, 0.5, 0.5]
     },
     "velocityRangeGenerator": {
-        "minVelocity": [-5, -5, -5],
-        "maxVelocity": [5, 5, 5]
+        "minVelocity": [-0.1, 0.0, -0.1],
+        "maxVelocity": [0.1, 0.5, 0.1]
     },
     "velocityAffector": {},
     "particleEmitter": {
-        "lifeTime": 2,
+        "lifeTime": 1,
         "spawnRateMax": 32,
         "spawnRateMin": 32,
-        "particleSpawnsLeft": 64,
+        "particleSpawnsLeft": 32,
         "maxParticles": 64,
         "particleCollision": false,
         "destroyEntityWhenDead": true
