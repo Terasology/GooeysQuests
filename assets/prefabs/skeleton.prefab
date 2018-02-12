@@ -27,7 +27,7 @@
     ]
   },
   "Behavior": {
-    "tree": "hostile"
+    "tree": "Behaviors:hostileCritter"
   },
   "Stand": {
     "animationPool": [
@@ -77,6 +77,11 @@
     ]
   },
   "Follow": {},
-  "NPCMovement": {}
+  "AttackInProximity" : {
+    "speedMultiplier" : 1.2
+  },
+  "FindNearbyPlayers": {
+    "searchRadius" : 10
+  }
 }
 

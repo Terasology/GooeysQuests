@@ -39,7 +39,8 @@ import org.terasology.math.TeraMath;
 import org.terasology.math.geom.Quat4f;
 import org.terasology.math.geom.Vector3f;
 import org.terasology.math.geom.Vector3i;
-import org.terasology.pathfinding.components.NPCMovementComponent;
+
+import org.terasology.behaviors.components.NPCMovementComponent;
 import org.terasology.registry.In;
 import org.terasology.structureTemplates.interfaces.BlockPredicateProvider;
 import org.terasology.structureTemplates.interfaces.BlockRegionChecker;
@@ -50,7 +51,6 @@ import org.terasology.world.block.Block;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
-
 
 /**
  * Responsible for spawning gooey.
@@ -67,7 +67,6 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
     private static final float MIN_GOOEY_SPAWN_DISTANCE = 3;
     private static final float MAX_GOOEY_SPAWN_DISTANCE = 5;
     private static final float SECONDS_BETWEEN_QUESTS = 60;
-
 
     @In
     private EntityManager entityManager;
@@ -107,7 +106,7 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
     public void update(float delta) {
         nextQuestCooldown -= delta;
         if (nextQuestCooldown > 0) {
-            if(questToSpawnGooeyFor.isActive()) {
+            if (questToSpawnGooeyFor.isActive()) {
                 tryToSpawnGooey();
             }
             return;
@@ -149,13 +148,13 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
         int gooeyCount = entityManager.getCountOfEntitiesWith(GooeyComponent.class);
         if (gooeyCount > 0) {
             // TODO teleport gooey instead
-            for (EntityRef existinGooey: entityManager.getEntitiesWith(GooeyComponent.class)) {
+            for (EntityRef existinGooey : entityManager.getEntitiesWith(GooeyComponent.class)) {
                 existinGooey.destroy();
             }
         }
         EntityRef character = questToSpawnGooeyFor.getOwner();
 
-        if (character == null || !character.isActive()){
+        if (character == null || !character.isActive()) {
             return;
         }
         LocationComponent characterLocation = character.getComponent(LocationComponent.class);
@@ -171,7 +170,6 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
         Quat4f rotation = distanceDeltaToYAxisRotation(spawnPosToCharacter);
         Prefab gooeyPrefab = assetManager.getAsset("GooeysQuests:gooey", Prefab.class).get();
 
-
         EntityBuilder entityBuilder = entityManager.newBuilder(gooeyPrefab);
         LocationComponent locationComponent = entityBuilder.getComponent(LocationComponent.class);
         locationComponent.setWorldPosition(spawnPos);
@@ -180,7 +178,7 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
         NPCMovementComponent movementComponent = entityBuilder.getComponent(NPCMovementComponent.class);
 
         float yaw = (float) Math.atan2(spawnPosToCharacter.x, spawnPosToCharacter.z);
-        movementComponent.yaw = 180f +  yaw * TeraMath.RAD_TO_DEG;
+        movementComponent.yaw = 180f + yaw * TeraMath.RAD_TO_DEG;
         entityBuilder.addOrSaveComponent(movementComponent);
 
         GooeyComponent gooeyComponent = entityBuilder.getComponent(GooeyComponent.class);
@@ -193,7 +191,6 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
             gooeysQuestComponent = new GooeysQuestComponent();
         }
         character.getOwner().send(new ChatMessageEvent(gooeysQuestComponent.greetingText, gooey));
-
 
         spawnTeleportParticles(spawnPos);
         questToSpawnGooeyFor = EntityRef.NULL;
@@ -253,7 +250,7 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
                                        float maxAngle) {
         Vector3f result = location.getWorldPosition();
         Vector3f offset = new Vector3f(location.getWorldDirection());
-        Quat4f randomRot =randomYAxisRotation(maxAngle);
+        Quat4f randomRot = randomYAxisRotation(maxAngle);
         offset = randomRot.rotate(offset);
         float distanceRangeDelta = maxDistance - minDistance;
         float randomDistance = minDistance + random.nextFloat() * distanceRangeDelta;
@@ -268,7 +265,7 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
         if (random.nextBoolean()) {
             randomAngle = ((float) Math.PI * 2) - randomAngle;
         }
-        return new Quat4f(new Vector3f(0,1,0), randomAngle);
+        return new Quat4f(new Vector3f(0, 1, 0), randomAngle);
     }
 
     private boolean isValidGooeySpawnPosition(Vector3i spawnPosition) {
