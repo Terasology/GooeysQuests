@@ -8,7 +8,7 @@
     "attachmentAllowed": true,
     "hardness": 12,
     "displayName": "Stone Illusion",
-    "rotation": "symmetric",
+    "family": "symmetric",
     "sounds": "Core:stone",
     "tiles" : {
         "all" : "CobbleStone"

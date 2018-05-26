@@ -8,7 +8,7 @@
   "attachmentAllowed": false,
   "hardness": 0,
   "displayName": "Mantle Stone Illusion",
-  "rotation": "symmetric",
+  "family": "symmetric",
   "sounds": "none",
   "tiles" : {
     "all" : "MantleStone"
