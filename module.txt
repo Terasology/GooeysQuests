@@ -12,5 +12,7 @@
         {"id" : "Equipment", "minVersion" : "1.0.0"},
         {"id" : "ChiselBlocks", "minVersion" : "0.1.0"}
     ],
-    "serverSideOnly" : false
+    "serverSideOnly" : false,
+    "isGameplay" : "true",
+    "defaultWorldGenerator" : "Core:FacetedPerlin"
 }

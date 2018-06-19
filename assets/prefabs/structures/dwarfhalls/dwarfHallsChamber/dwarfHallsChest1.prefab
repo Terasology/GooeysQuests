@@ -1,7 +1,7 @@
 {
     "StructureTemplate" : {
         "type": "GooeysQuests:dwarfHallsChamber",
-        "spawnChance": 1
+        "spawnChance": 10
     },
     "SpawnBlockRegions": {
         "regionsToFill": [

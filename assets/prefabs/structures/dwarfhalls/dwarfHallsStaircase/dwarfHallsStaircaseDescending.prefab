@@ -1,7 +1,7 @@
 {
     "StructureTemplate" : {
         "type": "GooeysQuests:dwarfHallsStaircase",
-        "spawnChance": 1
+        "spawnChance": 25
     },
     "SpawnBlockRegions": {
         "regionsToFill": [
