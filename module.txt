@@ -1,13 +1,13 @@
 {
     "id" : "GooeysQuests",
-    "version" : "0.2.0-SNAPSHOT",
+    "version" : "0.2.1-SNAPSHOT",
     "author" : "Florian",
     "displayName" : "GooeysQuests",
     "description" : "Planed content: A character called gooey will appear. He offers you existing and dangerous quests. However be warned: He might modify your world not in a way you like it!",
     "dependencies" : [
         {"id" : "Behaviors", "minVersion" : "0.2.0"},
         {"id" : "Core", "minVersion" : "2.0.0"},
-        {"id" : "StructureTemplates", "minVersion" : "0.2.0"},
+        {"id" : "StructureTemplates", "minVersion" : "0.3.0"},
         {"id" : "Pathfinding", "minVersion" : "0.3.0"},
         {"id" : "Equipment", "minVersion" : "1.0.0"},
         {"id" : "ChiselBlocks", "minVersion" : "0.1.0"}

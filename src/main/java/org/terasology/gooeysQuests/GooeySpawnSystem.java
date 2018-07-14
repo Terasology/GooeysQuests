@@ -44,7 +44,7 @@ import org.terasology.behaviors.components.NPCMovementComponent;
 import org.terasology.registry.In;
 import org.terasology.structureTemplates.interfaces.BlockPredicateProvider;
 import org.terasology.structureTemplates.interfaces.BlockRegionChecker;
-import org.terasology.structureTemplates.util.transform.BlockRegionTransformationList;
+import org.terasology.structureTemplates.util.BlockRegionTransform;
 import org.terasology.world.WorldProvider;
 import org.terasology.world.block.Block;
 
@@ -242,7 +242,7 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
      */
     private boolean hasLineOfSight(Vector3i spawnBlockPos, Vector3i characterPos) {
         Region3i region = Region3i.createBounded(spawnBlockPos, characterPos);
-        return blockRegionChecker.allBlocksMatch(region, new BlockRegionTransformationList(),
+        return blockRegionChecker.allBlocksMatch(region, BlockRegionTransform.getTransformationThatDoesNothing(),
                 airLikeCondition);
     }
 
@@ -277,7 +277,7 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
 
         Region3i groundRegion = Region3i.createFromMinMax(new Vector3i(minX, groundY, minZ), new Vector3i(maxX, groundY,
                 maxZ));
-        boolean groundExists = blockRegionChecker.allBlocksMatch(groundRegion, new BlockRegionTransformationList(),
+        boolean groundExists = blockRegionChecker.allBlocksMatch(groundRegion, BlockRegionTransform.getTransformationThatDoesNothing(),
                 groundLikeCondition);
         if (!groundExists) {
             return false;
@@ -287,7 +287,7 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
         int airMax = airMin + 3;
         Region3i airRegion = Region3i.createFromMinMax(new Vector3i(minX, airMin, minZ), new Vector3i(maxZ, airMax,
                 maxZ));
-        boolean enoughAirAbove = blockRegionChecker.allBlocksMatch(airRegion, new BlockRegionTransformationList(),
+        boolean enoughAirAbove = blockRegionChecker.allBlocksMatch(airRegion, BlockRegionTransform.getTransformationThatDoesNothing(),
                 airLikeCondition);
         if (!enoughAirAbove) {
             return false;
