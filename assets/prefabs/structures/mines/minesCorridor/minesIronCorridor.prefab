@@ -35,6 +35,15 @@
               { "blockType": "engine:air", "region": { "min": [-1, 1, 5], "size": [3, 2, 1]}},
           ]
     },
+    "ScheduleStructurePlacement" : {
+            "placementsToSchedule": [
+                {
+                    "structureTemplateType": "GooeysQuests:minesCorridor",
+                    "front": "BACK",
+                    "position": [0, 0, 3]
+                }
+            ]
+        },
      "parent" : "engine:iconItem",
     "DisplayName" : {
         "name" : "Mines with corridor containing iron"
