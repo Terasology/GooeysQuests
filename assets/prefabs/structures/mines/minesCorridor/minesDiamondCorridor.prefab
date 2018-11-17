@@ -1,0 +1,36 @@
+{
+    "StructureTemplate" : {
+        "type": "GooeysQuests:minesCorridor",
+        "spawnChance": 1
+    },
+   "SpawnBlockRegions": {
+       "regionsToFill": [
+           { "blockType": "Core:DiamondOre", "region": { "min": [-3, 4, 5], "size": [1, 1, 1]}},
+           { "blockType": "Core:stone", "region": { "min": [-3, 0, 1], "size": [7, 1, 5]}},
+           { "blockType": "Core:stone", "region": { "min": [-3, 1, 1], "size": [2, 2, 5]}},
+           { "blockType": "Core:stone", "region": { "min": [-3, 3, 1], "size": [7, 2, 4]}},
+           { "blockType": "Core:stone", "region": { "min": [2, 1, 1], "size": [2, 2, 5]}},
+           { "blockType": "Core:stone", "region": { "min": [-3, 3, 5], "size": [7, 1, 1]}},
+           { "blockType": "Core:stone", "region": { "min": [-2, 4, 5], "size": [6, 1, 1]}},
+           { "blockType": "Core:torch.LEFT", "region": { "min": [1, 2, 2], "size": [1, 1, 1]}},
+           { "blockType": "Core:torch.RIGHT", "region": { "min": [-1, 2, 4], "size": [1, 1, 1]}},
+           { "blockType": "core:Plank:GooeysQuests:minesupport", "region": { "min": [0, 1, 3], "size": [1, 2, 1]}},
+           { "blockType": "engine:air", "region": { "min": [-1, 1, 1], "size": [3, 2, 1]}},
+           { "blockType": "engine:air", "region": { "min": [-1, 1, 2], "size": [3, 1, 1]}},
+           { "blockType": "engine:air", "region": { "min": [-1, 2, 2], "size": [2, 1, 1]}},
+           { "blockType": "engine:air", "region": { "min": [-1, 1, 3], "size": [1, 2, 1]}},
+           { "blockType": "engine:air", "region": { "min": [1, 1, 3], "size": [1, 2, 1]}},
+           { "blockType": "engine:air", "region": { "min": [-1, 1, 4], "size": [3, 1, 1]}},
+           { "blockType": "engine:air", "region": { "min": [0, 2, 4], "size": [2, 1, 1]}},
+           { "blockType": "engine:air", "region": { "min": [-1, 1, 5], "size": [3, 2, 1]}}
+       ]
+   },
+    "parent" : "engine:iconItem",
+    "DisplayName" : {
+        "name" : "Mines with corridor containing diamond"
+    },
+    "Item" : {
+        "icon" : "engine:items#whiteRecipe"
+    },
+    "SpawnStructureAction": {}
+}

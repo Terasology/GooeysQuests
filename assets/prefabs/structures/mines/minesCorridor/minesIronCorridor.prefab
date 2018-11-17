@@ -1,32 +1,43 @@
 {
     "StructureTemplate" : {
         "type": "GooeysQuests:minesCorridor",
-        "spawnChance": 100
+        "spawnChance": 25
     },
     "SpawnBlockRegions": {
-        "regionsToFill": [
-            { "blockType": "Core:stone", "region": { "min": [-3, 0, 1], "size": [7, 1, 6]}},
-            { "blockType": "Core:stone", "region": { "min": [-3, 1, 1], "size": [2, 2, 6]}},
-            { "blockType": "Core:stone", "region": { "min": [-3, 3, 1], "size": [7, 2, 6]}},
-            { "blockType": "Core:stone", "region": { "min": [2, 1, 1], "size": [2, 2, 6]}},
-            { "blockType": "Core:torch.LEFT", "region": { "min": [1, 2, 2], "size": [1, 1, 1]}},
-            { "blockType": "Core:torch.LEFT", "region": { "min": [1, 2, 5], "size": [1, 1, 1]}},
-            { "blockType": "Core:torch.RIGHT", "region": { "min": [-1, 2, 2], "size": [1, 1, 1]}},
-            { "blockType": "Core:torch.RIGHT", "region": { "min": [-1, 2, 5], "size": [1, 1, 1]}},
-            { "blockType": "core:Plank:GooeysQuests:minesupport", "region": { "min": [-2, 1, -4], "size": [1, 1, 1]}},
-            { "blockType": "core:Plank:GooeysQuests:minesupport", "region": { "min": [-1, 1, 1], "size": [1, 2, 1]}},
-            { "blockType": "core:Plank:GooeysQuests:minesupport", "region": { "min": [-1, 1, 3], "size": [1, 2, 1]}},
-            { "blockType": "core:Plank:GooeysQuests:minesupport", "region": { "min": [-1, 1, 6], "size": [1, 2, 1]}},
-            { "blockType": "core:Plank:GooeysQuests:minesupportreversed", "region": { "min": [1, 1, 1], "size": [1, 2, 1]}},
-            { "blockType": "core:Plank:GooeysQuests:minesupportreversed", "region": { "min": [1, 1, 3], "size": [1, 2, 1]}},
-            { "blockType": "core:Plank:GooeysQuests:minesupportreversed", "region": { "min": [1, 1, 6], "size": [1, 2, 1]}},
-            { "blockType": "engine:air", "region": { "min": [1, 2, 4], "size": [1, 1, 1]}}
-        ]
+          "regionsToFill": [
+              { "blockType": "Core:IronOre", "region": { "min": [-3, 3, 2], "size": [1, 1, 1]}},
+              { "blockType": "Core:IronOre", "region": { "min": [3, 1, 2], "size": [1, 1, 1]}},
+              { "blockType": "Core:IronOre", "region": { "min": [1, 4, 5], "size": [1, 1, 1]}},
+              { "blockType": "Core:IronOre", "region": { "min": [3, 3, 5], "size": [1, 1, 1]}},
+              { "blockType": "Core:stone", "region": { "min": [-3, 0, 1], "size": [7, 1, 5]}},
+              { "blockType": "Core:stone", "region": { "min": [-3, 1, 1], "size": [2, 2, 5]}},
+              { "blockType": "Core:stone", "region": { "min": [-3, 3, 1], "size": [7, 2, 1]}},
+              { "blockType": "Core:stone", "region": { "min": [2, 1, 1], "size": [2, 2, 1]}},
+              { "blockType": "Core:stone", "region": { "min": [-3, 4, 2], "size": [7, 1, 1]}},
+              { "blockType": "Core:stone", "region": { "min": [-2, 3, 2], "size": [6, 1, 1]}},
+              { "blockType": "Core:stone", "region": { "min": [2, 1, 2], "size": [1, 1, 1]}},
+              { "blockType": "Core:stone", "region": { "min": [2, 2, 2], "size": [2, 1, 1]}},
+              { "blockType": "Core:stone", "region": { "min": [-3, 3, 3], "size": [7, 2, 2]}},
+              { "blockType": "Core:stone", "region": { "min": [2, 1, 3], "size": [2, 2, 3]}},
+              { "blockType": "Core:stone", "region": { "min": [-3, 3, 5], "size": [6, 1, 1]}},
+              { "blockType": "Core:stone", "region": { "min": [-3, 4, 5], "size": [4, 1, 1]}},
+              { "blockType": "Core:stone", "region": { "min": [2, 4, 5], "size": [2, 1, 1]}},
+              { "blockType": "Core:torch.LEFT", "region": { "min": [1, 2, 2], "size": [1, 1, 1]}},
+              { "blockType": "Core:torch.RIGHT", "region": { "min": [-1, 2, 4], "size": [1, 1, 1]}},
+              { "blockType": "core:Plank:GooeysQuests:minesupport", "region": { "min": [0, 1, 3], "size": [1, 2, 1]}},
+              { "blockType": "engine:air", "region": { "min": [-1, 1, 1], "size": [3, 2, 1]}},
+              { "blockType": "engine:air", "region": { "min": [-1, 1, 2], "size": [3, 1, 1]}},
+              { "blockType": "engine:air", "region": { "min": [-1, 2, 2], "size": [2, 1, 1]}},
+              { "blockType": "engine:air", "region": { "min": [-1, 1, 3], "size": [1, 2, 1]}},
+              { "blockType": "engine:air", "region": { "min": [1, 1, 3], "size": [1, 2, 1]}},
+              { "blockType": "engine:air", "region": { "min": [-1, 1, 4], "size": [3, 1, 1]}},
+              { "blockType": "engine:air", "region": { "min": [0, 2, 4], "size": [2, 1, 1]}},
+              { "blockType": "engine:air", "region": { "min": [-1, 1, 5], "size": [3, 2, 1]}},
+          ]
     },
-
-    "parent" : "engine:iconItem",
+     "parent" : "engine:iconItem",
     "DisplayName" : {
-        "name" : "Mines with plain corridor"
+        "name" : "Mines with corridor containing iron"
     },
     "Item" : {
         "icon" : "engine:items#whiteRecipe"
