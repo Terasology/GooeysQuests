@@ -1,0 +1,10 @@
+{
+    "persistent": true,
+    "MinesQuest": {},
+    "GooeysQuest": {
+        "greetingText": "Hi, up for some mine exploration?",
+        "startButtonText": "Yes, please add a mine to this world",
+        "description": "Interested in some mine exploration?\n\nI could use my magic to add a mine to this world."
+    },
+    "Network":{}
+}
