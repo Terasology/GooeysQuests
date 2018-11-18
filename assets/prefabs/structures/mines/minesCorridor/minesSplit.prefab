@@ -1,7 +1,7 @@
 {
     "StructureTemplate" : {
         "type": "GooeysQuests:minesCorridor",
-        "spawnChance": 20
+        "spawnChance": 150
     },
     "SpawnBlockRegions": {
         "regionsToFill": [
@@ -30,12 +30,12 @@
         "placementsToSchedule": [
             {
                 "structureTemplateType": "GooeysQuests:minesCorridor",
-                "front": "RIGHT",
+                "front": "LEFT",
                 "position": [2, 0, 3]
             },
             {
                 "structureTemplateType": "GooeysQuests:minesCorridor",
-                "front": "LEFT",
+                "front": "RIGHT",
                 "position": [-2, 0, 3]
             }
         ]

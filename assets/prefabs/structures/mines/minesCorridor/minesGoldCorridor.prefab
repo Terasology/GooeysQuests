@@ -34,7 +34,7 @@
            "placementsToSchedule": [
                {
                    "structureTemplateType": "GooeysQuests:minesCorridor",
-                   "front": "BACK",
+                   "front": "FRONT",
                    "position": [0, 0, 3]
                }
            ]
