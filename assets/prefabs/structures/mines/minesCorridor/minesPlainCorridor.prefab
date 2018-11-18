@@ -1,7 +1,7 @@
 {
     "StructureTemplate" : {
         "type": "GooeysQuests:minesCorridor",
-        "spawnChance": 100
+        "spawnChance": 150
     },
     "SpawnBlockRegions": {
         "regionsToFill": [
@@ -30,6 +30,11 @@
                 "position": [0, 0, 3]
             }
         ]
+    },
+    "CheckBlockRegionCondition" : {
+       "checksToPerform": [
+             {"condition": "StructureTemplates:IsGroundLike", "region" :{"min": [-3, 0, 7], "size": [7, 4, 1]}}
+       ]
     },
     "parent" : "engine:iconItem",
     "DisplayName" : {

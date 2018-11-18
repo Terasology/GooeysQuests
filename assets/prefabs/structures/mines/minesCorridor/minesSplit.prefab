@@ -1,7 +1,7 @@
 {
     "StructureTemplate" : {
         "type": "GooeysQuests:minesCorridor",
-        "spawnChance": 150
+        "spawnChance": 200
     },
     "SpawnBlockRegions": {
         "regionsToFill": [
@@ -40,6 +40,13 @@
             }
         ]
     },
+    "CheckBlockRegionCondition" : {
+       "checksToPerform": [
+           {"condition": "StructureTemplates:IsGroundLike", "region" :{"min": [-7, 0, 1], "size": [5, 5, 10]}},
+           {"condition": "StructureTemplates:IsGroundLike", "region" :{"min": [2, 0, 1], "size": [5, 5, 10]}},
+
+       ]
+   },
     "parent" : "engine:iconItem",
     "DisplayName" : {
         "name" : "Mines with plain corridor"

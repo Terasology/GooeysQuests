@@ -26,14 +26,19 @@
        ]
    },
    "ScheduleStructurePlacement" : {
-           "placementsToSchedule": [
-               {
-                   "structureTemplateType": "GooeysQuests:minesCorridor",
-                   "front": "FRONT",
-                   "position": [0, 0, 3]
-               }
-           ]
-       },
+       "placementsToSchedule": [
+           {
+               "structureTemplateType": "GooeysQuests:minesCorridor",
+               "front": "FRONT",
+               "position": [0, 0, 3]
+           }
+       ]
+   },
+   "CheckBlockRegionCondition" : {
+      "checksToPerform": [
+          {"condition": "StructureTemplates:IsGroundLike", "region" :{"min": [-3, 0, 7], "size": [7, 4, 1]}}
+      ]
+   },
     "parent" : "engine:iconItem",
     "DisplayName" : {
         "name" : "Mines with corridor containing diamond"
