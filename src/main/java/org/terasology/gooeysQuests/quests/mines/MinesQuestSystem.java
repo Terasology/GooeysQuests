@@ -123,16 +123,16 @@ public class MinesQuestSystem extends BaseComponentSystem {
         private EntityRef entranceSpawner;
         private BlockRegionTransform transformation;
 
-        public FoundSpawnPossibility(EntityRef entranceSpawner, BlockRegionTransform transformation) {
+        private FoundSpawnPossibility(EntityRef entranceSpawner, BlockRegionTransform transformation) {
             this.entranceSpawner = entranceSpawner;
             this.transformation = transformation;
         }
 
-        public EntityRef getEntranceSpawner() {
+        private EntityRef getEntranceSpawner() {
             return entranceSpawner;
         }
 
-        public BlockRegionTransform getTransformation() {
+        private BlockRegionTransform getTransformation() {
             return transformation;
         }
     }
