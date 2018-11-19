@@ -1,7 +1,5 @@
 package org.terasology.gooeysQuests.quests.mines;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.terasology.assets.management.AssetManager;
 import org.terasology.entitySystem.entity.EntityBuilder;
 import org.terasology.entitySystem.entity.EntityManager;
@@ -12,7 +10,11 @@ import org.terasology.entitySystem.prefab.Prefab;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
-import org.terasology.gooeysQuests.api.*;
+import org.terasology.gooeysQuests.api.CreateStartQuestsEvent;
+import org.terasology.gooeysQuests.api.PersonalQuestsComponent;
+import org.terasology.gooeysQuests.api.PrepareQuestEvent;
+import org.terasology.gooeysQuests.api.QuestReadyEvent;
+import org.terasology.gooeysQuests.api.QuestStartRequest;
 import org.terasology.logic.inventory.InventoryManager;
 import org.terasology.logic.location.LocationComponent;
 import org.terasology.math.Side;
@@ -71,8 +73,6 @@ public class MinesQuestSystem extends BaseComponentSystem {
     public void onCreateStartQuestsEvent(CreateStartQuestsEvent event, EntityRef character,
                                          PersonalQuestsComponent questsComponent) {
         Prefab questPrefab = assetManager.getAsset("GooeysQuests:MinesQuest", Prefab.class).get();
-        Logger logger = LoggerFactory.getLogger(MinesQuestSystem.class);
-        logger.info("questPrefab: "+questPrefab);
         EntityBuilder questEntityBuilder = entityManager.newBuilder(questPrefab);
         questEntityBuilder.setOwner(character);
         EntityRef entity = questEntityBuilder.build();
@@ -82,8 +82,6 @@ public class MinesQuestSystem extends BaseComponentSystem {
 
     @ReceiveEvent(components = MinesQuestComponent.class)
     public void onPrepareQuest(PrepareQuestEvent event, EntityRef quest) {
-        Logger logger = LoggerFactory.getLogger(MinesQuestSystem.class);
-        logger.info("preparing quest");
         EntityRef owner = quest.getOwner();
         LocationComponent questOwnerLocation = owner.getComponent(LocationComponent.class);
         Vector3i questOwnerBlockPos = new Vector3i(questOwnerLocation.getWorldPosition());
@@ -92,16 +90,13 @@ public class MinesQuestSystem extends BaseComponentSystem {
         randomPosition.addZ(randomHorizontalOffset());
         Vector3i surfaceGroundBlockPosition = findSurfaceGroundBlockPosition(randomPosition);
         if (surfaceGroundBlockPosition == null) {
-            logger.info("surface null");
             return;
         }
         EntityRef entranceSpawner = structureTemplateProvider.
                 getRandomTemplateOfType("GooeysQuests:minesEntrance");
-        logger.info("entrance obtained");
         BlockRegionTransform foundSpawnTransformation = findGoodSpawnTransformation(surfaceGroundBlockPosition,
                 entranceSpawner);
         if (foundSpawnTransformation == null) {
-            logger.info("no spawn place found");
             return;
         }
 
