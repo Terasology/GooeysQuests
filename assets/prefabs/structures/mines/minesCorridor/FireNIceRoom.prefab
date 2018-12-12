@@ -1,5 +1,6 @@
 {
     "StructureTemplate": {
+        "type": "GooeysQuests:minesCorridor"
     },
     "SpawnBlockRegions": {
         "regionsToFill": [
