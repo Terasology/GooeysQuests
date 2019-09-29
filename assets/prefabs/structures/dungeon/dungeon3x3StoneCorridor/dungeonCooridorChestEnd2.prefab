@@ -6,7 +6,7 @@
     "SpawnBlockRegions": {
         "regionsToFill":[
             /* First fill everything with air, to make later content placing simpler: */
-            { "blockType": "Core:Chest.FRONT", "region": { "min": [0, 1, 0], "size": [1, 1, 1]}}
+            { "blockType": "CoreBlocks:Chest.FRONT", "region": { "min": [0, 1, 0], "size": [1, 1, 1]}}
         ]
     },
     "AddItemsToChest": {
