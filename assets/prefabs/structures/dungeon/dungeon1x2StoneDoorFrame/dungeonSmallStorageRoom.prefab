@@ -31,7 +31,7 @@
                 "position": [-1, 1, 5],
                 "items": [
                     {"slot": 5, "blockFamiliy": "CoreBlocks:CobbleStone", "amount": 50 },
-                    {"slot": 12, "itemPrefab": "CoreBlocks:pickaxe"}
+                    {"slot": 12, "itemPrefab": "Core:pickaxe"}
                 ]
             }
         ]
