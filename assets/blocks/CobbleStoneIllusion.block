@@ -9,7 +9,7 @@
     "hardness": 12,
     "displayName": "Stone Illusion",
     "family": "symmetric",
-    "sounds": "Core:stone",
+    "sounds": "CoreBlocks:stone",
     "tiles" : {
         "all" : "CobbleStone"
     },
