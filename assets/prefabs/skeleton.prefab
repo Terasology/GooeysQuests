@@ -17,7 +17,7 @@
     "heightOffset": -1,
     "material": "skeletonSkin",
     "animationPool": [
-      "skeletonStand"
+      "skeleton#Stand"
     ],
     "loop": true,
     "scale": [
@@ -31,17 +31,17 @@
   },
   "Stand": {
     "animationPool": [
-      "skeletonStand"
+      "skeleton#Stand"
     ]
   },
   "Walk": {
     "animationPool": [
-      "skeletonWalk"
+      "skeleton#Walk"
     ]
   },
   "MeleeAttack": {
     "animationPool": [
-      "skeletonAttack"
+      "skeleton#Attack"
     ]
   },
   "location": {},
