@@ -1,0 +1,5 @@
+{
+    "displayName": "Book",
+    "basedOn": "CoreAssets:rock",
+    "tile": "GooeysQuests:BookShelf"
+}
