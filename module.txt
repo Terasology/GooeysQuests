@@ -11,7 +11,8 @@
         {"id" : "StructureTemplates", "minVersion" : "0.3.0"},
         {"id" : "Pathfinding", "minVersion" : "0.3.0"},
         {"id" : "Equipment", "minVersion" : "1.0.0"},
-        {"id" : "ChiselBlocks", "minVersion" : "0.1.0"}
+        {"id" : "ChiselBlocks", "minVersion" : "0.1.0"},
+        {"id" : "Books", "minVersion" : "1.0.3"}
     ],
     "serverSideOnly" : false,
     "isGameplay" : "true",
