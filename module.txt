@@ -9,9 +9,13 @@
         {"id" : "CoreBlocks", "minVersion" : "1.0.0"},
         {"id" : "Core", "minVersion" : "2.0.0"},
         {"id" : "StructureTemplates", "minVersion" : "0.3.0"},
+        {"id" : "StructuralResources", "minVersion" : "2.0.0"},
         {"id" : "Pathfinding", "minVersion" : "0.3.0"},
+        {"id" : "engine", "minVersion" : "2.2.1"},
+        {"id" : "Fences", "minVersion" : "0.1.1"},
         {"id" : "Equipment", "minVersion" : "1.0.0"},
-        {"id" : "ChiselBlocks", "minVersion" : "0.1.0"}
+        {"id" : "ChiselBlocks", "minVersion" : "0.1.0"},
+        {"id" : "Books", "minVersion" : "1.0.3"}
     ],
     "serverSideOnly" : false,
     "isGameplay" : "true",

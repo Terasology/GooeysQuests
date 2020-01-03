@@ -1,0 +1,10 @@
+{
+    "persistent": true,
+    "FortressVillageQuest": {},
+    "GooeysQuest": {
+        "greetingText": "Hi, up for some fortress village exploration?",
+        "startButtonText": "Yes, please add a fortress village to this world",
+        "description": "Interested in some fortress village exploration?\n\nI could use my magic to add a fortress village to this world."
+    },
+    "Network":{}
+}
