@@ -39,7 +39,6 @@ import org.terasology.structureTemplates.util.BlockRegionTransform;
 import org.terasology.world.WorldProvider;
 import org.terasology.world.block.Block;
 import org.terasology.world.block.BlockManager;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -81,7 +80,6 @@ public class FortressVillageQuestSystem extends BaseComponentSystem {
     private Predicate<Block> isAirCondition;
     private Predicate<Block> isGroundCondition;
 
-
     @Override
     public void postBegin() {
         isAirCondition = blockPredicateProvider.getBlockPredicate("StructureTemplates:IsAirLike");
@@ -99,7 +97,6 @@ public class FortressVillageQuestSystem extends BaseComponentSystem {
         character.saveComponent(questsComponent);
     }
 
-
     @ReceiveEvent(components = FortressVillageQuestComponent.class)
     public void onPrepareQuest(PrepareQuestEvent event, EntityRef quest) {
 
@@ -107,25 +104,23 @@ public class FortressVillageQuestSystem extends BaseComponentSystem {
         LocationComponent questOwnerLocation = owner.getComponent(LocationComponent.class);
         Vector3i questOwnerBlockPos = new Vector3i(questOwnerLocation.getWorldPosition());
         Vector3i randomPosition = new Vector3i(questOwnerBlockPos);
-        randomPosition.addX(randomHorizontalOffset());
-        randomPosition.addZ(randomHorizontalOffset());
-
-        Vector3i surfaceGroundBlockPosition = findSurfaceGroundBlockPosition(randomPosition);
+        randomPosition.addX(anyOffsetHorizontal());
+        randomPosition.addZ(anyOffsetHorizontal());
+        Vector3i surfaceGroundBlockPosition = checkGroundPosition(randomPosition);
         if (surfaceGroundBlockPosition == null) {
             return;
         }
 
-        EntityRef etranceSpawner = structureTemplateProvider.
+        EntityRef entranceSpawner = structureTemplateProvider.
                 getRandomTemplateOfType("GooeysQuests:fortressVillageEntrance");
 
         BlockRegionTransform foundSpawnTransformation = findGoodSpawnTransformation(surfaceGroundBlockPosition,
-                etranceSpawner);
+                entranceSpawner);
         if (foundSpawnTransformation == null) {
             return;
         }
 
-
-        questToFoundSpawnPossibilityMap.put(quest, new FoundSpawnPossiblity(etranceSpawner, foundSpawnTransformation));
+        questToFoundSpawnPossibilityMap.put(quest, new FoundSpawnPossiblity(entranceSpawner, foundSpawnTransformation));
         quest.send(new QuestReadyEvent());
     }
 
@@ -186,7 +181,7 @@ public class FortressVillageQuestSystem extends BaseComponentSystem {
         questToFoundSpawnPossibilityMap.remove(questEntity);
     }
 
-    private Vector3i findSurfaceGroundBlockPosition(Vector3i position) {
+    private Vector3i checkGroundPosition(Vector3i position) {
         int yScanStop = position.getY() - VERTICAL_SCAN_DISTANCE;
         int yScanStart = position.getY() + VERTICAL_SCAN_DISTANCE;
         // TODO simplify algorithm
@@ -209,11 +204,11 @@ public class FortressVillageQuestSystem extends BaseComponentSystem {
         return null; // no ground found
     }
 
-    private int randomHorizontalOffset() {
-        return randomSign() * (random.nextInt(MAX_HORIZONTAL_DISTANCE));
+    private int anyOffsetHorizontal() {
+        return anySignRandomly() * (random.nextInt(MAX_HORIZONTAL_DISTANCE));
     }
 
-    private int randomSign() {
+    private int anySignRandomly() {
         if (random.nextBoolean()) {
             return 1;
         } else {

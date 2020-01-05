@@ -14,7 +14,6 @@
      { "blockType": "CoreBlocks:Plank:engine:slope.RIGHT", "region": { "min": [4, 11, 0], "size": [1, 1, 20]}},
      { "blockType": "CoreBlocks:Plank:engine:slope.RIGHT", "region": { "min": [3, 12, 0], "size": [1, 1, 20]}},
      { "blockType": "CoreBlocks:Plank:engine:slope.RIGHT", "region": { "min": [2, 13, 0], "size": [1, 1, 20]}},
-     { "blockType": "CoreBlocks:Plank:engine:slope.LEFT", "region": { "min": [-7, 6, 0], "size": [1, 1, 20]}},
      { "blockType": "CoreBlocks:Plank:engine:slope.LEFT", "region": { "min": [-6, 7, 0], "size": [1, 1, 20]}},
      { "blockType": "CoreBlocks:Plank:engine:slope.LEFT", "region": { "min": [-5, 8, 0], "size": [1, 1, 20]}},
      { "blockType": "CoreBlocks:Plank:engine:slope.LEFT", "region": { "min": [-4, 9, 0], "size": [1, 1, 20]}},
