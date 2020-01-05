@@ -1,0 +1,6 @@
+{
+    "basedOn": "CoreAssets:rock",
+    "displayName": "Pillar Middle",
+    "tile": "StructuralResources:StoneBlocks",
+    "shape":"StructuralResources:pillar"
+}
