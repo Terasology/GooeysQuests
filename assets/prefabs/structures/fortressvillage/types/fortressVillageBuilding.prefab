@@ -1,0 +1,7 @@
+{
+    "StructureTemplateType": {},
+    "DisplayName": {
+        "name": "Fortress Village Building",
+        "description": "A building in a fortress village. Region for building: {min: [-5, 0, -2], size: [45, 10, 60]}"
+    }
+}

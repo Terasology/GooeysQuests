@@ -1,0 +1,97 @@
+{
+    "StructureTemplate": {
+        "type": "GooeysQuests:fortressVillageEntrance"
+    },
+    "SpawnBlockRegions": {
+        "regionsToFill": [
+            { "blockType": "CoreBlocks:Plank:Fences:Fence.BACK", "region": { "min": [-5, 20, 0], "size": [101, 2, 1]}},
+            { "blockType": "CoreBlocks:Plank:Fences:Fence.BACK", "region": { "min": [-5, 20, 2], "size": [101, 2, 1]}},
+            { "blockType": "CoreBlocks:Plank:Fences:Fence.BACK", "region": { "min": [-5, 20, 100], "size": [101, 2, 1]}},
+            { "blockType": "CoreBlocks:Plank:Fences:Fence.BACK", "region": { "min": [-5, 20, 102], "size": [101, 2, 1]}},
+            { "blockType": "CoreBlocks:Plank:Fences:Fence.LEFT", "region": { "min": [93, 20, 1], "size": [1, 2, 101]}},
+            { "blockType": "CoreBlocks:Plank:Fences:Fence.LEFT", "region": { "min": [95, 20, 1], "size": [1, 2, 101]}},
+            { "blockType": "CoreBlocks:Plank:Fences:Fence.LEFT", "region": { "min": [-5, 20, 1], "size": [1, 2, 101]}},
+            { "blockType": "CoreBlocks:Plank:Fences:Fence.LEFT", "region": { "min": [-3, 20, 1], "size": [1, 2, 101]}},
+            { "blockType": "CoreBlocks:CobbleStone", "region": { "min": [-5, 1, 0], "size": [101, 19, 3]}},
+            { "blockType": "CoreBlocks:CobbleStone", "region": { "min": [-5, 0, 1], "size": [101, 1, 101]}},
+            { "blockType": "CoreBlocks:CobbleStone", "region": { "min": [-5, 1, 1], "size": [3, 19, 101]}},
+            { "blockType": "CoreBlocks:CobbleStone", "region": { "min": [93, 1, 1], "size": [3, 19, 101]}},
+            { "blockType": "CoreBlocks:CobbleStone", "region": { "min": [-5, 1, 100], "size": [101, 19, 3]}},
+            { "blockType": "GooeysQuests:PillarMiddle", "region": { "min": [-5, 1, -4], "size": [2, 25, 11]}},
+            { "blockType": "GooeysQuests:PillarMiddle", "region": { "min": [-7, 1, -3], "size": [6, 25, 9]}},
+			{ "blockType": "GooeysQuests:PillarMiddle", "region": { "min": [-9, 1, -2], "size": [10, 25, 7]}},
+			{ "blockType": "GooeysQuests:PillarMiddle", "region": { "min": [92, 1, -4], "size": [2, 25, 11]}},
+			{ "blockType": "GooeysQuests:PillarMiddle", "region": { "min": [90, 1, -3], "size": [6, 25, 9]}},
+			{ "blockType": "GooeysQuests:PillarMiddle", "region": { "min": [88, 1, -2], "size": [10, 25, 7]}},
+			{ "blockType": "GooeysQuests:PillarMiddle", "region": { "min": [92, 1, 97], "size": [2, 25, 11]}},
+			{ "blockType": "GooeysQuests:PillarMiddle", "region": { "min": [90, 1, 98], "size": [6, 25, 9]}},
+			{ "blockType": "GooeysQuests:PillarMiddle", "region": { "min": [88, 1, 99], "size": [10, 25, 7]}},
+			{ "blockType": "GooeysQuests:PillarMiddle", "region": { "min": [-5, 1, 97], "size": [2, 25, 11]}},
+			{ "blockType": "GooeysQuests:PillarMiddle", "region": { "min": [-7, 1, 98], "size": [6, 25, 9]}},
+			{ "blockType": "GooeysQuests:PillarMiddle", "region": { "min": [-9, 1, 99], "size": [10, 25, 7]}},
+			{ "blockType": "CoreBlocks:CobbleStone", "region": { "min": [-9, 26, 1], "size": [1, 3, 1]}},
+			{ "blockType": "CoreBlocks:CobbleStone", "region": { "min": [0, 26, 1], "size": [1, 3, 1]}},
+			{ "blockType": "CoreBlocks:CobbleStone", "region": { "min": [88, 26, 1], "size": [1, 3, 1]}},
+			{ "blockType": "CoreBlocks:CobbleStone", "region": { "min": [97, 26, 1], "size": [1, 3, 1]}},
+			{ "blockType": "CoreBlocks:CobbleStone", "region": { "min": [97, 26, 101], "size": [1, 3, 1]}},
+			{ "blockType": "CoreBlocks:CobbleStone", "region": { "min": [88, 26, 101], "size": [1, 3, 1]}},
+			{ "blockType": "CoreBlocks:CobbleStone", "region": { "min": [0, 26, 101], "size": [1, 3, 1]}},
+			{ "blockType": "CoreBlocks:CobbleStone", "region": { "min": [-9, 26, 101], "size": [1, 3, 1]}},
+			{ "blockType": "CoreBlocks:Plank", "region": { "min": [-9, 28, 94], "size": [10, 1, 12]}},
+			{ "blockType": "CoreBlocks:Plank", "region": { "min": [-6, 29, 95], "size": [6, 1, 8]}},
+			{ "blockType": "CoreBlocks:Plank", "region": { "min": [-4, 30, 96], "size": [2, 1, 4]}},
+			{ "blockType": "CoreBlocks:Plank", "region": { "min": [-9, 28, -5], "size": [10, 1, 12]}},
+			{ "blockType": "CoreBlocks:Plank", "region": { "min": [-6, 29, -4], "size": [6, 1, 8]}},
+			{ "blockType": "CoreBlocks:Plank", "region": { "min": [-4, 30, -3], "size": [2, 1, 4]}},
+			{ "blockType": "CoreBlocks:Plank", "region": { "min": [88, 28, -5], "size": [10, 1, 12]}},
+			{ "blockType": "CoreBlocks:Plank", "region": { "min": [90, 29, -4], "size": [6, 1, 8]}},
+			{ "blockType": "CoreBlocks:Plank", "region": { "min": [92, 30, -3], "size": [2, 1, 4]}},
+			{ "blockType": "CoreBlocks:Plank", "region": { "min": [88, 28, 94], "size": [10, 1, 12]}},
+			{ "blockType": "CoreBlocks:Plank", "region": { "min": [90, 29, 95], "size": [6, 1, 8]}},
+			{ "blockType": "CoreBlocks:Plank", "region": { "min": [92, 30, 96], "size": [2, 1, 4]}},
+			{ "blockType": "CoreBlocks:Plank", "region": { "min": [41, 1, -7], "size": [1, 1, 7]}},
+			{ "blockType": "CoreBlocks:Plank", "region": { "min": [50, 1, -7], "size": [1, 1, 7]}},
+			{ "blockType": "CoreBlocks:torch.BOTTOM", "region": { "min": [50, 2, -7], "size": [1, 1, 7]}},
+			{ "blockType": "CoreBlocks:torch.BOTTOM", "region": { "min": [41, 2, -7], "size": [1, 1, 7]}},
+            { "blockType": "engine:air", "region": { "min": [42, 1, 0], "size": [9, 10, 5]}},
+            { "blockType": "engine:air", "region": { "min": [43, 11, 0], "size": [7, 1, 5]}},
+            { "blockType": "CoreBlocks:Plank:Fences:Fence.FRONT", "region": { "min": [44, 12, 0], "size": [5, 1, 3]}},
+            { "blockType": "CoreBlocks:Plank:Fences:Fence.FRONT", "region": { "min": [45, 13, 0], "size": [3, 1, 3]}},
+            { "blockType": "CoreBlocks:Plank:Fences:Fence.FRONT", "region": { "min": [46, 14, 0], "size": [1, 1, 3]}}
+        ]
+    },
+        "ScheduleStructurePlacement" : {
+            "placementsToSchedule": [
+                {
+                    "structureTemplateType": "GooeysQuests:fortressVillageBuilding",
+                    "front": "RIGHT",
+                    "position": [25, 0, 19]
+                },
+                {
+                    "structureTemplateType": "GooeysQuests:fortressVillageBuilding",
+                    "front": "RIGHT",
+                    "position": [27, 0, 50]
+                },
+                {
+                    "structureTemplateType": "GooeysQuests:fortressVillageBuilding",
+                    "front": "RIGHT",
+                    "position": [25, 0, 75]
+                },
+                {
+                    "structureTemplateType": "GooeysQuests:fortressVillageBuilding",
+                    "front": "LEFT",
+                    "position": [49, 0, 19]
+                },
+                {
+                    "structureTemplateType": "GooeysQuests:fortressVillageBuilding",
+                    "front": "LEFT",
+                    "position": [46, 0, 50]
+                },
+                {
+                    "structureTemplateType": "GooeysQuests:fortressVillageBuilding",
+                    "front": "LEFT",
+                    "position": [42, 0, 75]
+                }
+            ]
+        }
+}
