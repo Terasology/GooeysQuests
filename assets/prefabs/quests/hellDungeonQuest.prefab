@@ -1,0 +1,10 @@
+{
+    "persistent": true,
+    "HellDungeonQuest": {},
+    "GooeysQuest": {
+        "greetingText": "Hi, up for some hell dungeon exploration?",
+        "startButtonText": "Yes, please add a hell dungeon to this world",
+        "description": "Interested in some hell dungeon exploration?\n\nI could use my magic to add a hell dungeon to this world."
+    },
+    "Network":{}
+}

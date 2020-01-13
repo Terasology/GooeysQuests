@@ -1,0 +1,7 @@
+{
+    "StructureTemplateType": {},
+    "DisplayName": {
+        "name": "Hell Dungeon Door Frame",
+        "description": "Structures of this type should be spawned on the ground block before a 3x3 wall of stone"
+    }
+}

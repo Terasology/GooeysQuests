@@ -1,0 +1,27 @@
+{
+    "StructureTemplate" : {
+        "type": "GooeysQuests:hellDungeonCorridor",
+        "spawnChance": 20
+    },
+    "SpawnBlockRegions": {
+        "regionsToFill":[
+            { "blockType": "CoreBlocks:Tnt", "region": { "min": [0, 1, 0], "size": [1, 1, 1]}}
+        ]
+    },
+    // If there is air nearby, allow the player to blast through
+    "CheckBlockRegionCondition" : {
+        "checksToPerform": [
+            {"condition": "StructureTemplates:IsAirLike", "region" :{"min": [0, 2, 3], "size": [1, 1, 1]}}
+        ]
+    },
+
+    /* For debugging purposes it is an item: */
+    "parent" : "engine:iconItem",
+    "DisplayName" : {
+        "name" : "Places a corridor end with a trap"
+    },
+    "Item" : {
+        "icon" : "engine:items#whiteRecipe"
+    },
+    "SpawnStructureAction": {}
+}
