@@ -1,0 +1,8 @@
+/**
+ * A Plank block is meant to be the "refined" version of wood from a tree
+ */
+{
+    "basedOn": "CoreAssets:wood",
+    "displayName": "Plank",
+    "tile": "GooeysQuests:HellPlank"
+}

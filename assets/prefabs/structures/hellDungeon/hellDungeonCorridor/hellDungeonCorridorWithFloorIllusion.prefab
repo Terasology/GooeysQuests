@@ -4,10 +4,10 @@
     },
     "SpawnBlockRegions": {
         "regionsToFill":[
-            { "blockType": "CoreBlocks:torch.LEFT", "region": { "min": [1, -2, 5], "size": [1, 1, 1]}},
-            { "blockType": "CoreBlocks:torch.LEFT", "region": { "min": [1, 2, 10], "size": [1, 1, 1]}},
-            { "blockType": "CoreBlocks:torch.RIGHT", "region": { "min": [-1, 2, 7], "size": [1, 1, 1]}},
-            { "blockType": "CoreBlocks:torch.RIGHT", "region": { "min": [-1, -2, 12], "size": [1, 1, 1]}},
+            { "blockType": "GooeysQuests:HellTorch.LEFT", "region": { "min": [1, -2, 5], "size": [1, 1, 1]}},
+            { "blockType": "GooeysQuests:HellTorch.LEFT", "region": { "min": [1, 2, 10], "size": [1, 1, 1]}},
+            { "blockType": "GooeysQuests:HellTorch.RIGHT", "region": { "min": [-1, 2, 7], "size": [1, 1, 1]}},
+            { "blockType": "GooeysQuests:HellTorch.RIGHT", "region": { "min": [-1, -2, 12], "size": [1, 1, 1]}},
             { "blockType": "GooeysQuests:CobbleStoneIllusion", "region": { "min": [-1, 0, 2], "size": [2, 1, 5]}},
             { "blockType": "GooeysQuests:CobbleStoneIllusion", "region": { "min": [0, 0, 8], "size": [2, 1, 2]}},
             { "blockType": "GooeysQuests:CobbleStoneIllusion", "region": { "min": [-1, 0, 11], "size": [2, 1, 3]}},

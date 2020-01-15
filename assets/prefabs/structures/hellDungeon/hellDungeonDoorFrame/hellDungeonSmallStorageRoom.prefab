@@ -5,7 +5,7 @@
     "SpawnBlockRegions": {
         "regionsToFill":[
             { "blockType": "CoreBlocks:Chest.FRONT", "region": { "min": [-1, 1, 5], "size": [1, 1, 1]}},
-            { "blockType": "CoreBlocks:torch.RIGHT", "region": { "min": [-1, 2, 4], "size": [1, 1, 1]}},
+            { "blockType": "GooeysQuests:HellTorch.RIGHT", "region": { "min": [-1, 2, 4], "size": [1, 1, 1]}},
             { "blockType": "GooeysQuests:HellCobbleStone", "region": { "min": [-2, 0, 1], "size": [5, 1, 5]}},
             { "blockType": "GooeysQuests:HellCobbleStone", "region": { "min": [-2, 1, 1], "size": [2, 2, 1]}},
             { "blockType": "GooeysQuests:HellCobbleStone", "region": { "min": [-2, 3, 1], "size": [5, 2, 1]}},

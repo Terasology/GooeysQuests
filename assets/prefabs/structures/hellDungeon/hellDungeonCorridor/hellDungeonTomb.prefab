@@ -6,10 +6,10 @@
   "SpawnBlockRegions": {
     "regionsToFill":[
       { "blockType": "CoreBlocks:Chest.LEFT", "region": { "min": [-2, 1, 5], "size": [1, 1, 2]}},
-      { "blockType": "CoreBlocks:torch.BACK", "region": { "min": [-2, 2, 3], "size": [1, 2, 1]}},
-      { "blockType": "CoreBlocks:torch.BACK", "region": { "min": [2, 2, 3], "size": [1, 2, 1]}},
-      { "blockType": "CoreBlocks:torch.TOP", "region": { "min": [-3, 1, 7], "size": [1, 1, 1]}},
-      { "blockType": "CoreBlocks:torch.TOP", "region": { "min": [4, 1, 7], "size": [1, 1, 1]}},
+      { "blockType": "GooeysQuests:HellTorch.BACK", "region": { "min": [-2, 2, 3], "size": [1, 2, 1]}},
+      { "blockType": "GooeysQuests:HellTorch.BACK", "region": { "min": [2, 2, 3], "size": [1, 2, 1]}},
+      { "blockType": "GooeysQuests:HellTorch.TOP", "region": { "min": [-3, 1, 7], "size": [1, 1, 1]}},
+      { "blockType": "GooeysQuests:HellTorch.TOP", "region": { "min": [4, 1, 7], "size": [1, 1, 1]}},
       { "blockType": "CoreBlocks:OakTrunk:engine:halfBlock", "region": { "min": [-1, 2, 5], "size": [4, 1, 2]}},
       { "blockType": "CoreBlocks:OakTrunk:engine:halfBlock", "region": { "min": [3, 1, 5], "size": [1, 1, 2]}},
       { "blockType": "CoreBlocks:OakTrunk:engine:uppersteepslope.LEFT", "region": { "min": [-3, 2, 2], "size": [1, 1, 1]}},

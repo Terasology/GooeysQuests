@@ -5,10 +5,10 @@
     },
     "SpawnBlockRegions": {
         "regionsToFill":[
-            { "blockType": "CoreBlocks:torch.BACK", "region": { "min": [-8, -1, 2], "size": [1, 1, 1]}},
-            { "blockType": "CoreBlocks:torch.FRONT", "region": { "min": [-9, -1, 12], "size": [1, 1, 1]}},
-            { "blockType": "CoreBlocks:torch.LEFT", "region": { "min": [2, 1, 7], "size": [1, 1, 1]}},
-            { "blockType": "CoreBlocks:torch.RIGHT", "region": { "min": [-14, 0, 7], "size": [1, 1, 1]}},
+            { "blockType": "GooeysQuests:HellTorch.BACK", "region": { "min": [-8, -1, 2], "size": [1, 1, 1]}},
+            { "blockType": "GooeysQuests:HellTorch.FRONT", "region": { "min": [-9, -1, 12], "size": [1, 1, 1]}},
+            { "blockType": "GooeysQuests:HellTorch.LEFT", "region": { "min": [2, 1, 7], "size": [1, 1, 1]}},
+            { "blockType": "GooeysQuests:HellTorch.RIGHT", "region": { "min": [-14, 0, 7], "size": [1, 1, 1]}},
             { "blockType": "GooeysQuests:HellCobbleStone", "region": { "min": [-15, -5, 1], "size": [19, 6, 1]}},
             { "blockType": "GooeysQuests:HellCobbleStone", "region": { "min": [-15, 1, 1], "size": [14, 3, 1]}},
             { "blockType": "GooeysQuests:HellCobbleStone", "region": { "min": [-15, 4, 1], "size": [19, 2, 1]}},

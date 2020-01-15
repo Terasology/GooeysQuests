@@ -26,16 +26,16 @@
             { "blockType": "GooeysQuests:HellCobbleStone", "region": { "min": [-5, 0, 10], "size": [10, 5, 1]}},
             { "blockType": "CoreBlocks:OakTrunk", "region": { "min": [1, 1, 4], "size": [2, 1, 1]}},
             { "blockType": "CoreBlocks:OakTrunk", "region": { "min": [-3, 1, 7], "size": [2, 1, 1]}},
-            { "blockType": "CoreBlocks:Plank:engine:stair.BACK", "region": { "min": [1, 1, 2], "size": [2, 1, 1]}},
-            { "blockType": "CoreBlocks:Plank:engine:stair.BACK", "region": { "min": [-3, 1, 5], "size": [2, 1, 1]}},
-            { "blockType": "CoreBlocks:Plank:engine:stair.FRONT", "region": { "min": [1, 1, 6], "size": [2, 1, 1]}},
-            { "blockType": "CoreBlocks:Plank:engine:stair.FRONT", "region": { "min": [-3, 1, 9], "size": [2, 1, 1]}},
-            { "blockType": "CoreBlocks:Torch.BACK", "region": { "min": [-4, 3, 2], "size": [1, 1, 1]}},
-            { "blockType": "CoreBlocks:Torch.FRONT", "region": { "min": [3, 3, 9], "size": [1, 1, 1]}},
-            { "blockType": "CoreBlocks:Torch.LEFT", "region": { "min": [-3, 2, 2], "size": [1, 1, 1]}},
-            { "blockType": "CoreBlocks:Torch.LEFT", "region": { "min": [3, 3, 4], "size": [1, 1, 1]}},
-            { "blockType": "CoreBlocks:Torch.RIGHT", "region": { "min": [-4, 3, 7], "size": [1, 1, 1]}},
-            { "blockType": "CoreBlocks:Torch.RIGHT", "region": { "min": [2, 2, 9], "size": [1, 1, 1]}},
+            { "blockType": "GooeysQuests:HellPlank:engine:stair.BACK", "region": { "min": [1, 1, 2], "size": [2, 1, 1]}},
+            { "blockType": "GooeysQuests:HellPlank:engine:stair.BACK", "region": { "min": [-3, 1, 5], "size": [2, 1, 1]}},
+            { "blockType": "GooeysQuests:HellPlank:engine:stair.FRONT", "region": { "min": [1, 1, 6], "size": [2, 1, 1]}},
+            { "blockType": "GooeysQuests:HellPlank:engine:stair.FRONT", "region": { "min": [-3, 1, 9], "size": [2, 1, 1]}},
+            { "blockType": "GooeysQuests:HellTorch.BACK", "region": { "min": [-4, 3, 2], "size": [1, 1, 1]}},
+            { "blockType": "GooeysQuests:HellTorch.FRONT", "region": { "min": [3, 3, 9], "size": [1, 1, 1]}},
+            { "blockType": "GooeysQuests:HellTorch.LEFT", "region": { "min": [-3, 2, 2], "size": [1, 1, 1]}},
+            { "blockType": "GooeysQuests:HellTorch.LEFT", "region": { "min": [3, 3, 4], "size": [1, 1, 1]}},
+            { "blockType": "GooeysQuests:HellTorch.RIGHT", "region": { "min": [-4, 3, 7], "size": [1, 1, 1]}},
+            { "blockType": "GooeysQuests:HellTorch.RIGHT", "region": { "min": [2, 2, 9], "size": [1, 1, 1]}},
             { "blockType": "engine:air", "region": { "min": [0, 1, 1], "size": [1, 2, 1]}},
             { "blockType": "engine:air", "region": { "min": [-3, 3, 2], "size": [7, 1, 1]}},
             { "blockType": "engine:air", "region": { "min": [-1, 1, 2], "size": [2, 1, 1]}},
@@ -69,13 +69,13 @@
             {
                 "position": [3, 2, 9],
                 "items": [
-                        {"slot": 22, "blockFamiliy": "CoreBlocks:Torch"}
+                        {"slot": 22, "blockFamiliy": "GooeysQuests:HellTorch"}
                 ]
             },
             {
                 "position": [-4, 2, 2],
                 "items": [
-                        {"slot": 22, "blockFamiliy": "CoreBlocks:Torch"}
+                        {"slot": 22, "blockFamiliy": "GooeysQuests:HellTorch"}
                 ]
             }
         ]

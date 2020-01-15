@@ -1,0 +1,25 @@
+/**
+ * Torches catch on fire and stuff. On purpose!
+ */
+{
+    "family": "attachedToSurface",
+    "tile": "GooeysQuests:HellTorch",
+    "sides": {
+        "shape": "CoreAssets:TorchWall"
+    },
+    "topBottom": {
+        "shape": "CoreAssets:TorchGrounded"
+    },
+    "penetrable": true,
+    "attachmentAllowed": false,
+    "shadowCasting": false,
+    "luminance": 15,
+    "hardness": 1,
+    "inventory": {
+        "directPickup": true
+    },
+    "entity": {
+        "prefab": "CoreBlocks:Torch"
+    },
+    "mass": 10
+}
