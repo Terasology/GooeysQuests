@@ -1,0 +1,5 @@
+{
+    "displayName": "Web",
+    "basedOn": "CoreAssets:plant",
+    "tile": "CoreAssets:Web"
+}
