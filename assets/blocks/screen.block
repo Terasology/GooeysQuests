@@ -1,0 +1,18 @@
+{
+    "translucent": false,
+    "invisible": false,
+    "targetable": true,
+    "penetrable": true,
+    "replacementAllowed": false,
+    "shadowCasting": true,
+    "attachmentAllowed": true,
+    "hardness": 12,
+     "luminance": 55,
+    "displayName": "Display Screen",
+    "rotation": "symmetric",
+    "sounds": "Core:stone",
+    "tiles" : {
+        "all" : "screen"
+    },
+    "shape" : "GooeysQuests:UnoptimizedCube"
+}
