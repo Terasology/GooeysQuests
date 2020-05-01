@@ -1,12 +1,13 @@
 {
     "id" : "GooeysQuests",
-    "version" : "0.2.2-SNAPSHOT",
+    "version" : "0.2.2",
     "author" : "Florian",
     "displayName" : "GooeysQuests",
     "description" : "Planned content: A character called Gooey will appear. He offers you exciting and dangerous quests. However, be warned: He might modify your world... and not in a way you like!",
     "dependencies" : [
         {"id" : "Behaviors", "minVersion" : "0.2.0"},
         {"id" : "CoreBlocks", "minVersion" : "1.0.0"},
+        {"id" : "CoreItems", "minVersion" : "1.0.0"},
         {"id" : "Core", "minVersion" : "3.0.0"},
         {"id" : "StructureTemplates", "minVersion" : "0.3.0"},
         {"id" : "StructuralResources", "minVersion" : "2.0.0"},
