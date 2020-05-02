@@ -8,7 +8,7 @@
         {"id" : "Behaviors", "minVersion" : "0.2.0"},
         {"id" : "CoreBlocks", "minVersion" : "1.0.0"},
         {"id" : "CoreItems", "minVersion" : "1.0.0"},
-        {"id" : "Core", "minVersion" : "3.0.0"},
+        {"id" : "CoreWorlds", "minVersion" : "1.0.0"},
         {"id" : "StructureTemplates", "minVersion" : "0.3.0"},
         {"id" : "StructuralResources", "minVersion" : "2.0.0"},
         {"id" : "Pathfinding", "minVersion" : "0.3.0"},
@@ -19,5 +19,5 @@
     ],
     "serverSideOnly" : false,
     "isGameplay" : "true",
-    "defaultWorldGenerator" : "Core:FacetedPerlin"
+    "defaultWorldGenerator" : "CoreWorlds:FacetedPerlin"
 }
