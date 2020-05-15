@@ -13,6 +13,8 @@
         { "id": "CoreWorlds", "minVersion": "1.0.0" },
         { "id": "Equipment", "minVersion": "1.0.0" },
         { "id": "Fences", "minVersion": "0.1.1" },
+        { "id": "Health", "minVersion": "1.0.0" },
+        { "id": "Inventory", "minVersion": "1.1.0" },
         { "id": "Pathfinding", "minVersion": "0.3.0" },
         { "id": "StructureTemplates", "minVersion": "0.3.0" },
         { "id": "StructuralResources", "minVersion": "2.0.0" }
