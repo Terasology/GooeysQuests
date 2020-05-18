@@ -5,7 +5,7 @@
     },
     "SpawnBlockRegions": {
         "regionsToFill":[
-            { "blockType": "CoreBlocks:Tnt", "region": { "min": [0, 1, 0], "size": [1, 1, 1]}}
+            { "blockType": "CoreAdvancedAssets:Tnt", "region": { "min": [0, 1, 0], "size": [1, 1, 1]}}
         ]
     },
     // If there is air nearby, allow the player to blast through

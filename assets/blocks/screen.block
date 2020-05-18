@@ -10,7 +10,7 @@
      "luminance": 55,
     "displayName": "Display Screen",
     "rotation": "symmetric",
-    "sounds": "Core:stone",
+    "sounds": "CoreAssets:stone",
     "tiles" : {
         "all" : "screen"
     },
