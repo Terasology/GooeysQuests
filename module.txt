@@ -1,6 +1,6 @@
 {
     "id": "GooeysQuests",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "author": "Florian",
     "displayName": "Gooey's Quests",
     "description": "Planned content: A character called Gooey will appear. He offers you exciting and dangerous quests. However, be warned: He might modify your world... and not in a way you like!",
@@ -10,6 +10,7 @@
         { "id": "ChiselBlocks", "minVersion": "1.0.0" },
         { "id": "CoreAdvancedAssets", "minVersion": "1.1.0" },
         { "id": "CoreAssets", "minVersion": "2.0.1" },
+        { "id": "CoreRendering", "minVersion": "1.0.0" },
         { "id": "CoreWorlds", "minVersion": "1.1.0" },
         { "id": "Equipment", "minVersion": "1.2.0" },
         { "id": "Fences", "minVersion": "1.0.0" },
