@@ -63,10 +63,10 @@ public class MagicBuildParticleClientSystem extends BaseComponentSystem {
         LocationComponent locationComponent = entityBuilder.getComponent(LocationComponent.class);
         locationComponent.setWorldPosition(region.center());
         PositionRangeGeneratorComponent particleEffect = entityBuilder.getComponent(PositionRangeGeneratorComponent.class);
-        Vector3f size = new Vector3f(region.size().toVector3f());
+        Vector3f size = region.size().toVector3f();
         size.scale(0.5f);
-        particleEffect.minPosition = size.mul(-1f);
-        particleEffect.minPosition = size;
+        particleEffect.minPosition.set(size.x, size.y, size.z).negate();
+        particleEffect.maxPosition.set(size.x, size.y, size.z);
         entityBuilder.build();
     }
 }
