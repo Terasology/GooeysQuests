@@ -15,7 +15,7 @@
  */
 package org.terasology.gooeysQuests;
 
-import org.terasology.assets.management.AssetManager;
+import org.terasology.behaviors.components.NPCMovementComponent;
 import org.terasology.entitySystem.entity.EntityBuilder;
 import org.terasology.entitySystem.entity.EntityManager;
 import org.terasology.entitySystem.entity.EntityRef;
@@ -25,6 +25,7 @@ import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.entitySystem.systems.UpdateSubscriberSystem;
+import org.terasology.gestalt.assets.management.AssetManager;
 import org.terasology.gooeysQuests.api.CreateStartQuestsEvent;
 import org.terasology.gooeysQuests.api.GooeysQuestComponent;
 import org.terasology.gooeysQuests.api.PersonalQuestsComponent;
@@ -39,8 +40,6 @@ import org.terasology.math.TeraMath;
 import org.terasology.math.geom.Quat4f;
 import org.terasology.math.geom.Vector3f;
 import org.terasology.math.geom.Vector3i;
-
-import org.terasology.behaviors.components.NPCMovementComponent;
 import org.terasology.registry.In;
 import org.terasology.structureTemplates.interfaces.BlockPredicateProvider;
 import org.terasology.structureTemplates.interfaces.BlockRegionChecker;
