@@ -1,51 +1,38 @@
-/*
- * Copyright 2016 MovingBlocks
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright 2020 The Terasology Foundation
+// SPDX-License-Identifier: Apache-2.0
 package org.terasology.gooeysQuests;
 
 import org.terasology.behaviors.components.NPCMovementComponent;
-import org.terasology.entitySystem.entity.EntityBuilder;
-import org.terasology.entitySystem.entity.EntityManager;
-import org.terasology.entitySystem.entity.EntityRef;
-import org.terasology.entitySystem.event.ReceiveEvent;
-import org.terasology.entitySystem.prefab.Prefab;
-import org.terasology.entitySystem.systems.BaseComponentSystem;
-import org.terasology.entitySystem.systems.RegisterMode;
-import org.terasology.entitySystem.systems.RegisterSystem;
-import org.terasology.entitySystem.systems.UpdateSubscriberSystem;
+import org.terasology.engine.entitySystem.entity.EntityBuilder;
+import org.terasology.engine.entitySystem.entity.EntityManager;
+import org.terasology.engine.entitySystem.entity.EntityRef;
+import org.terasology.engine.entitySystem.event.ReceiveEvent;
+import org.terasology.engine.entitySystem.prefab.Prefab;
+import org.terasology.engine.entitySystem.systems.BaseComponentSystem;
+import org.terasology.engine.entitySystem.systems.RegisterMode;
+import org.terasology.engine.entitySystem.systems.RegisterSystem;
+import org.terasology.engine.entitySystem.systems.UpdateSubscriberSystem;
+import org.terasology.engine.logic.chat.ChatMessageEvent;
+import org.terasology.engine.logic.location.LocationComponent;
+import org.terasology.engine.logic.players.event.OnPlayerSpawnedEvent;
+import org.terasology.engine.math.Direction;
+import org.terasology.engine.math.Region3i;
+import org.terasology.engine.registry.In;
+import org.terasology.engine.world.WorldProvider;
+import org.terasology.engine.world.block.Block;
 import org.terasology.gestalt.assets.management.AssetManager;
 import org.terasology.gooeysQuests.api.CreateStartQuestsEvent;
 import org.terasology.gooeysQuests.api.GooeysQuestComponent;
 import org.terasology.gooeysQuests.api.PersonalQuestsComponent;
 import org.terasology.gooeysQuests.api.PrepareQuestEvent;
 import org.terasology.gooeysQuests.api.QuestReadyEvent;
-import org.terasology.logic.chat.ChatMessageEvent;
-import org.terasology.logic.location.LocationComponent;
-import org.terasology.logic.players.event.OnPlayerSpawnedEvent;
-import org.terasology.math.Direction;
-import org.terasology.math.Region3i;
 import org.terasology.math.TeraMath;
 import org.terasology.math.geom.Quat4f;
 import org.terasology.math.geom.Vector3f;
 import org.terasology.math.geom.Vector3i;
-import org.terasology.registry.In;
 import org.terasology.structureTemplates.interfaces.BlockPredicateProvider;
 import org.terasology.structureTemplates.interfaces.BlockRegionChecker;
 import org.terasology.structureTemplates.util.BlockRegionTransform;
-import org.terasology.world.WorldProvider;
-import org.terasology.world.block.Block;
 
 import java.util.List;
 import java.util.Random;
@@ -57,33 +44,26 @@ import java.util.function.Predicate;
 @RegisterSystem(RegisterMode.AUTHORITY)
 public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubscriberSystem {
     /**
-     * Spawn location of gooey is infront of the player. This angle specifies the maximum angle from the players
-     * current view angle gooey may spawn. A value of PI would mean that the gooey could spawn behind the player.
-     * However if gooey spawns behind the player the player may overlook him. The angle should however also be not
-     * to small to make it appear more random and not scripted.
+     * Spawn location of gooey is infront of the player. This angle specifies the maximum angle from the players current
+     * view angle gooey may spawn. A value of PI would mean that the gooey could spawn behind the player. However if
+     * gooey spawns behind the player the player may overlook him. The angle should however also be not to small to make
+     * it appear more random and not scripted.
      */
     private static final float MAX_GOOEY_SPAWN_OFFSET_ANGLE = (float) (Math.PI / 8.0f);
     private static final float MIN_GOOEY_SPAWN_DISTANCE = 3;
     private static final float MAX_GOOEY_SPAWN_DISTANCE = 5;
     private static final float SECONDS_BETWEEN_QUESTS = 60;
-
+    private final Random random = new Random();
     @In
     private EntityManager entityManager;
-
     @In
     private AssetManager assetManager;
-
     @In
     private WorldProvider worldProvider;
-
     @In
     private BlockRegionChecker blockRegionChecker;
-
     @In
     private BlockPredicateProvider blockPredicateProvider;
-
-    private Random random = new Random();
-
     private EntityRef questToSpawnGooeyFor = EntityRef.NULL;
 
     private float nextQuestCooldown;
@@ -276,7 +256,8 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
 
         Region3i groundRegion = Region3i.createFromMinMax(new Vector3i(minX, groundY, minZ), new Vector3i(maxX, groundY,
                 maxZ));
-        boolean groundExists = blockRegionChecker.allBlocksMatch(groundRegion, BlockRegionTransform.getTransformationThatDoesNothing(),
+        boolean groundExists = blockRegionChecker.allBlocksMatch(groundRegion,
+                BlockRegionTransform.getTransformationThatDoesNothing(),
                 groundLikeCondition);
         if (!groundExists) {
             return false;
@@ -286,12 +267,10 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
         int airMax = airMin + 3;
         Region3i airRegion = Region3i.createFromMinMax(new Vector3i(minX, airMin, minZ), new Vector3i(maxZ, airMax,
                 maxZ));
-        boolean enoughAirAbove = blockRegionChecker.allBlocksMatch(airRegion, BlockRegionTransform.getTransformationThatDoesNothing(),
+        boolean enoughAirAbove = blockRegionChecker.allBlocksMatch(airRegion,
+                BlockRegionTransform.getTransformationThatDoesNothing(),
                 airLikeCondition);
-        if (!enoughAirAbove) {
-            return false;
-        }
-        return true;
+        return enoughAirAbove;
     }
 
 }

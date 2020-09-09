@@ -1,60 +1,59 @@
 {
-    "type" : "GooeyMainDialog",
-    "contents" : {
-        "type": "RelativeLayout",
+  "type": "GooeyMainDialog",
+  "contents": {
+    "type": "RelativeLayout",
+    "contents": [
+      {
+        "type": "ScrollableArea",
+        "id": "scrollArea",
+        "content": {
+          "type": "UIText",
+          "readOnly": true,
+          "multiline": true,
+          "id": "gooeysText"
+        },
+        "layoutInfo": {
+          "height": 300,
+          "width": 500,
+          "position-horizontal-center": {},
+          "position-vertical-center": {}
+        }
+      },
+      {
+        "type": "ColumnLayout",
         "contents": [
-            {
-                "type": "ScrollableArea",
-                "id": "scrollArea",
-                "content": {
-                    "type": "UIText",
-                    "readOnly": true,
-                    "multiline": true,
-                    "id": "gooeysText"
-                },
-                "layoutInfo": {
-                    "height" : 300,
-                    "width" : 500,
-                    "position-horizontal-center" : {},
-                    "position-vertical-center": {}
-                }
-            },
-            {
-                "type" : "ColumnLayout",
-                "contents" : [
-                    {
-                        "type" : "UIButton",
-                        "text" : "Please follow me",
-                        "id" : "followButton"
-                    },
-                    {
-                        "type" : "UIButton",
-                        "text" : "Please stay here",
-                        "id" : "stayButton"
-                    },
-                    {
-                        "type" : "UIButton",
-                        "text" : "I want to start the quest",
-                        "id" : "startQuestButton"
-                    },
-                    {
-                        "type" : "UIButton",
-                        "text" : "That's all",
-                        "id" : "closeButton"
-                    }
-
-                ],
-                "layoutInfo" : {
-                    "use-content-height" : true,
-                    "width" : 500,
-                    "position-horizontal-center" : {},
-                    "position-vertical-top" : {},
-                    "position-top": {
-                            "widget": "scrollArea",
-                            "target": "BOTTOM"
-                    }
-                }
-            }
-        ]
-    }
+          {
+            "type": "UIButton",
+            "text": "Please follow me",
+            "id": "followButton"
+          },
+          {
+            "type": "UIButton",
+            "text": "Please stay here",
+            "id": "stayButton"
+          },
+          {
+            "type": "UIButton",
+            "text": "I want to start the quest",
+            "id": "startQuestButton"
+          },
+          {
+            "type": "UIButton",
+            "text": "That's all",
+            "id": "closeButton"
+          }
+        ],
+        "layoutInfo": {
+          "use-content-height": true,
+          "width": 500,
+          "position-horizontal-center": {},
+          "position-vertical-top": {},
+          "position-top": {
+            "widget": "scrollArea",
+            "target": "BOTTOM"
+          }
+        }
+      }
+    ]
+  }
 }

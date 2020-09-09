@@ -1,49 +1,36 @@
-/*
- * Copyright 2018 MovingBlocks
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright 2020 The Terasology Foundation
+// SPDX-License-Identifier: Apache-2.0
 
 package org.terasology.gooeysQuests.quests.mines;
 
-import org.terasology.entitySystem.entity.EntityBuilder;
-import org.terasology.entitySystem.entity.EntityManager;
-import org.terasology.entitySystem.entity.EntityRef;
-import org.terasology.entitySystem.entity.lifecycleEvents.BeforeDeactivateComponent;
-import org.terasology.entitySystem.event.ReceiveEvent;
-import org.terasology.entitySystem.prefab.Prefab;
-import org.terasology.entitySystem.systems.BaseComponentSystem;
-import org.terasology.entitySystem.systems.RegisterMode;
-import org.terasology.entitySystem.systems.RegisterSystem;
+import org.terasology.engine.entitySystem.entity.EntityBuilder;
+import org.terasology.engine.entitySystem.entity.EntityManager;
+import org.terasology.engine.entitySystem.entity.EntityRef;
+import org.terasology.engine.entitySystem.entity.lifecycleEvents.BeforeDeactivateComponent;
+import org.terasology.engine.entitySystem.event.ReceiveEvent;
+import org.terasology.engine.entitySystem.prefab.Prefab;
+import org.terasology.engine.entitySystem.systems.BaseComponentSystem;
+import org.terasology.engine.entitySystem.systems.RegisterMode;
+import org.terasology.engine.entitySystem.systems.RegisterSystem;
+import org.terasology.engine.logic.location.LocationComponent;
+import org.terasology.engine.math.Side;
+import org.terasology.engine.registry.In;
+import org.terasology.engine.world.WorldProvider;
+import org.terasology.engine.world.block.Block;
+import org.terasology.engine.world.block.BlockManager;
 import org.terasology.gestalt.assets.management.AssetManager;
 import org.terasology.gooeysQuests.api.CreateStartQuestsEvent;
 import org.terasology.gooeysQuests.api.PersonalQuestsComponent;
 import org.terasology.gooeysQuests.api.PrepareQuestEvent;
 import org.terasology.gooeysQuests.api.QuestReadyEvent;
 import org.terasology.gooeysQuests.api.QuestStartRequest;
-import org.terasology.logic.inventory.InventoryManager;
-import org.terasology.logic.location.LocationComponent;
-import org.terasology.math.Side;
+import org.terasology.inventory.logic.InventoryManager;
 import org.terasology.math.geom.Vector3i;
-import org.terasology.registry.In;
 import org.terasology.structureTemplates.events.CheckSpawnConditionEvent;
 import org.terasology.structureTemplates.events.SpawnStructureEvent;
 import org.terasology.structureTemplates.interfaces.BlockPredicateProvider;
 import org.terasology.structureTemplates.interfaces.StructureTemplateProvider;
 import org.terasology.structureTemplates.util.BlockRegionTransform;
-import org.terasology.world.WorldProvider;
-import org.terasology.world.block.Block;
-import org.terasology.world.block.BlockManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -57,7 +44,9 @@ import java.util.function.Predicate;
 public class MinesQuestSystem extends BaseComponentSystem {
     private static final int MAX_HORIZONTAL_DISTANCE = 20;
     private static final int VERTICAL_SCAN_DISTANCE = 20;
-
+    private final Map<EntityRef, MinesQuestSystem.FoundSpawnPossibility> questToFoundSpawnPossibilityMap =
+            new HashMap<>();
+    private final Random random = new Random();
     @In
     private AssetManager assetManager;
     @In
@@ -72,9 +61,6 @@ public class MinesQuestSystem extends BaseComponentSystem {
     private BlockPredicateProvider blockPredicateProvider;
     @In
     private StructureTemplateProvider structureTemplateProvider;
-
-    private Map<EntityRef, MinesQuestSystem.FoundSpawnPossibility> questToFoundSpawnPossibilityMap = new HashMap<>();
-    private Random random = new Random();
     private Predicate<Block> isAirCondition;
     private Predicate<Block> isGroundCondition;
 
@@ -116,29 +102,13 @@ public class MinesQuestSystem extends BaseComponentSystem {
             return;
         }
 
-        questToFoundSpawnPossibilityMap.put(quest, new MinesQuestSystem.FoundSpawnPossibility(entranceSpawner, foundSpawnTransformation));
+        questToFoundSpawnPossibilityMap.put(quest, new MinesQuestSystem.FoundSpawnPossibility(entranceSpawner,
+                foundSpawnTransformation));
         quest.send(new QuestReadyEvent());
-    }
-    private static class FoundSpawnPossibility {
-        private EntityRef entranceSpawner;
-        private BlockRegionTransform transformation;
-
-        private FoundSpawnPossibility(EntityRef entranceSpawner, BlockRegionTransform transformation) {
-            this.entranceSpawner = entranceSpawner;
-            this.transformation = transformation;
-        }
-
-        private EntityRef getEntranceSpawner() {
-            return entranceSpawner;
-        }
-
-        private BlockRegionTransform getTransformation() {
-            return transformation;
-        }
     }
 
     private BlockRegionTransform findGoodSpawnTransformation(Vector3i spawnPosition, EntityRef entranceSpawner) {
-        for (Side side: Side.horizontalSides()) {
+        for (Side side : Side.horizontalSides()) {
             BlockRegionTransform transformList = createTransformation(spawnPosition, side);
 
             CheckSpawnConditionEvent checkConditionEvent = new CheckSpawnConditionEvent(transformList);
@@ -207,6 +177,24 @@ public class MinesQuestSystem extends BaseComponentSystem {
             return 1;
         } else {
             return -1;
+        }
+    }
+
+    private static class FoundSpawnPossibility {
+        private final EntityRef entranceSpawner;
+        private final BlockRegionTransform transformation;
+
+        private FoundSpawnPossibility(EntityRef entranceSpawner, BlockRegionTransform transformation) {
+            this.entranceSpawner = entranceSpawner;
+            this.transformation = transformation;
+        }
+
+        private EntityRef getEntranceSpawner() {
+            return entranceSpawner;
+        }
+
+        private BlockRegionTransform getTransformation() {
+            return transformation;
         }
     }
 
