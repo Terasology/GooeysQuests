@@ -5,7 +5,7 @@ package org.terasology.gooeysQuests.api;
 import org.terasology.engine.entitySystem.Component;
 import org.terasology.engine.math.Side;
 import org.terasology.math.geom.Vector3i;
-import org.terasology.reflection.MappedContainer;
+import org.terasology.nui.reflection.MappedContainer;
 
 import java.util.ArrayList;
 import java.util.List;
