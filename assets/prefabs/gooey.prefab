@@ -14,34 +14,11 @@
     ]
   },
   "skeletalmesh": {
-    "mesh": "gooey",
+    "mesh": "MawGooey:gooey",
     "heightOffset": -0.5,
-    "material": "gooeySkin",
+    "material": "MawGooey:gooeySkinPurple",
     "animationPool": [
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#LookRightLeft",
-      "gooey#LookRightLeft",
-      "gooey#LookRightUp"
+      "MawGooey:gooey#ArmatureAction"
     ],
     "loop": true,
     "scale": [
@@ -55,35 +32,12 @@
   },
   "Stand": {
     "animationPool": [
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#LookRightLeft",
-      "gooey#LookRightLeft",
-      "gooey#LookRightUp"
+      "MawGooey:gooey#ArmatureAction"
     ]
   },
   "Walk": {
     "animationPool": [
-      "gooey#IdleBreathing"
+      "MawGooey:gooey#ArmatureAction"
     ]
   },
   "location": {},
