@@ -34,6 +34,7 @@ import org.terasology.logic.chat.ChatMessageEvent;
 import org.terasology.logic.location.LocationComponent;
 import org.terasology.logic.players.event.OnPlayerSpawnedEvent;
 import org.terasology.math.Direction;
+import org.terasology.math.JomlUtil;
 import org.terasology.math.Region3i;
 import org.terasology.math.TeraMath;
 import org.terasology.math.geom.Quat4f;
@@ -47,6 +48,7 @@ import org.terasology.structureTemplates.interfaces.BlockRegionChecker;
 import org.terasology.structureTemplates.util.BlockRegionTransform;
 import org.terasology.world.WorldProvider;
 import org.terasology.world.block.Block;
+import org.terasology.world.block.BlockRegion;
 
 import java.util.List;
 import java.util.Random;
@@ -241,7 +243,7 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
      * check. (Feel free to implmeent a proper line of sight check)
      */
     private boolean hasLineOfSight(Vector3i spawnBlockPos, Vector3i characterPos) {
-        Region3i region = Region3i.createBounded(spawnBlockPos, characterPos);
+        BlockRegion region = new BlockRegion(JomlUtil.from(spawnBlockPos), JomlUtil.from(characterPos));
         return blockRegionChecker.allBlocksMatch(region, BlockRegionTransform.getTransformationThatDoesNothing(),
                 airLikeCondition);
     }
@@ -261,7 +263,7 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
 
     private Quat4f randomYAxisRotation(float maxAngle) {
         float randomAngle = random.nextFloat() * maxAngle;
-        // chance to have a rotation in other diration:
+        // chance to have a rotation in other duration:
         if (random.nextBoolean()) {
             randomAngle = ((float) Math.PI * 2) - randomAngle;
         }
@@ -275,7 +277,7 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
         int maxZ = spawnPosition.getZ() + 1;
         int groundY = spawnPosition.getY() - 2;
 
-        Region3i groundRegion = Region3i.createFromMinMax(new Vector3i(minX, groundY, minZ), new Vector3i(maxX, groundY,
+        BlockRegion groundRegion = new BlockRegion(new org.joml.Vector3i(minX, groundY, minZ), new org.joml.Vector3i(maxX, groundY,
                 maxZ));
         boolean groundExists = blockRegionChecker.allBlocksMatch(groundRegion, BlockRegionTransform.getTransformationThatDoesNothing(),
                 groundLikeCondition);
@@ -285,7 +287,7 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
         int airMin = spawnPosition.getY();
         // require some air above, to prevent it spawning below something
         int airMax = airMin + 3;
-        Region3i airRegion = Region3i.createFromMinMax(new Vector3i(minX, airMin, minZ), new Vector3i(maxZ, airMax,
+        BlockRegion airRegion = new BlockRegion(new org.joml.Vector3i(minX, airMin, minZ), new org.joml.Vector3i(maxZ, airMax,
                 maxZ));
         boolean enoughAirAbove = blockRegionChecker.allBlocksMatch(airRegion, BlockRegionTransform.getTransformationThatDoesNothing(),
                 airLikeCondition);
