@@ -34,6 +34,7 @@ import org.terasology.logic.chat.ChatMessageEvent;
 import org.terasology.logic.location.LocationComponent;
 import org.terasology.logic.players.event.OnPlayerSpawnedEvent;
 import org.terasology.math.Direction;
+import org.terasology.math.JomlUtil;
 import org.terasology.math.Region3i;
 import org.terasology.math.TeraMath;
 import org.terasology.math.geom.Quat4f;
@@ -242,7 +243,7 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
      */
     private boolean hasLineOfSight(Vector3i spawnBlockPos, Vector3i characterPos) {
         Region3i region = Region3i.createBounded(spawnBlockPos, characterPos);
-        return blockRegionChecker.allBlocksMatch(region, BlockRegionTransform.getTransformationThatDoesNothing(),
+        return blockRegionChecker.allBlocksMatch(JomlUtil.from(region), BlockRegionTransform.getTransformationThatDoesNothing(),
                 airLikeCondition);
     }
 
@@ -277,7 +278,7 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
 
         Region3i groundRegion = Region3i.createFromMinMax(new Vector3i(minX, groundY, minZ), new Vector3i(maxX, groundY,
                 maxZ));
-        boolean groundExists = blockRegionChecker.allBlocksMatch(groundRegion, BlockRegionTransform.getTransformationThatDoesNothing(),
+        boolean groundExists = blockRegionChecker.allBlocksMatch(JomlUtil.from(groundRegion), BlockRegionTransform.getTransformationThatDoesNothing(),
                 groundLikeCondition);
         if (!groundExists) {
             return false;
@@ -287,7 +288,7 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
         int airMax = airMin + 3;
         Region3i airRegion = Region3i.createFromMinMax(new Vector3i(minX, airMin, minZ), new Vector3i(maxZ, airMax,
                 maxZ));
-        boolean enoughAirAbove = blockRegionChecker.allBlocksMatch(airRegion, BlockRegionTransform.getTransformationThatDoesNothing(),
+        boolean enoughAirAbove = blockRegionChecker.allBlocksMatch(JomlUtil.from(airRegion), BlockRegionTransform.getTransformationThatDoesNothing(),
                 airLikeCondition);
         if (!enoughAirAbove) {
             return false;

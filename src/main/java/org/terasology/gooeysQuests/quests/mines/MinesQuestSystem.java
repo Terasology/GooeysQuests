@@ -33,6 +33,7 @@ import org.terasology.gooeysQuests.api.QuestReadyEvent;
 import org.terasology.gooeysQuests.api.QuestStartRequest;
 import org.terasology.logic.inventory.InventoryManager;
 import org.terasology.logic.location.LocationComponent;
+import org.terasology.math.JomlUtil;
 import org.terasology.math.Side;
 import org.terasology.math.geom.Vector3i;
 import org.terasology.registry.In;
@@ -152,7 +153,7 @@ public class MinesQuestSystem extends BaseComponentSystem {
     }
 
     private BlockRegionTransform createTransformation(Vector3i spawnPosition, Side side) {
-        return BlockRegionTransform.createRotationThenMovement(Side.FRONT, side, spawnPosition);
+        return BlockRegionTransform.createRotationThenMovement(Side.FRONT, side, JomlUtil.from(spawnPosition));
     }
 
     @ReceiveEvent(components = MinesQuestComponent.class)
