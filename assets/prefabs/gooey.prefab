@@ -13,78 +13,22 @@
       255
     ]
   },
-  "skeletalmesh": {
+  "skeletalMesh": {
     "mesh": "gooey",
     "heightOffset": -0.5,
     "material": "gooeySkin",
     "animationPool": [
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#LookRightLeft",
-      "gooey#LookRightLeft",
-      "gooey#LookRightUp"
+      "gooey#ArmatureAction"
     ],
     "loop": true,
     "scale": [
-      0.25,
-      0.25,
-      0.25
+      0.45,
+      0.45,
+      0.45
     ]
   },
   "Behavior": {
     "tree": "gooey"
-  },
-  "Stand": {
-    "animationPool": [
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#LookRightLeft",
-      "gooey#LookRightLeft",
-      "gooey#LookRightUp"
-    ]
-  },
-  "Walk": {
-    "animationPool": [
-      "gooey#IdleBreathing"
-    ]
   },
   "location": {},
   "Character": {},
