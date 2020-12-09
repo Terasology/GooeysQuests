@@ -15,11 +15,11 @@
   },
 
   "skeletalMesh": {
-    "mesh": "MawGooey:gooey",
+    "mesh": "Gooey:gooey",
     "heightOffset": -0.5,
-    "material": "MawGooey:gooeySkinPurple",
+    "material": "Gooey:gooeySkinPurple",
     "animationPool": [
-      "MawGooey:gooey#ArmatureAction"
+      "Gooey:gooey#ArmatureAction"
     ],
     "loop": true,
     "scale": [
