@@ -1,6 +1,6 @@
 {
     "id": "GooeysQuests",
-    "version": "1.1.1",
+    "version": "1.1.2-SNAPSHOT",
     "author": "Florian",
     "displayName": "Gooey's Quests",
     "description": "Planned content: A character called Gooey will appear. He offers you exciting and dangerous quests. However, be warned: He might modify your world... and not in a way you like!",
