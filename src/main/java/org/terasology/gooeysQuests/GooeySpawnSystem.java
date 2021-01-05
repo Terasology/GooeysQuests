@@ -242,7 +242,7 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
      * check. (Feel free to implmeent a proper line of sight check)
      */
     private boolean hasLineOfSight(Vector3i spawnBlockPos, Vector3i characterPos) {
-        BlockRegion region = new BlockRegion(BlockRegion.INVALID).union(spawnBlockPos).union(characterPos);
+        BlockRegion region = new BlockRegion(spawnBlockPos).union(characterPos);
         return blockRegionChecker.allBlocksMatch(region, BlockRegionTransform.getTransformationThatDoesNothing(),
             airLikeCondition);
     }
@@ -287,7 +287,7 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
         int airMin = spawnPosition.y();
         // require some air above, to prevent it spawning below something
         int airMax = airMin + 3;
-        BlockRegion airRegion = new BlockRegion(minX, airMin, minZ, maxZ, airMax, maxZ);
+        BlockRegion airRegion = new BlockRegion(minX, airMin, minZ, maxX, airMax, maxZ);
         boolean enoughAirAbove = blockRegionChecker.allBlocksMatch(airRegion, BlockRegionTransform.getTransformationThatDoesNothing(),
             airLikeCondition);
         if (!enoughAirAbove) {
