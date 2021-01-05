@@ -16,6 +16,10 @@
 
 package org.terasology.gooeysQuests.quests.mines;
 
+import org.joml.RoundingMode;
+import org.joml.Vector3f;
+import org.joml.Vector3i;
+import org.joml.Vector3ic;
 import org.terasology.assets.management.AssetManager;
 import org.terasology.entitySystem.entity.EntityBuilder;
 import org.terasology.entitySystem.entity.EntityManager;
@@ -33,9 +37,7 @@ import org.terasology.gooeysQuests.api.QuestReadyEvent;
 import org.terasology.gooeysQuests.api.QuestStartRequest;
 import org.terasology.logic.inventory.InventoryManager;
 import org.terasology.logic.location.LocationComponent;
-import org.terasology.math.JomlUtil;
 import org.terasology.math.Side;
-import org.terasology.math.geom.Vector3i;
 import org.terasology.registry.In;
 import org.terasology.structureTemplates.events.CheckSpawnConditionEvent;
 import org.terasology.structureTemplates.events.SpawnStructureEvent;
@@ -101,10 +103,9 @@ public class MinesQuestSystem extends BaseComponentSystem {
     public void onPrepareQuest(PrepareQuestEvent event, EntityRef quest) {
         EntityRef owner = quest.getOwner();
         LocationComponent questOwnerLocation = owner.getComponent(LocationComponent.class);
-        Vector3i questOwnerBlockPos = new Vector3i(questOwnerLocation.getWorldPosition());
+        Vector3i questOwnerBlockPos = new Vector3i(questOwnerLocation.getWorldPosition(new Vector3f()), RoundingMode.FLOOR);
         Vector3i randomPosition = new Vector3i(questOwnerBlockPos);
-        randomPosition.addX(randomHorizontalOffset());
-        randomPosition.addZ(randomHorizontalOffset());
+        randomPosition.add(randomHorizontalOffset(), 0, randomHorizontalOffset());
         Vector3i surfaceGroundBlockPosition = findSurfaceGroundBlockPosition(randomPosition);
         if (surfaceGroundBlockPosition == null) {
             return;
@@ -153,7 +154,7 @@ public class MinesQuestSystem extends BaseComponentSystem {
     }
 
     private BlockRegionTransform createTransformation(Vector3i spawnPosition, Side side) {
-        return BlockRegionTransform.createRotationThenMovement(Side.FRONT, side, JomlUtil.from(spawnPosition));
+        return BlockRegionTransform.createRotationThenMovement(Side.FRONT, side, spawnPosition);
     }
 
     @ReceiveEvent(components = MinesQuestComponent.class)
@@ -177,13 +178,13 @@ public class MinesQuestSystem extends BaseComponentSystem {
         questToFoundSpawnPossibilityMap.remove(questEntity);
     }
 
-    private Vector3i findSurfaceGroundBlockPosition(Vector3i position) {
-        int yScanStop = position.getY() - VERTICAL_SCAN_DISTANCE;
-        int yScanStart = position.getY() + VERTICAL_SCAN_DISTANCE;
+    private Vector3i findSurfaceGroundBlockPosition(Vector3ic position) {
+        int yScanStop = position.y() - VERTICAL_SCAN_DISTANCE;
+        int yScanStart = position.y() + VERTICAL_SCAN_DISTANCE;
         boolean airFound = false;
         for (int y = yScanStart; y > yScanStop; y--) {
-            int x = position.getX();
-            int z = position.getZ();
+            int x = position.x();
+            int z = position.z();
             Block block = worldProvider.getBlock(x, y, z);
             if (isAirCondition.test(block)) {
                 airFound = true;
