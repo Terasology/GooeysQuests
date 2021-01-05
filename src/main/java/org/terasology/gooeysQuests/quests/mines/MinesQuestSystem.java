@@ -105,8 +105,7 @@ public class MinesQuestSystem extends BaseComponentSystem {
         LocationComponent questOwnerLocation = owner.getComponent(LocationComponent.class);
         Vector3i questOwnerBlockPos = new Vector3i(questOwnerLocation.getWorldPosition(new Vector3f()), RoundingMode.FLOOR);
         Vector3i randomPosition = new Vector3i(questOwnerBlockPos);
-        randomPosition.x += randomHorizontalOffset();
-        randomPosition.z += randomHorizontalOffset();
+        randomPosition.add(randomHorizontalOffset(), 0, randomHorizontalOffset());
         Vector3i surfaceGroundBlockPosition = findSurfaceGroundBlockPosition(randomPosition);
         if (surfaceGroundBlockPosition == null) {
             return;
