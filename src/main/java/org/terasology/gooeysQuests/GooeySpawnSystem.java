@@ -15,6 +15,11 @@
  */
 package org.terasology.gooeysQuests;
 
+import org.joml.Math;
+import org.joml.Quaternionf;
+import org.joml.RoundingMode;
+import org.joml.Vector3f;
+import org.joml.Vector3i;
 import org.terasology.assets.management.AssetManager;
 import org.terasology.entitySystem.entity.EntityBuilder;
 import org.terasology.entitySystem.entity.EntityManager;
@@ -34,12 +39,6 @@ import org.terasology.logic.chat.ChatMessageEvent;
 import org.terasology.logic.location.LocationComponent;
 import org.terasology.logic.players.event.OnPlayerSpawnedEvent;
 import org.terasology.math.Direction;
-import org.terasology.math.JomlUtil;
-import org.terasology.math.Region3i;
-import org.terasology.math.TeraMath;
-import org.terasology.math.geom.Quat4f;
-import org.terasology.math.geom.Vector3f;
-import org.terasology.math.geom.Vector3i;
 
 import org.terasology.behaviors.components.NPCMovementComponent;
 import org.terasology.registry.In;
@@ -48,6 +47,7 @@ import org.terasology.structureTemplates.interfaces.BlockRegionChecker;
 import org.terasology.structureTemplates.util.BlockRegionTransform;
 import org.terasology.world.WorldProvider;
 import org.terasology.world.block.Block;
+import org.terasology.world.block.BlockRegion;
 
 import java.util.List;
 import java.util.Random;
@@ -59,10 +59,10 @@ import java.util.function.Predicate;
 @RegisterSystem(RegisterMode.AUTHORITY)
 public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubscriberSystem {
     /**
-     * Spawn location of gooey is infront of the player. This angle specifies the maximum angle from the players
-     * current view angle gooey may spawn. A value of PI would mean that the gooey could spawn behind the player.
-     * However if gooey spawns behind the player the player may overlook him. The angle should however also be not
-     * to small to make it appear more random and not scripted.
+     * Spawn location of gooey is infront of the player. This angle specifies the maximum angle from the players current
+     * view angle gooey may spawn. A value of PI would mean that the gooey could spawn behind the player. However if
+     * gooey spawns behind the player the player may overlook him. The angle should however also be not to small to make
+     * it appear more random and not scripted.
      */
     private static final float MAX_GOOEY_SPAWN_OFFSET_ANGLE = (float) (Math.PI / 8.0f);
     private static final float MIN_GOOEY_SPAWN_DISTANCE = 3;
@@ -167,8 +167,8 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
             return;
         }
 
-        Vector3f spawnPosToCharacter = characterLocation.getWorldPosition().sub(spawnPos);
-        Quat4f rotation = distanceDeltaToYAxisRotation(spawnPosToCharacter);
+        Vector3f spawnPosToCharacter = characterLocation.getWorldPosition(new Vector3f()).sub(spawnPos);
+        Quaternionf rotation = distanceDeltaToYAxisRotation(spawnPosToCharacter);
         Prefab gooeyPrefab = assetManager.getAsset("GooeysQuests:gooey", Prefab.class).get();
 
         EntityBuilder entityBuilder = entityManager.newBuilder(gooeyPrefab);
@@ -179,7 +179,7 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
         NPCMovementComponent movementComponent = entityBuilder.getComponent(NPCMovementComponent.class);
 
         float yaw = (float) Math.atan2(spawnPosToCharacter.x, spawnPosToCharacter.z);
-        movementComponent.yaw = 180f + yaw * TeraMath.RAD_TO_DEG;
+        movementComponent.yaw = Math.toRadians(180f + yaw);
         entityBuilder.addOrSaveComponent(movementComponent);
 
         GooeyComponent gooeyComponent = entityBuilder.getComponent(GooeyComponent.class);
@@ -206,28 +206,28 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
         entityBuilder.build();
     }
 
-    private Quat4f distanceDeltaToYAxisRotation(Vector3f direction) {
+    private Quaternionf distanceDeltaToYAxisRotation(Vector3f direction) {
         direction.y = 0;
         if (direction.lengthSquared() > 0.001f) {
             direction.normalize();
         } else {
-            direction.set(Direction.FORWARD.getVector3f());
+            direction.set(Direction.FORWARD.asVector3f());
         }
-        return Quat4f.shortestArcQuat(Direction.FORWARD.getVector3f(), direction);
+        return new Quaternionf().rotationTo(Direction.FORWARD.asVector3f(), direction);
     }
 
     private Vector3f tryFindingGooeySpawnLocationInfrontOfCharacter(EntityRef character) {
         LocationComponent characterLocation = character.getComponent(LocationComponent.class);
         Vector3f spawnPos = locationInfrontOf(characterLocation, MIN_GOOEY_SPAWN_DISTANCE, MAX_GOOEY_SPAWN_DISTANCE,
-                MAX_GOOEY_SPAWN_OFFSET_ANGLE);
+            MAX_GOOEY_SPAWN_OFFSET_ANGLE);
 
-        Vector3i spawnBlockPos = new Vector3i(spawnPos);
+        Vector3i spawnBlockPos = new Vector3i(spawnPos, RoundingMode.FLOOR);
 
         if (!isValidGooeySpawnPosition(spawnBlockPos)) {
             return null;
         }
 
-        Vector3i characterPos = new Vector3i(characterLocation.getWorldPosition());
+        Vector3i characterPos = new Vector3i(characterLocation.getWorldPosition(new Vector3f()), RoundingMode.FLOOR);
 
         boolean lineOfSight = hasLineOfSight(spawnBlockPos, characterPos);
         if (!lineOfSight) {
@@ -242,58 +242,57 @@ public class GooeySpawnSystem extends BaseComponentSystem implements UpdateSubsc
      * check. (Feel free to implmeent a proper line of sight check)
      */
     private boolean hasLineOfSight(Vector3i spawnBlockPos, Vector3i characterPos) {
-        Region3i region = Region3i.createBounded(spawnBlockPos, characterPos);
-        return blockRegionChecker.allBlocksMatch(JomlUtil.from(region), BlockRegionTransform.getTransformationThatDoesNothing(),
-                airLikeCondition);
+        BlockRegion region = new BlockRegion(spawnBlockPos).union(characterPos);
+        return blockRegionChecker.allBlocksMatch(region, BlockRegionTransform.getTransformationThatDoesNothing(),
+            airLikeCondition);
     }
 
     private Vector3f locationInfrontOf(LocationComponent location, float minDistance, float maxDistance,
                                        float maxAngle) {
-        Vector3f result = location.getWorldPosition();
-        Vector3f offset = new Vector3f(location.getWorldDirection());
-        Quat4f randomRot = randomYAxisRotation(maxAngle);
-        offset = randomRot.rotate(offset);
+        Vector3f result = location.getWorldPosition(new Vector3f());
+        Vector3f offset = location.getWorldDirection(new Vector3f());
+        Quaternionf randomRot = randomYAxisRotation(maxAngle);
+        offset = randomRot.transform(offset);
         float distanceRangeDelta = maxDistance - minDistance;
         float randomDistance = minDistance + random.nextFloat() * distanceRangeDelta;
-        offset.scale(randomDistance);
+        offset.mul(randomDistance);
         result.add(offset);
         return result;
     }
 
-    private Quat4f randomYAxisRotation(float maxAngle) {
+    private Quaternionf randomYAxisRotation(float maxAngle) {
         float randomAngle = random.nextFloat() * maxAngle;
         // chance to have a rotation in other diration:
         if (random.nextBoolean()) {
             randomAngle = ((float) Math.PI * 2) - randomAngle;
         }
-        return new Quat4f(new Vector3f(0, 1, 0), randomAngle);
+        return new Quaternionf().setAngleAxis(randomAngle, 0, 1, 0);
     }
 
     private boolean isValidGooeySpawnPosition(Vector3i spawnPosition) {
-        int minX = spawnPosition.getX() - 1;
-        int maxX = spawnPosition.getX() + 1;
-        int minZ = spawnPosition.getZ() - 1;
-        int maxZ = spawnPosition.getZ() + 1;
-        int groundY = spawnPosition.getY() - 2;
+        int minX = spawnPosition.x() - 1;
+        int minZ = spawnPosition.z() - 1;
 
-        Region3i groundRegion = Region3i.createFromMinMax(new Vector3i(minX, groundY, minZ), new Vector3i(maxX, groundY,
-                maxZ));
-        boolean groundExists = blockRegionChecker.allBlocksMatch(JomlUtil.from(groundRegion), BlockRegionTransform.getTransformationThatDoesNothing(),
-                groundLikeCondition);
+        int maxX = spawnPosition.x() + 1;
+        int maxZ = spawnPosition.z() + 1;
+
+        int groundY = spawnPosition.y() - 2;
+
+        BlockRegion groundRegion = new BlockRegion(minX, groundY, minZ, maxX, groundY, maxZ);
+        boolean groundExists = blockRegionChecker.allBlocksMatch(groundRegion, BlockRegionTransform.getTransformationThatDoesNothing(),
+            groundLikeCondition);
         if (!groundExists) {
             return false;
         }
-        int airMin = spawnPosition.getY();
+        int airMin = spawnPosition.y();
         // require some air above, to prevent it spawning below something
         int airMax = airMin + 3;
-        Region3i airRegion = Region3i.createFromMinMax(new Vector3i(minX, airMin, minZ), new Vector3i(maxZ, airMax,
-                maxZ));
-        boolean enoughAirAbove = blockRegionChecker.allBlocksMatch(JomlUtil.from(airRegion), BlockRegionTransform.getTransformationThatDoesNothing(),
-                airLikeCondition);
+        BlockRegion airRegion = new BlockRegion(minX, airMin, minZ, maxX, airMax, maxZ);
+        boolean enoughAirAbove = blockRegionChecker.allBlocksMatch(airRegion, BlockRegionTransform.getTransformationThatDoesNothing(),
+            airLikeCondition);
         if (!enoughAirAbove) {
             return false;
         }
         return true;
     }
-
 }
