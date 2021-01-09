@@ -13,78 +13,23 @@
       255
     ]
   },
-  "skeletalmesh": {
-    "mesh": "gooey",
+
+  "skeletalMesh": {
+    "mesh": "Gooey:gooey",
     "heightOffset": -0.5,
-    "material": "gooeySkin",
+    "material": "Gooey:gooeySkinPurple",
     "animationPool": [
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#LookRightLeft",
-      "gooey#LookRightLeft",
-      "gooey#LookRightUp"
+      "Gooey:gooey#ArmatureAction"
     ],
     "loop": true,
     "scale": [
-      0.25,
-      0.25,
-      0.25
+      0.45,
+      0.45,
+      0.45
     ]
   },
   "Behavior": {
     "tree": "gooey"
-  },
-  "Stand": {
-    "animationPool": [
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#IdleBreathing",
-      "gooey#LookRightLeft",
-      "gooey#LookRightLeft",
-      "gooey#LookRightUp"
-    ]
-  },
-  "Walk": {
-    "animationPool": [
-      "gooey#IdleBreathing"
-    ]
   },
   "location": {},
   "Character": {},

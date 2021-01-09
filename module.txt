@@ -1,6 +1,6 @@
 {
     "id": "GooeysQuests",
-    "version": "1.1.1",
+    "version": "1.1.2-SNAPSHOT",
     "author": "Florian",
     "displayName": "Gooey's Quests",
     "description": "Planned content: A character called Gooey will appear. He offers you exciting and dangerous quests. However, be warned: He might modify your world... and not in a way you like!",
@@ -11,9 +11,10 @@
         { "id": "CoreAdvancedAssets", "minVersion": "1.1.0" },
         { "id": "CoreAssets", "minVersion": "2.0.1" },
         { "id": "CoreRendering", "minVersion": "1.0.0" },
-        { "id": "CoreWorlds", "minVersion": "1.1.0" },
+        { "id": "CoreWorlds", "minVersion": "1.1.0", "maxVersion": "3.0.0" },
         { "id": "Equipment", "minVersion": "1.2.0" },
         { "id": "Fences", "minVersion": "1.0.0" },
+        { "id": "Gooey", "minVersion": "1.0.0" },
         { "id": "Health", "minVersion": "1.0.0" },
         { "id": "Inventory", "minVersion": "1.1.0" },
         { "id": "Pathfinding", "minVersion": "1.0.0" },
@@ -22,5 +23,5 @@
     ],
     "serverSideOnly": false,
     "isGameplay": "true",
-    "defaultWorldGenerator": "CoreWorlds:FacetedPerlin"
+    "defaultWorldGenerator": "CoreWorlds:FacetedSimplex"
 }
