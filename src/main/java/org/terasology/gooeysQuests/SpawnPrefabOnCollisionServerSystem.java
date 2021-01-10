@@ -15,6 +15,7 @@
  */
 package org.terasology.gooeysQuests;
 
+import org.joml.Vector3f;
 import org.terasology.assets.management.AssetManager;
 import org.terasology.entitySystem.entity.EntityBuilder;
 import org.terasology.entitySystem.entity.EntityManager;
@@ -51,7 +52,7 @@ public class SpawnPrefabOnCollisionServerSystem extends BaseComponentSystem {
 
         EntityBuilder entityBuilder = entityManager.newBuilder(spawnPrefabComponent.prefab);
         LocationComponent locationComponent = entityBuilder.getComponent(LocationComponent.class);
-        locationComponent.setWorldPosition(placeholderLocationComponent.getWorldPosition());
+        locationComponent.setWorldPosition(placeholderLocationComponent.getWorldPosition(new Vector3f()));
         entityBuilder.build();
         entity.destroy();
     }
