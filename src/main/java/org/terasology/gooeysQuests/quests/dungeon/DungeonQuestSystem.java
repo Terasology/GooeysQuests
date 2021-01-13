@@ -18,6 +18,7 @@ package org.terasology.gooeysQuests.quests.dungeon;
 import org.joml.RoundingMode;
 import org.joml.Vector3f;
 import org.joml.Vector3i;
+import org.joml.Vector3ic;
 import org.terasology.assets.management.AssetManager;
 import org.terasology.entitySystem.entity.EntityBuilder;
 import org.terasology.entitySystem.entity.EntityManager;
@@ -191,7 +192,7 @@ public class DungeonQuestSystem extends BaseComponentSystem {
         questToFoundSpawnPossibilityMap.remove(questEntity);
     }
 
-    private Vector3i findSurfaceGroundBlockPosition(Vector3i position) {
+    private Vector3i findSurfaceGroundBlockPosition(Vector3ic position) {
         int yScanStop = position.y() - VERTICAL_SCAN_DISTANCE;
         int yScanStart = position.y() + VERTICAL_SCAN_DISTANCE;
         // TODO simplify algorithm
