@@ -15,6 +15,10 @@
  */
 package org.terasology.gooeysQuests.quests.fortressvillage;
 
+import org.joml.RoundingMode;
+import org.joml.Vector3f;
+import org.joml.Vector3i;
+import org.joml.Vector3ic;
 import org.terasology.assets.management.AssetManager;
 import org.terasology.entitySystem.entity.EntityBuilder;
 import org.terasology.entitySystem.entity.EntityManager;
@@ -25,12 +29,14 @@ import org.terasology.entitySystem.prefab.Prefab;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
-import org.terasology.gooeysQuests.api.*;
+import org.terasology.gooeysQuests.api.CreateStartQuestsEvent;
+import org.terasology.gooeysQuests.api.PersonalQuestsComponent;
+import org.terasology.gooeysQuests.api.PrepareQuestEvent;
+import org.terasology.gooeysQuests.api.QuestReadyEvent;
+import org.terasology.gooeysQuests.api.QuestStartRequest;
 import org.terasology.logic.inventory.InventoryManager;
 import org.terasology.logic.location.LocationComponent;
-import org.terasology.math.JomlUtil;
 import org.terasology.math.Side;
-import org.terasology.math.geom.Vector3i;
 import org.terasology.registry.In;
 import org.terasology.structureTemplates.events.CheckSpawnConditionEvent;
 import org.terasology.structureTemplates.events.SpawnStructureEvent;
@@ -40,6 +46,7 @@ import org.terasology.structureTemplates.util.BlockRegionTransform;
 import org.terasology.world.WorldProvider;
 import org.terasology.world.block.Block;
 import org.terasology.world.block.BlockManager;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -103,10 +110,8 @@ public class FortressVillageQuestSystem extends BaseComponentSystem {
 
         EntityRef owner = quest.getOwner();
         LocationComponent questOwnerLocation = owner.getComponent(LocationComponent.class);
-        Vector3i questOwnerBlockPos = new Vector3i(questOwnerLocation.getWorldPosition());
-        Vector3i randomPosition = new Vector3i(questOwnerBlockPos);
-        randomPosition.addX(anyOffsetHorizontal());
-        randomPosition.addZ(anyOffsetHorizontal());
+        Vector3i questOwnerBlockPos = new Vector3i(questOwnerLocation.getWorldPosition(new Vector3f()), RoundingMode.FLOOR);
+        Vector3i randomPosition = new Vector3i(questOwnerBlockPos).add(anyOffsetHorizontal(), 0, anyOffsetHorizontal());
         Vector3i surfaceGroundBlockPosition = checkGroundPosition(randomPosition);
         if (surfaceGroundBlockPosition == null) {
             return;
@@ -143,7 +148,7 @@ public class FortressVillageQuestSystem extends BaseComponentSystem {
         }
     }
 
-    private BlockRegionTransform findGoodSpawnTransformation(Vector3i spawnPosition, EntityRef entranceSpawner) {
+    private BlockRegionTransform findGoodSpawnTransformation(Vector3ic spawnPosition, EntityRef entranceSpawner) {
         for (Side side: Side.horizontalSides()) {
             BlockRegionTransform transformList = createTransformation(spawnPosition, side);
 
@@ -157,8 +162,8 @@ public class FortressVillageQuestSystem extends BaseComponentSystem {
         return null;
     }
 
-    private BlockRegionTransform createTransformation(Vector3i spawnPosition, Side side) {
-        return BlockRegionTransform.createRotationThenMovement(Side.FRONT, side, JomlUtil.from(spawnPosition));
+    private BlockRegionTransform createTransformation(Vector3ic spawnPosition, Side side) {
+        return BlockRegionTransform.createRotationThenMovement(Side.FRONT, side, spawnPosition);
     }
 
     @ReceiveEvent(components = FortressVillageQuestComponent.class)
@@ -182,14 +187,14 @@ public class FortressVillageQuestSystem extends BaseComponentSystem {
         questToFoundSpawnPossibilityMap.remove(questEntity);
     }
 
-    private Vector3i checkGroundPosition(Vector3i position) {
-        int yScanStop = position.getY() - VERTICAL_SCAN_DISTANCE;
-        int yScanStart = position.getY() + VERTICAL_SCAN_DISTANCE;
+    private Vector3i checkGroundPosition(Vector3ic position) {
+        int yScanStop = position.y() - VERTICAL_SCAN_DISTANCE;
+        int yScanStart = position.y() + VERTICAL_SCAN_DISTANCE;
         // TODO simplify algorithm
         boolean airFound = false;
         for (int y = yScanStart; y > yScanStop; y--) {
-            int x = position.getX();
-            int z = position.getZ();
+            int x = position.x();
+            int z = position.z();
             Block block = worldProvider.getBlock(x, y, z);
             if (isAirCondition.test(block)) {
                 airFound = true;
