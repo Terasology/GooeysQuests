@@ -21,6 +21,7 @@ import org.joml.RoundingMode;
 import org.joml.Vector3f;
 import org.joml.Vector3i;
 import org.terasology.assets.management.AssetManager;
+import org.terasology.behaviors.components.NPCMovementComponent;
 import org.terasology.entitySystem.entity.EntityBuilder;
 import org.terasology.entitySystem.entity.EntityManager;
 import org.terasology.entitySystem.entity.EntityRef;
@@ -39,8 +40,6 @@ import org.terasology.logic.chat.ChatMessageEvent;
 import org.terasology.logic.location.LocationComponent;
 import org.terasology.logic.players.event.OnPlayerSpawnedEvent;
 import org.terasology.math.Direction;
-
-import org.terasology.behaviors.components.NPCMovementComponent;
 import org.terasology.registry.In;
 import org.terasology.structureTemplates.interfaces.BlockPredicateProvider;
 import org.terasology.structureTemplates.interfaces.BlockRegionChecker;

@@ -15,13 +15,12 @@
  */
 package org.terasology.gooeysQuests;
 
+import org.terasology.behaviors.components.FollowComponent;
 import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.gooeysQuests.api.GooeysQuestComponent;
 import org.terasology.gooeysQuests.api.QuestStartRequest;
 import org.terasology.logic.chat.ChatMessageEvent;
 import org.terasology.logic.players.LocalPlayer;
-
-import org.terasology.behaviors.components.FollowComponent;
 import org.terasology.nui.UIWidget;
 import org.terasology.nui.WidgetUtil;
 import org.terasology.nui.widgets.UIButton;

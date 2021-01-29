@@ -23,11 +23,10 @@ import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.gooeysQuests.api.SpawnMagicBuildParticlesComponent;
-import org.terasology.math.Region3i;
 import org.terasology.registry.In;
-import org.terasology.structureTemplates.events.SpawnStructureEvent;
 import org.terasology.structureTemplates.events.StructureSpawnStartedEvent;
 import org.terasology.world.WorldProvider;
+import org.terasology.world.block.BlockRegionc;
 
 /**
  * Contains the server side logic for making the {@link SpawnMagicBuildParticlesComponent} work.
@@ -47,7 +46,7 @@ public class MagicBuildParticleServerSystem extends BaseComponentSystem {
     @ReceiveEvent
     public void onShowMagicBuildSpawnParticles(StructureSpawnStartedEvent event, EntityRef entity,
                                                SpawnMagicBuildParticlesComponent component) {
-        Region3i region = event.getTransformation().transformRegion(component.region);
+        BlockRegionc region = event.getTransformation().transformRegion(component.region);
         worldProvider.getWorldEntity().send(new SpawnMagicBuildParticlesEvent(region));
     }
 

@@ -16,14 +16,14 @@
 package org.terasology.gooeysQuests.api;
 
 import org.terasology.entitySystem.Component;
-import org.terasology.math.Region3i;
 import org.terasology.structureTemplates.events.SpawnStructureEvent;
 import org.terasology.structureTemplates.events.StructureBlocksSpawnedEvent;
+import org.terasology.world.block.BlockRegion;
 
 /**
  * If a entity with this component gets a {@link SpawnStructureEvent} (that triggers a
  * {@link StructureBlocksSpawnedEvent}) then particles will be spawned in the given region.
  */
 public class SpawnMagicBuildParticlesComponent implements Component {
-    public Region3i region;
+    public BlockRegion region;
 }
