@@ -15,6 +15,7 @@
  */
 package org.terasology.gooeysQuests;
 
+import org.joml.Vector3f;
 import org.terasology.assets.management.AssetManager;
 import org.terasology.entitySystem.entity.EntityBuilder;
 import org.terasology.entitySystem.entity.EntityManager;
@@ -26,10 +27,9 @@ import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.gooeysQuests.api.SpawnMagicBuildParticlesComponent;
 import org.terasology.logic.location.LocationComponent;
-import org.terasology.math.Region3i;
-import org.terasology.math.geom.Vector3f;
 import org.terasology.particles.components.generators.PositionRangeGeneratorComponent;
 import org.terasology.registry.In;
+import org.terasology.world.block.BlockRegionc;
 
 /**
  * Contains the client side logic for making the {@link SpawnMagicBuildParticlesComponent}
@@ -37,19 +37,19 @@ import org.terasology.registry.In;
 @RegisterSystem(RegisterMode.CLIENT)
 public class MagicBuildParticleClientSystem extends BaseComponentSystem {
 
+    private Prefab spawnDungeonParticlePrefab;
+
     @In
     private EntityManager entityManager;
 
     @In
     private AssetManager assetManager;
 
+
     @ReceiveEvent
     public void onShowMAgicBuildSpawnParticlesEvent(SpawnMagicBuildParticlesEvent event, EntityRef worldEntity) {
         spawnMagicalBuildParticles(event.getRegion());
     }
-
-    private Prefab spawnDungeonParticlePrefab;
-
 
     @Override
     public void initialise() {
@@ -57,16 +57,15 @@ public class MagicBuildParticleClientSystem extends BaseComponentSystem {
 
     }
 
-    private void spawnMagicalBuildParticles(Region3i region) {
-
+    private void spawnMagicalBuildParticles(BlockRegionc region) {
         EntityBuilder entityBuilder = entityManager.newBuilder(spawnDungeonParticlePrefab);
         LocationComponent locationComponent = entityBuilder.getComponent(LocationComponent.class);
-        locationComponent.setWorldPosition(region.center());
+        locationComponent.setWorldPosition(region.center(new org.joml.Vector3f()));
         PositionRangeGeneratorComponent particleEffect = entityBuilder.getComponent(PositionRangeGeneratorComponent.class);
-        Vector3f size = region.size().toVector3f();
-        size.scale(0.5f);
-        particleEffect.minPosition.set(size.x, size.y, size.z).negate();
-        particleEffect.maxPosition.set(size.x, size.y, size.z);
+
+        Vector3f size = new Vector3f(region.getSizeX(), region.getSizeY(), region.getSizeZ()).mul(0.5f);
+        particleEffect.minPosition.set(size).negate();
+        particleEffect.maxPosition.set(size);
         entityBuilder.build();
     }
 }

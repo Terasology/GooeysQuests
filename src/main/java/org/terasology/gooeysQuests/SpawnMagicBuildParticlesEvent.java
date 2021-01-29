@@ -16,8 +16,9 @@
 package org.terasology.gooeysQuests;
 
 import org.terasology.entitySystem.event.Event;
-import org.terasology.math.Region3i;
 import org.terasology.network.BroadcastEvent;
+import org.terasology.world.block.BlockRegion;
+import org.terasology.world.block.BlockRegionc;
 
 /**
  * Sent from server to client to spawn particles in a region. The eventgets sent to the world entity since
@@ -25,17 +26,17 @@ import org.terasology.network.BroadcastEvent;
  */
 @BroadcastEvent
 public class SpawnMagicBuildParticlesEvent implements Event {
-    private Region3i region;
+    private BlockRegion region = new BlockRegion(BlockRegion.INVALID);
 
-    public SpawnMagicBuildParticlesEvent(Region3i region) {
-        this.region = region;
+    public SpawnMagicBuildParticlesEvent(BlockRegionc region) {
+        this.region.set(region);
     }
 
     public SpawnMagicBuildParticlesEvent() {
         // for serialization
     }
 
-    public Region3i getRegion() {
+    public BlockRegionc getRegion() {
         return region;
     }
 }
