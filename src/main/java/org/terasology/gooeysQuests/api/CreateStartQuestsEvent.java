@@ -15,8 +15,8 @@
  */
 package org.terasology.gooeysQuests.api;
 
-import org.terasology.entitySystem.event.AbstractConsumableEvent;
-import org.terasology.entitySystem.event.ConsumableEvent;
+import org.terasology.engine.entitySystem.event.AbstractConsumableEvent;
+import org.terasology.engine.entitySystem.event.ConsumableEvent;
 
 /**
  * Sent to an entity with {@link PersonalQuestsComponent} when that component should be filled with the initial quests.

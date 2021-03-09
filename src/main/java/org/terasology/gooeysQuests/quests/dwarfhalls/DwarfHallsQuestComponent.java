@@ -15,7 +15,7 @@
  */
 package org.terasology.gooeysQuests.quests.dwarfhalls;
 
-import org.terasology.entitySystem.Component;
+import org.terasology.engine.entitySystem.Component;
 
 /**
  * Owned by the entity that represents a dwarf halls quest.

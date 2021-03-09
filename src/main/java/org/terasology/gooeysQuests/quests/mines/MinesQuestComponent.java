@@ -16,7 +16,7 @@
 
 package org.terasology.gooeysQuests.quests.mines;
 
-import org.terasology.entitySystem.Component;
+import org.terasology.engine.entitySystem.Component;
 
 /**
  * Owned by the entity that represents a mines quest.

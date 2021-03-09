@@ -15,10 +15,10 @@
  */
 package org.terasology.gooeysQuests;
 
-import org.terasology.entitySystem.Component;
-import org.terasology.entitySystem.entity.EntityRef;
-import org.terasology.network.FieldReplicateType;
-import org.terasology.network.Replicate;
+import org.terasology.engine.entitySystem.Component;
+import org.terasology.engine.entitySystem.entity.EntityRef;
+import org.terasology.engine.network.FieldReplicateType;
+import org.terasology.engine.network.Replicate;
 
 /**
  * Used to find the character "Gooey".

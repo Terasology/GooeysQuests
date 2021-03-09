@@ -15,10 +15,10 @@
  */
 package org.terasology.gooeysQuests.api;
 
-import org.terasology.entitySystem.Component;
+import org.terasology.engine.entitySystem.Component;
+import org.terasology.engine.world.block.BlockRegion;
 import org.terasology.structureTemplates.events.SpawnStructureEvent;
 import org.terasology.structureTemplates.events.StructureBlocksSpawnedEvent;
-import org.terasology.world.block.BlockRegion;
 
 /**
  * If a entity with this component gets a {@link SpawnStructureEvent} (that triggers a

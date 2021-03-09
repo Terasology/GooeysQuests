@@ -16,17 +16,17 @@
 package org.terasology.gooeysQuests;
 
 import org.terasology.behaviors.components.FollowComponent;
-import org.terasology.entitySystem.entity.EntityRef;
+import org.terasology.engine.entitySystem.entity.EntityRef;
+import org.terasology.engine.logic.chat.ChatMessageEvent;
+import org.terasology.engine.logic.players.LocalPlayer;
+import org.terasology.engine.registry.In;
+import org.terasology.engine.rendering.nui.BaseInteractionScreen;
 import org.terasology.gooeysQuests.api.GooeysQuestComponent;
 import org.terasology.gooeysQuests.api.QuestStartRequest;
-import org.terasology.logic.chat.ChatMessageEvent;
-import org.terasology.logic.players.LocalPlayer;
 import org.terasology.nui.UIWidget;
 import org.terasology.nui.WidgetUtil;
 import org.terasology.nui.widgets.UIButton;
 import org.terasology.nui.widgets.UIText;
-import org.terasology.registry.In;
-import org.terasology.rendering.nui.BaseInteractionScreen;
 
 /**
  * Dialog that gets shown when you interact (per default hotkey E) with gooey.

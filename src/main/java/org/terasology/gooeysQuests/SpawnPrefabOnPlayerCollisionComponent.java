@@ -15,8 +15,8 @@
  */
 package org.terasology.gooeysQuests;
 
-import org.terasology.entitySystem.Component;
-import org.terasology.entitySystem.prefab.Prefab;
+import org.terasology.engine.entitySystem.Component;
+import org.terasology.engine.entitySystem.prefab.Prefab;
 
 /**
  * Destroys this entity when a player collides with the current entity and spawns the specified prefab.

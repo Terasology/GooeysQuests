@@ -15,7 +15,7 @@
  */
 package org.terasology.gooeysQuests.api;
 
-import org.terasology.entitySystem.Component;
+import org.terasology.engine.entitySystem.Component;
 
 /**
  * Marks an entity to be a quest offered by gooey.

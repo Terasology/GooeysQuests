@@ -15,7 +15,7 @@
  */
 package org.terasology.gooeysQuests.quests.dungeon;
 
-import org.terasology.entitySystem.Component;
+import org.terasology.engine.entitySystem.Component;
 
 /**
  * Owned by the entity that represents a dungeon quest.

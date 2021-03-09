@@ -16,8 +16,8 @@
 package org.terasology.gooeysQuests.api;
 
 import org.joml.Vector3i;
-import org.terasology.entitySystem.Component;
-import org.terasology.math.Side;
+import org.terasology.engine.entitySystem.Component;
+import org.terasology.engine.math.Side;
 import org.terasology.reflection.MappedContainer;
 
 import java.util.ArrayList;
