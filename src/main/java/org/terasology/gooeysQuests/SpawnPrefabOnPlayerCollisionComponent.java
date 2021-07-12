@@ -12,4 +12,8 @@ public class SpawnPrefabOnPlayerCollisionComponent implements Component<SpawnPre
 
     public Prefab prefab;
 
+    @Override
+    public void copy(SpawnPrefabOnPlayerCollisionComponent other) {
+        this.prefab = other.prefab;
+    }
 }

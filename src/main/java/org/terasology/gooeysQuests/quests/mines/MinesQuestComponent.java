@@ -9,4 +9,8 @@ import org.terasology.gestalt.entitysystem.component.Component;
  * Owned by the entity that represents a mines quest.
  */
 public class MinesQuestComponent implements Component<MinesQuestComponent> {
+    @Override
+    public void copy(MinesQuestComponent other) {
+
+    }
 }

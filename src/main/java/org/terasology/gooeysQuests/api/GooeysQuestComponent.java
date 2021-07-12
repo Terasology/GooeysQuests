@@ -22,4 +22,11 @@ public class GooeysQuestComponent implements Component<GooeysQuestComponent> {
     public String description="Up for a quest?\n\n"
             + "Sadly I have no further description for you.\n\n"
             + "However be warned: Starting a quest can result in possibly unwanted world modifications!";
+
+    @Override
+    public void copy(GooeysQuestComponent other) {
+        this.greetingText = other.greetingText;
+        this.startButtonText = other.startButtonText;
+        this.description = other.description;
+    }
 }

@@ -23,6 +23,11 @@ public class PersonalQuestsComponent implements Component<PersonalQuestsComponen
      */
     public List<EntityRef> questsInPreperation = Lists.newArrayList();
 
+    @Override
+    public void copy(PersonalQuestsComponent other) {
+        this.questsInPreperation = Lists.newArrayList(other.questsInPreperation);
+    }
+
     // public EntityRef activeQuest = EntityRef.NULL;
 
     // TODO allow the player to reject certain categories of quests

@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.gooeysQuests.api;
 
+import com.google.common.collect.Lists;
 import org.joml.Vector3i;
 import org.terasology.engine.math.Side;
 import org.terasology.gestalt.entitysystem.component.Component;
@@ -15,6 +16,11 @@ import java.util.List;
  */
 public class StructureConnectionPointsComponent implements Component<StructureConnectionPointsComponent> {
     public List<ConnectionPoint> points = new ArrayList<>();
+
+    @Override
+    public void copy(StructureConnectionPointsComponent other) {
+        this.points = Lists.newArrayList(other.points);
+    }
 
     @MappedContainer
     public static class ConnectionPoint {

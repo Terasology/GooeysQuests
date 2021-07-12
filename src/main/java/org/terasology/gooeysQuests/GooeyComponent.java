@@ -13,4 +13,9 @@ import org.terasology.gestalt.entitysystem.component.Component;
 public class GooeyComponent implements Component<GooeyComponent> {
     @Replicate(FieldReplicateType.SERVER_TO_CLIENT)
     public EntityRef offeredQuest = EntityRef.NULL;
+
+    @Override
+    public void copy(GooeyComponent other) {
+        this.offeredQuest = other.offeredQuest;
+    }
 }

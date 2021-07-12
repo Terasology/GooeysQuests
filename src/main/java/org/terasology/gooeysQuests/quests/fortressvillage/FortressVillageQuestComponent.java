@@ -9,4 +9,8 @@ import org.terasology.gestalt.entitysystem.component.Component;
  */
 public class FortressVillageQuestComponent implements Component<FortressVillageQuestComponent> {
 
+    @Override
+    public void copy(FortressVillageQuestComponent other) {
+
+    }
 }

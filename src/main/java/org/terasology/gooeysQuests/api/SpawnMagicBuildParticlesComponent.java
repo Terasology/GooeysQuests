@@ -12,5 +12,10 @@ import org.terasology.structureTemplates.events.StructureBlocksSpawnedEvent;
  * {@link StructureBlocksSpawnedEvent}) then particles will be spawned in the given region.
  */
 public class SpawnMagicBuildParticlesComponent implements Component<SpawnMagicBuildParticlesComponent> {
-    public BlockRegion region;
+    public BlockRegion region = new BlockRegion(BlockRegion.INVALID);
+
+    @Override
+    public void copy(SpawnMagicBuildParticlesComponent other) {
+        this.region.set(other.region);
+    }
 }
