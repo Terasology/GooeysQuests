@@ -15,7 +15,7 @@ public class GooeyComponent implements Component<GooeyComponent> {
     public EntityRef offeredQuest = EntityRef.NULL;
 
     @Override
-    public void copy(GooeyComponent other) {
+    public void copyFrom(GooeyComponent other) {
         this.offeredQuest = other.offeredQuest;
     }
 }

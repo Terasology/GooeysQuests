@@ -15,7 +15,7 @@ public class SpawnMagicBuildParticlesComponent implements Component<SpawnMagicBu
     public BlockRegion region = new BlockRegion(BlockRegion.INVALID);
 
     @Override
-    public void copy(SpawnMagicBuildParticlesComponent other) {
+    public void copyFrom(SpawnMagicBuildParticlesComponent other) {
         this.region.set(other.region);
     }
 }

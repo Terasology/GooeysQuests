@@ -24,7 +24,7 @@ public class GooeysQuestComponent implements Component<GooeysQuestComponent> {
             + "However be warned: Starting a quest can result in possibly unwanted world modifications!";
 
     @Override
-    public void copy(GooeysQuestComponent other) {
+    public void copyFrom(GooeysQuestComponent other) {
         this.greetingText = other.greetingText;
         this.startButtonText = other.startButtonText;
         this.description = other.description;

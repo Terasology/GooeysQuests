@@ -10,7 +10,7 @@ import org.terasology.gestalt.entitysystem.component.Component;
 public class DwarfHallsQuestComponent implements Component<DwarfHallsQuestComponent> {
 
     @Override
-    public void copy(DwarfHallsQuestComponent other) {
+    public void copyFrom(DwarfHallsQuestComponent other) {
 
     }
 }

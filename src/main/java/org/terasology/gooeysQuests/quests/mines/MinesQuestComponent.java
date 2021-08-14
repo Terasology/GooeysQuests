@@ -10,7 +10,7 @@ import org.terasology.gestalt.entitysystem.component.Component;
  */
 public class MinesQuestComponent implements Component<MinesQuestComponent> {
     @Override
-    public void copy(MinesQuestComponent other) {
+    public void copyFrom(MinesQuestComponent other) {
 
     }
 }

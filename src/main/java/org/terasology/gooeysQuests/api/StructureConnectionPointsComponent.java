@@ -18,7 +18,7 @@ public class StructureConnectionPointsComponent implements Component<StructureCo
     public List<ConnectionPoint> points = new ArrayList<>();
 
     @Override
-    public void copy(StructureConnectionPointsComponent other) {
+    public void copyFrom(StructureConnectionPointsComponent other) {
         this.points = Lists.newArrayList(other.points);
     }
 

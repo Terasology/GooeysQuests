@@ -24,7 +24,7 @@ public class PersonalQuestsComponent implements Component<PersonalQuestsComponen
     public List<EntityRef> questsInPreperation = Lists.newArrayList();
 
     @Override
-    public void copy(PersonalQuestsComponent other) {
+    public void copyFrom(PersonalQuestsComponent other) {
         this.questsInPreperation = Lists.newArrayList(other.questsInPreperation);
     }
 
