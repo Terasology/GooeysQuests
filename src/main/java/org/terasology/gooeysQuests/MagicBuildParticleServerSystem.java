@@ -17,7 +17,6 @@ package org.terasology.gooeysQuests;
 
 import org.terasology.engine.entitySystem.entity.EntityManager;
 import org.terasology.engine.entitySystem.entity.EntityRef;
-import org.terasology.engine.entitySystem.event.ReceiveEvent;
 import org.terasology.engine.entitySystem.systems.BaseComponentSystem;
 import org.terasology.engine.entitySystem.systems.RegisterMode;
 import org.terasology.engine.entitySystem.systems.RegisterSystem;
@@ -25,6 +24,7 @@ import org.terasology.engine.registry.In;
 import org.terasology.engine.world.WorldProvider;
 import org.terasology.engine.world.block.BlockRegionc;
 import org.terasology.gestalt.assets.management.AssetManager;
+import org.terasology.gestalt.entitysystem.event.ReceiveEvent;
 import org.terasology.gooeysQuests.api.SpawnMagicBuildParticlesComponent;
 import org.terasology.structureTemplates.events.StructureSpawnStartedEvent;
 
