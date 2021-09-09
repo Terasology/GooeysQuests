@@ -16,7 +16,6 @@
 package org.terasology.gooeysQuests;
 
 import org.joml.Vector3f;
-import org.terasology.gestalt.assets.management.AssetManager;
 import org.terasology.engine.entitySystem.entity.EntityBuilder;
 import org.terasology.engine.entitySystem.entity.EntityManager;
 import org.terasology.engine.entitySystem.entity.EntityRef;
@@ -29,6 +28,7 @@ import org.terasology.engine.logic.location.LocationComponent;
 import org.terasology.engine.particles.components.generators.PositionRangeGeneratorComponent;
 import org.terasology.engine.registry.In;
 import org.terasology.engine.world.block.BlockRegionc;
+import org.terasology.gestalt.assets.management.AssetManager;
 import org.terasology.gooeysQuests.api.SpawnMagicBuildParticlesComponent;
 
 /**
