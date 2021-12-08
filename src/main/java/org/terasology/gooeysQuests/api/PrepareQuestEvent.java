@@ -15,7 +15,7 @@
  */
 package org.terasology.gooeysQuests.api;
 
-import org.terasology.engine.entitySystem.event.Event;
+import org.terasology.gestalt.entitysystem.event.Event;
 
 /**
  * See {@link GooeysQuestComponent} for an explanation of the events.

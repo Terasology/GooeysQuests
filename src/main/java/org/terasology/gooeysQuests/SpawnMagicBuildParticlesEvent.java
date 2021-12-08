@@ -15,10 +15,10 @@
  */
 package org.terasology.gooeysQuests;
 
-import org.terasology.engine.entitySystem.event.Event;
 import org.terasology.engine.network.BroadcastEvent;
 import org.terasology.engine.world.block.BlockRegion;
 import org.terasology.engine.world.block.BlockRegionc;
+import org.terasology.gestalt.entitysystem.event.Event;
 
 /**
  * Sent from server to client to spawn particles in a region. The eventgets sent to the world entity since
