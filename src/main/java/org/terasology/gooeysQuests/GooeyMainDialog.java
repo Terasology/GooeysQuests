@@ -15,7 +15,7 @@
  */
 package org.terasology.gooeysQuests;
 
-import org.terasology.behaviors.components.FollowComponent;
+import org.terasology.module.behaviors.components.FollowComponent;
 import org.terasology.engine.entitySystem.entity.EntityRef;
 import org.terasology.engine.logic.chat.ChatMessageEvent;
 import org.terasology.engine.logic.players.LocalPlayer;
