@@ -2,15 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.gooeysQuests.quests.dwarfhalls;
 
-import org.terasology.gestalt.entitysystem.component.Component;
+import org.terasology.gestalt.entitysystem.component.EmptyComponent;
 
 /**
  * Owned by the entity that represents a dwarf halls quest.
  */
-public class DwarfHallsQuestComponent implements Component<DwarfHallsQuestComponent> {
-
-    @Override
-    public void copyFrom(DwarfHallsQuestComponent other) {
-
-    }
+public class DwarfHallsQuestComponent extends EmptyComponent<DwarfHallsQuestComponent> {
 }

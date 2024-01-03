@@ -3,14 +3,10 @@
 
 package org.terasology.gooeysQuests.quests.mines;
 
-import org.terasology.gestalt.entitysystem.component.Component;
+import org.terasology.gestalt.entitysystem.component.EmptyComponent;
 
 /**
  * Owned by the entity that represents a mines quest.
  */
-public class MinesQuestComponent implements Component<MinesQuestComponent> {
-    @Override
-    public void copyFrom(MinesQuestComponent other) {
-
-    }
+public class MinesQuestComponent extends EmptyComponent<MinesQuestComponent> {
 }

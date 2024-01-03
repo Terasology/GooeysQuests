@@ -2,15 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.gooeysQuests.quests.fortressvillage;
 
-import org.terasology.gestalt.entitysystem.component.Component;
+import org.terasology.gestalt.entitysystem.component.EmptyComponent;
 
 /**
  * Owned by the entity that represents a fortressvillage quest.
  */
-public class FortressVillageQuestComponent implements Component<FortressVillageQuestComponent> {
-
-    @Override
-    public void copyFrom(FortressVillageQuestComponent other) {
-
-    }
+public class FortressVillageQuestComponent extends EmptyComponent<FortressVillageQuestComponent> {
 }
